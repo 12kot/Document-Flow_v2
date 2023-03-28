@@ -3,6 +3,7 @@ import "./App.css";
 import React from "react";
 import Header from "./pages/Header/Header";
 import Footer from "./pages/Footer/Footer";
+import MainPage from "./pages/MainPage/MainPage";
 
 class App extends React.Component {
   render = () => {
@@ -11,6 +12,7 @@ class App extends React.Component {
         <div className="content">
           <Header />
           <Routes>
+            <Route path="/" element={<MainPage />} />
           </Routes>
         </div>
         <div className="footer">

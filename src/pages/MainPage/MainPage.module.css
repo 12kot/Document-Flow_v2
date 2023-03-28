@@ -1,0 +1,47 @@
+@media (max-width: 650px) {
+    .flex {
+      flex-wrap: wrap;
+    }
+  
+    .flex_img img {
+      margin: 10% 0;
+    }
+  }
+  
+  .flex {
+    display: flex;
+    padding: 6vw 0 0 0;
+  }
+  
+  .description {
+    flex: 1 2 45%;
+  }
+  
+  .flex_img {
+    flex: 2 1 55%;
+  }
+  
+  .flex_img img {
+    max-width: 100%;
+  }
+  
+  .slogan h1 {
+    margin: 0 0;
+    font-size: calc(1rem + 3.3vw);
+    padding-top: 2vw;
+    font-weight: bold;
+  }
+  
+  .slogan1 p {
+    color: rgb(104, 104, 104);
+    margin: 0 0;
+    padding-top: 1.6vw;
+    font-size: calc(1rem + 0.5vw);
+  }
+  
+  .button {
+    width: 90%;
+    min-width: 215px;
+    height: 45px;
+  }
+  
