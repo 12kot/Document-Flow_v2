@@ -3,6 +3,7 @@ import styles from "./MainPage.module.css";
 import mainBanner from "./../../Common/Images/mainBanner.jpg";
 import Button from "./../../UI/Button/Button";
 
+//Разбить на компоненты?
 const MainPage = (props) => {
   return (
     <div className={`${styles.flex}`}>

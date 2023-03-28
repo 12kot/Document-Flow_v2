@@ -4,6 +4,8 @@ import React from "react";
 import Header from "./pages/Header/Header";
 import Footer from "./pages/Footer/Footer";
 import MainPage from "./pages/MainPage/MainPage";
+import LoginPage from "./pages/AuthPage/LoginPage";
+import RegisterPage from "./pages/AuthPage/RegisterPage";
 
 class App extends React.Component {
   render = () => {
@@ -13,6 +15,8 @@ class App extends React.Component {
           <Header />
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </div>
         <div className="footer">
