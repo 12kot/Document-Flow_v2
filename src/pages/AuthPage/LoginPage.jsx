@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import login from "../../hooks/login";
 import { changeEmail, changePass } from "../../store/slices/authSlice";
 import { setUser } from "../../store/slices/userSlice";
+import styles from "./Form/Form.module.css";
+import { NavLink } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -19,19 +21,28 @@ const LoginPage = () => {
   };
 
   const handleLogin = () => {
-    login(email, pass).then(user => dispatch(setUser({...user.user})));
+    login(email, pass).then((user) => dispatch(setUser({ ...user.user })));
   };
 
   return (
-    <div>
-      <Form
-        title="Log In"
-        handleClick={handleLogin}
-        email={email}
-        setEmail={setEmail}
-        pass={pass}
-        setPass={setPass}
-      />
+    <div className={`${styles.container}`}>
+      <div className={`${styles.form}`}>
+        <Form
+          title="Log In"
+          handleClick={handleLogin}
+          email={email}
+          setEmail={setEmail}
+          pass={pass}
+          setPass={setPass}
+        />
+
+        <div className={`${styles.register} ${styles.item}`}>
+          <span>Ещё не зарегестрированы?</span>
+          <br />
+          <NavLink to="/register">Sign In</NavLink>
+        </div>
+
+      </div>
     </div>
   );
 };
