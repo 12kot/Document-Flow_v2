@@ -1,5 +1,5 @@
 # Google drive clone
-react, redus, firebase 
+react, redux, firebase 
 
 # Getting Started with Create React App
 
