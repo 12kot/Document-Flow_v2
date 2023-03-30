@@ -31,7 +31,7 @@ const RegisterPage = () => {
 
   const handleRegister = () => {
     registration(email, pass, repeatPass).then((user) =>
-      setUser({ ...user.user })
+      dispatch(setUser({ ...user.user }))
     );
   };
 
@@ -54,7 +54,6 @@ const RegisterPage = () => {
           <br />
           <NavLink to="/login">Log In</NavLink>
         </div>
-
       </div>
     </div>
   );
