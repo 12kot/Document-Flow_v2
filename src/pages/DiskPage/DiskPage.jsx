@@ -4,8 +4,10 @@ import File from "./Files/File";
 import Input from "../../UI/Input/Input";
 import SelectForm from "../../UI/SelectForm/SelectForm";
 import UploadForm from "../../UI/UploadForm/UploadForm";
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
+import useAuth from "../../hooks/use-auth";
 
 const DiskPage = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ const DiskPage = (props) => {
   const changeSortText = (text) => {
     dispatch(changeSortType({ text }));
   }
+
+  if(!useAuth().isAuth) return <Navigate to="/login" />
 
   return (
     <div className={styles.container}>
@@ -43,7 +47,7 @@ const DiskPage = (props) => {
       </div>
 
       <div className={styles.addFile}>
-        <UploadForm addFile={props.addFile} />
+        <UploadForm />
       </div>
       <div>
         <h2>Ваши файлы</h2>

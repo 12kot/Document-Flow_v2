@@ -1,15 +1,16 @@
 import React from "react";
 import Form from "./Form/Form";
-import { useDispatch, useSelector } from "react-redux";
+import styles from "./Form/Form.module.css";
+import { NavLink, Navigate } from "react-router-dom";
 import registration from "../../hooks/registration";
 import {
   changeEmail,
   changePass,
   changeRepeatPass,
 } from "../../store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/slices/userSlice";
-import styles from "./Form/Form.module.css";
-import { NavLink } from "react-router-dom";
+import useAuth from "../../hooks/use-auth";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -30,11 +31,20 @@ const RegisterPage = () => {
   };
 
   const handleRegister = () => {
-    registration(email, pass, repeatPass).then((user) =>
-      dispatch(setUser({ ...user.user }))
-    );
+    registration(email, pass, repeatPass)
+      .then((user) => {
+        dispatch(setUser({
+            email: user.user.email,
+            accessToken: user.user.accessToken,
+            uid: user.user.uid,
+        }));
+        alert("Вы успешно зарегестрировались");
+        return <Navigate to="/disk" />
+      })
+      .catch(alert);
   };
 
+  if (useAuth().isAuth) return <Navigate to="/disk" />;
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.form}`}>

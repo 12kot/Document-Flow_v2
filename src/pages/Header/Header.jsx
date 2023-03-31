@@ -11,6 +11,7 @@ const Header = (props) => {
 
   let logOutUser = () => {
     dispatch(removeUser());
+    alert("Вы успешно вышли из аккаунта");
   }
 
   return (
