@@ -11,10 +11,13 @@ const diskSlice = createSlice({
     reducers: {
         changeSearch(state, action) {
             state.search = action.payload.text;
+        },
+        changeSortType(state, action) {
+            state.sortType = action.payload.text;
         }
     },
 });
 
-export const { changeSearch } = diskSlice.actions;
+export const { changeSearch, changeSortType } = diskSlice.actions;
 
 export default diskSlice;

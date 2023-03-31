@@ -2,16 +2,16 @@ import React from "react";
 import styles from "./SelectForm.module.css";
 
 const SelectForm = (props) => {
-  let updateTextRef = React.createRef();
-  let updateText = () => {
-    props.changeText(updateTextRef.current.value);
+
+  let updateText = (value) => {
+    props.onChange(value);
   };
 
   return (
-    <div className={`${styles.form__group} ${styles.field} ${props.margin}`}>
+    <div className={`${styles.form__group} ${styles.field}`}>
       <select
-        onChange={updateText}
-        ref={updateTextRef}
+        value={props.value}
+        onChange={(e) => updateText(e.target.value)}
         className={`${styles.form__field}`}
       >
         <option value="name">По названию</option>
