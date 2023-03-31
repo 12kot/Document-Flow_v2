@@ -1,0 +1,45 @@
+@media (max-width: 500px) {
+    .sort {
+        width: 100%;
+    }
+
+    .inputStyle {
+        width: 100%;
+    }
+}
+
+@media (min-width: 501px) {
+    .sort {
+        width: 20%;
+    }
+    .inputStyle {
+        width: 90%;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container h2 {
+    margin: 2% 0;
+}
+
+.activeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1.5% 0;
+}
+
+.search {
+    flex-grow: 1;
+}
+
+.color {
+    color: black;
+}
+
+.addFile {
+    margin: 1.5% 0;
+}

@@ -15,7 +15,7 @@
 }
 
 .form h3 {
-  margin: 0 7.5vw;
+  margin: 0vw 7.5vw;
   text-align: center;
   font-size: 1.4rem;
   font-weight: bold;
@@ -27,15 +27,14 @@
 }
 
 .inputs {
-  height: calc(60%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 10%;
+  margin: 0 5vw;
 }
 
 .item {
-  margin: 3% 0;
+  margin: 4% 0%;
 }
 
 .button {
@@ -43,5 +42,5 @@
 }
 
 .register {
-    margin-left: 5%;
+  margin: 5% 5vw 10% 5vw;
 }

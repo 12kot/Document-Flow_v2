@@ -1,38 +1,37 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-  
-    top: 0;
-    left: 0;
-    right: 0;
-    position: sticky;
-    z-index: 1;
-  
-    width: 100%;
-    background-color: black;
-  }
-  
-  .item {
-    padding: 1.7rem 3vw;
-    font-size: 1.5rem;
-  }
-  
-  .logo {
-    letter-spacing: 0.3rem;
-    font-weight: bold;
-  }
-  
-  .logo a {
-    color: white;
-  }
-  
-  a {
-    color: gray;
-  }
-  
-  a:hover {
-    color: white;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  position: sticky;
+  z-index: 1;
+
+  width: 100%;
+  background-color: black;
+}
+
+.item {
+  padding: 1.7rem 3vw;
+  font-size: 1.5rem;
+}
+
+.logo {
+  letter-spacing: 0.3rem;
+  font-weight: bold;
+}
+
+.logo a {
+  color: white;
+}
+
+a {
+  color: gray;
+}
+
+a:hover {
+  color: white;
+}

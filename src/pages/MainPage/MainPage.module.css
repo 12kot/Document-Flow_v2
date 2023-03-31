@@ -1,47 +1,61 @@
-@media (max-width: 650px) {
-    .flex {
-      flex-wrap: wrap;
-    }
-  
-    .flex_img img {
-      margin: 10% 0;
-    }
-  }
-  
+.flex {
+  display: flex;
+  padding: 6vw 0 0 0;
+}
+
+.flex_img img {
+  max-width: 100%;
+}
+
+.slogan h1 {
+  margin: 0 0;
+  font-size: calc(1.5rem + 3vw);
+  padding-top: 2vw;
+  font-weight: bold;
+}
+
+.slogan1 p {
+  color: rgb(104, 104, 104);
+  margin: 0 0;
+  padding-top: 1.6vw;
+  font-size: calc(1rem + 0.5vw);
+}
+
+.button {
+  width: 90%;
+  min-width: 215px;
+  height: 45px;
+}
+
+@media all and (max-width: 900px) {
   .flex {
     display: flex;
-    padding: 6vw 0 0 0;
+    flex-direction: column;
+    justify-content: space-around;
+    
   }
   
   .description {
-    flex: 1 2 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: fit-content;
+    margin: 5% 0;
   }
-  
-  .flex_img {
-    flex: 2 1 55%;
-  }
-  
+
   .flex_img img {
-    max-width: 100%;
+    margin: 15% 0 0 0;
   }
-  
+
   .slogan h1 {
-    margin: 0 0;
-    font-size: calc(1rem + 3.3vw);
-    padding-top: 2vw;
-    font-weight: bold;
+    font-size: calc(1rem + 5.3vw);
   }
-  
+
   .slogan1 p {
-    color: rgb(104, 104, 104);
-    margin: 0 0;
-    padding-top: 1.6vw;
-    font-size: calc(1rem + 0.5vw);
+    font-size: calc(1rem + 2.3vw);
   }
-  
+
   .button {
-    width: 90%;
-    min-width: 215px;
-    height: 45px;
+    margin: 1.5vw 0;
   }
-  
+}
