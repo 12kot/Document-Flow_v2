@@ -2,6 +2,10 @@ import React from "react";
 import styles from "./UploadForm.module.css";
 
 const UploadForm = (props) => {
+  const uploadFile = (file) => {
+    props.uploadFile(file);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -24,7 +28,12 @@ const UploadForm = (props) => {
         </svg>{" "}
         <p>Browse File to upload!</p>
       </div>
-      <input type="file" onChange={() => {}} />
+      <input
+        type="file"
+        onChange={(event) => {
+          uploadFile(event.target.files[0]);
+        }}
+      />
     </div>
   );
 };

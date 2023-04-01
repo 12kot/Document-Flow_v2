@@ -2,7 +2,7 @@ import React from "react";
 import Form from "./Form/Form";
 import styles from "./Form/Form.module.css";
 import { NavLink, Navigate } from "react-router-dom";
-import registration from "../../hooks/registration";
+import registration from "../../API/registration";
 import {
   changeEmail,
   changePass,
@@ -11,6 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/slices/userSlice";
 import useAuth from "../../hooks/use-auth";
+
+import getFiles from "../../API/getFiles";
+import getDownloadURLFiles from "../../API/getDownloadUrlFiles";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -30,14 +33,28 @@ const RegisterPage = () => {
     dispatch(changeRepeatPass({ text }));
   };
 
+  //убрать повторяющийся код
   const handleRegister = () => {
     registration(email, pass, repeatPass)
-      .then((user) => {
-        dispatch(setUser({
+      .then(async (user) => {
+        let userFiles = [];
+        
+        await getFiles(email).then(async (files) => {
+          for (const file of files.items)
+            await getDownloadURLFiles(file).then((path) =>
+              userFiles.push({ name: file.name, path })
+            );
+        });
+
+        dispatch(
+          setUser({
             email: user.user.email,
             accessToken: user.user.accessToken,
             uid: user.user.uid,
-        }));
+            files: userFiles,
+          })
+        );
+
         alert("Вы успешно зарегестрировались");
         return <Navigate to="/disk" />
       })

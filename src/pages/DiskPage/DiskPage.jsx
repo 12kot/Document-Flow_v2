@@ -8,21 +8,58 @@ import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import useAuth from "../../hooks/use-auth";
+import uploadFile from "../../API/uploadFile";
+import { addFile } from "../../store/slices/userSlice";
 
 const DiskPage = (props) => {
+  //container component
   const dispatch = useDispatch();
-  const search = useSelector(state => state.disk.search);
-  const sortType = useSelector(state => state.disk.sortType);
+  const email = useSelector((state) => state.user.email);
+  const { search, sortType } = useSelector((state) => state.disk);
 
   const changeSearchText = (text) => {
     dispatch(changeSearch({ text }));
-  }
+  };
 
   const changeSortText = (text) => {
     dispatch(changeSortType({ text }));
-  }
+  };
 
-  if(!useAuth().isAuth) return <Navigate to="/login" />
+  const handleFile = (file) => {
+    uploadFile(file, email)
+      .then((file) => {
+        dispatch(
+          addFile({
+            name: file.metadata.name,
+            // size: file.metadata.size,
+            // timeCreated: file.metadata.timeCreated,
+            // contentType: file.metadata.contentType,
+          })
+        );
+        alert("Файл успешно загружен");
+      })
+      .catch(alert);
+  };
+  // container component end
+
+  const files = useAuth().files;
+  if (!useAuth().isAuth) return <Navigate to="/login" />;
+
+  const getName = (name) => { return name.slice(name.indexOf("_[FILE_NAME]_") + 13) };
+
+  const getFiles = () =>
+    files.map((file) => {
+      return (
+        <File
+          name={getName(file.name)}
+          path={file.path}
+          key={file.name}
+          // date={file.timeCreated}
+          // size={file.size}
+          // contentType={file.contentType}
+        />
+      );
+    });
 
   return (
     <div className={styles.container}>
@@ -39,19 +76,16 @@ const DiskPage = (props) => {
         </span>
 
         <span className={styles.sort}>
-          <SelectForm
-            value={sortType}
-            onChange={changeSortText}
-          />
+          <SelectForm value={sortType} onChange={changeSortText} />
         </span>
       </div>
 
       <div className={styles.addFile}>
-        <UploadForm />
+        <UploadForm uploadFile={handleFile} />
       </div>
       <div>
         <h2>Ваши файлы</h2>
-        <File />
+        {getFiles()}
       </div>
     </div>
   );
