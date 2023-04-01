@@ -1,7 +1,7 @@
 import { getDownloadURL } from "firebase/storage";
 
-const getDownloadURLFiles = (files) => {
-  return getDownloadURL(files);
+const getDownloadURLFiles = (file) => {
+  return getDownloadURL(file);
 };
 
 export default getDownloadURLFiles;

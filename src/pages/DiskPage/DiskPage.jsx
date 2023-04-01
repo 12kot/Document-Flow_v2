@@ -10,6 +10,7 @@ import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import useAuth from "../../hooks/use-auth";
 import uploadFile from "../../API/uploadFile";
 import { addFile } from "../../store/slices/userSlice";
+import getDownloadURLFiles from "../../API/getDownloadUrlFiles";
 
 const DiskPage = (props) => {
   //container component
@@ -27,10 +28,14 @@ const DiskPage = (props) => {
 
   const handleFile = (file) => {
     uploadFile(file, email)
-      .then((file) => {
+      .then(async (file) => {
+
+        let path = "";
+        await getDownloadURLFiles(file).then(filePath => path = filePath)
         dispatch(
           addFile({
             name: file.metadata.name,
+            path
             // size: file.metadata.size,
             // timeCreated: file.metadata.timeCreated,
             // contentType: file.metadata.contentType,
