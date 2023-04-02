@@ -5,8 +5,8 @@ import Header from "./pages/Header/Header";
 import Footer from "./pages/Footer/Footer";
 import MainPage from "./pages/MainPage/MainPage";
 import DiskPageContainer from "./pages/DiskPage/DiskPageContainer";
-import LoginPageContainer from "./pages/AuthPage/LoginPageContainer";
-import RegisterPageContainer from "./pages/AuthPage/RegisterPageContainer";
+import LoginPageContainer from "./pages/AuthPage/LoginPage/LoginPageContainer";
+import RegisterPageContainer from "./pages/AuthPage/RegisterPage/RegisterPageContainer";
 
 class App extends React.Component {
   render = () => {

@@ -1,20 +1,17 @@
-//сразу менять имя файла
-
 import React from "react";
-import LoginPage from "./LoginPage";
-import login from "../../API/login";
-import { useDispatch, useSelector } from "react-redux";
-import { changeEmail, changePass } from "../../store/slices/authSlice";
-import { setUser } from "../../store/slices/userSlice";
-import getFiles from "../../API/getFiles";
 import { Navigate } from "react-router-dom";
-import getDownloadURLFiles from "../../API/getDownloadUrlFiles";
+import { useDispatch, useSelector } from "react-redux";
+import RegisterPage from "./RegisterPage";
+import registration from "../../../API/registration";
+import { changeEmail, changePass, changeRepeatPass, } from "../../../store/slices/authSlice";
+import { setUser } from "../../../store/slices/userSlice";
+import getFiles from "../../../API/getFiles";
+import getDownloadURLFiles from "../../../API/getDownloadUrlFiles";
 
-const LoginPageContainer = () => {
+const RegisterPageContainer = () => {
   const dispatch = useDispatch();
-  const { email, password } = useSelector((state) => state.auth);
- 
-  debugger;
+  const { email, password, repeatPassword } = useSelector((state) => state.auth);
+
   const setEmail = (text) => {
     dispatch(changeEmail({ text }));
   };
@@ -23,9 +20,13 @@ const LoginPageContainer = () => {
     dispatch(changePass({ text }));
   };
 
+  const setRepeatPass = (text) => {
+    dispatch(changeRepeatPass({ text }));
+  };
+
   //убрать повторяющийся код
-  const handleLogin = () => {
-    login(email, password)
+  const handleRegister = () => {
+    registration(email, password, repeatPassword)
       .then(async (user) => {
         let userFiles = [];
 
@@ -44,21 +45,24 @@ const LoginPageContainer = () => {
             files: userFiles,
           })
         );
-        alert("Вы успешно авторизовались");
+
+        alert("Вы успешно зарегестрировались");
         return <Navigate to="/disk" />;
       })
       .catch(alert);
   };
 
   return (
-    <LoginPage
-      handleLogin={handleLogin}
+    <RegisterPage
+      handleRegister={handleRegister}
       email={email}
       setEmail={setEmail}
       pass={password}
       setPass={setPass}
+      repeatPass={repeatPassword}
+      setRepeatPass={setRepeatPass}
     />
   );
 };
 
-export default LoginPageContainer;
+export default RegisterPageContainer;
