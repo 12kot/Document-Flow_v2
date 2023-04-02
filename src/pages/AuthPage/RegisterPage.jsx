@@ -40,10 +40,10 @@ const RegisterPage = () => {
         let userFiles = [];
         
         await getFiles(email).then(async (files) => {
-          for (const file of files.items)
-            await getDownloadURLFiles(file).then((path) =>
-              userFiles.push({ name: file.name, path })
-            );
+          // for (const file of files.items)
+          //   await getDownloadURLFiles(file).then((path) =>
+          //     userFiles.push({ name: file.name, path })
+          //   );
         });
 
         dispatch(

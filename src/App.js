@@ -6,7 +6,7 @@ import Footer from "./pages/Footer/Footer";
 import MainPage from "./pages/MainPage/MainPage";
 import LoginPage from "./pages/AuthPage/LoginPage";
 import RegisterPage from "./pages/AuthPage/RegisterPage";
-import DiskPage from "./pages/DiskPage/DiskPage";
+import DiskPageContainer from "./pages/DiskPage/DiskPageContainer";
 
 class App extends React.Component {
   render = () => {
@@ -21,7 +21,7 @@ class App extends React.Component {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/disk" element={<DiskPage />} />
+            <Route path="/disk" element={<DiskPageContainer />} />
           </Routes>
         </div>
         
