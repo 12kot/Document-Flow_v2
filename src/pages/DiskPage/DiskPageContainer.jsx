@@ -2,7 +2,7 @@ import DiskPage from "./DiskPage";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import uploadFile from "../../API/uploadFile";
-import { addFile } from "../../store/slices/userSlice";
+import { addFile, searchFile } from "../../store/slices/userSlice";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
@@ -11,6 +11,7 @@ const DiskPageContainer = () => {
 
   const changeSearchText = (text) => {
     dispatch(changeSearch({ text }));
+    dispatch(searchFile({ text }));
   };
 
   const changeSortText = (text) => {

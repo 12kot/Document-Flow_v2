@@ -3,6 +3,7 @@ import styles from "./Form.module.css";
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
 
+//импортировать здесь email, setEmail, pass, setPass
 const Form = ({
   email,
   setEmail,

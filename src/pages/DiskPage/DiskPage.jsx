@@ -10,23 +10,15 @@ import useAuth from "../../hooks/use-auth";
 const DiskPage = (props) => {
   const files = useAuth().files;
   if (!useAuth().isAuth) return <Navigate to="/login" />;
-  
-  const getName = (name) => { return name.slice(name.indexOf("_[FILE_NAME]_") + 13) };
 
-  const getFiles = () =>
-    files.map((file) => {
-      return (
-        <File
-          name={getName(file.name)}
-          path={file.path}
-          key={file.name}
-        />
-      );
-    });
+  const getFiles = () => {
+    let newFiles = files.filter((file) => !file.isHiden);
+
+    return newFiles.map((file) => <File name={file.name} path={file.path} key={file.file.name} />);
+  };
 
   return (
     <div className={styles.container}>
-
       <div className={styles.activeContainer}>
         <span className={styles.search}>
           <Input
@@ -39,7 +31,10 @@ const DiskPage = (props) => {
           />
         </span>
         <span className={styles.sort}>
-          <SelectForm value={props.sortTypeValue} onChange={props.changeSortText} />
+          <SelectForm
+            value={props.sortTypeValue}
+            onChange={props.changeSortText}
+          />
         </span>
       </div>
 
@@ -51,7 +46,6 @@ const DiskPage = (props) => {
         <h2>Ваши файлы</h2>
         {getFiles()}
       </div>
-      
     </div>
   );
 };
