@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import LoginPage from "./pages/AuthPage/LoginPage";
 import RegisterPage from "./pages/AuthPage/RegisterPage";
 import DiskPageContainer from "./pages/DiskPage/DiskPageContainer";
+import LoginPageContainer from "./pages/AuthPage/LoginPageContainer";
 
 class App extends React.Component {
   render = () => {
@@ -19,7 +20,7 @@ class App extends React.Component {
         <div className="content">
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPageContainer />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/disk" element={<DiskPageContainer />} />
           </Routes>
