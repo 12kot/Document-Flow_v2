@@ -18,17 +18,11 @@ const DiskPageContainer = () => {
     dispatch(changeSortType({ text }));
   };
 
-  const handleFile = (file) => {
-    uploadFile(file, email)
-      .then((file) => {
-        dispatch(
-          addFile({
-            name: file.metadata.name,
-          })
-        );
-        alert("Файл успешно загружен");
-      })
-      .catch(alert);
+  const handleFile = async (file) => {
+    let newFile = await uploadFile(file, email);
+
+    dispatch(addFile({ ...newFile }));
+    alert("Файл успешно загружен");
   };
 
   return (

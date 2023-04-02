@@ -1,5 +1,5 @@
 const getFileName = (name) => {
-  return name.slice(name.indexOf("_[FILE_NAME]_") + 13);
+  return name.slice(0);
 };
 
 export default getFileName;

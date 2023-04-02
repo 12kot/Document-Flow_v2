@@ -7,15 +7,16 @@ const File = (props) => {
   //   return `${date.toDateString()}`;
   // }
 
-  return (<div className={styles.cont}>
-    <a href={props.path} className={styles.container} download={props.name}>
-      <div className={styles.name}>
-        <div className={styles.item}>Icon</div>
-        <div className={styles.item}>{props.name}</div>
-      </div>
-      {/* <div className={styles.item}>{getDate()}</div> */}
-      <div className={styles.item}>Actions</div>
-    </a>
+  return (
+      <div className={styles.container}>
+        <div className={styles.name}>
+          <div className={styles.item}>
+            Icon
+          </div>
+          <div className={styles.item}>{props.name}</div>
+        </div>
+        {/* <div className={styles.item}>{getDate()}</div> */}
+      <div className={styles.item}><a href={props.path}>download</a></div>
     </div>
   );
 };

@@ -1,16 +1,25 @@
 import { storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
+import getFileName from "../functions/getFileName";
+import getDownloadURLFiles from "./getDownloadUrlFiles";
 
-const uploadFile = (file, email) => {
-    if (!file)
+const uploadFile = async (file, email) => {
+  if (!file)
     return new Promise((resolve, reject) => reject(new Error("Выберите файл")));
-    
-    const fileRef = ref(
+
+  const fileRef = ref(
     storage,
-    `${email}/${v4() + "_[FILE_NAME]_" + file.name}`
+    `${email}/${file.name}`
   );
-  return uploadBytes(fileRef, file);
+
+  return uploadBytes(fileRef, file).then(async (file) => {
+    return {
+      name: getFileName(file.metadata.name),
+      fullPath: file.metadata.fullPath,
+      path: await getDownloadURLFiles(file.metadata),
+      isHiden: false,
+    };
+  }).catch(alert);
 };
 
 export default uploadFile;
