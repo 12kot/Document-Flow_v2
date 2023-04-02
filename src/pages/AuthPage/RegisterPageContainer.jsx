@@ -14,7 +14,7 @@ import getDownloadURLFiles from "../../API/getDownloadUrlFiles";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
-  const { email, pass, repeatPass } = useSelector((state) => state.auth);
+  const { email, password, repeatPassword } = useSelector((state) => state.auth);
 
   const setEmail = (text) => {
     dispatch(changeEmail({ text }));
@@ -30,7 +30,7 @@ const RegisterPageContainer = () => {
 
   //убрать повторяющийся код
   const handleRegister = () => {
-    registration(email, pass, repeatPass)
+    registration(email, password, repeatPassword)
       .then(async (user) => {
         let userFiles = [];
 
@@ -61,9 +61,9 @@ const RegisterPageContainer = () => {
       handleRegister={handleRegister}
       email={email}
       setEmail={setEmail}
-      pass={pass}
+      pass={password}
       setPass={setPass}
-      repeatPass={repeatPass}
+      repeatPass={repeatPassword}
       setRepeatPass={setRepeatPass}
     />
   );

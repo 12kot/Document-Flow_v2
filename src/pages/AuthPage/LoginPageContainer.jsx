@@ -12,8 +12,9 @@ import getDownloadURLFiles from "../../API/getDownloadUrlFiles";
 
 const LoginPageContainer = () => {
   const dispatch = useDispatch();
-  const { email, pass } = useSelector((state) => state.auth);
+  const { email, password } = useSelector((state) => state.auth);
  
+  debugger;
   const setEmail = (text) => {
     dispatch(changeEmail({ text }));
   };
@@ -24,7 +25,7 @@ const LoginPageContainer = () => {
 
   //убрать повторяющийся код
   const handleLogin = () => {
-    login(email, pass)
+    login(email, password)
       .then(async (user) => {
         let userFiles = [];
 
@@ -54,7 +55,7 @@ const LoginPageContainer = () => {
       handleLogin={handleLogin}
       email={email}
       setEmail={setEmail}
-      pass={pass}
+      pass={password}
       setPass={setPass}
     />
   );
