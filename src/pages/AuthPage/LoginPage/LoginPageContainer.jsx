@@ -1,5 +1,3 @@
-//Перенести email setEmail pass setPass в форм? FormContainer
-
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -13,6 +11,8 @@ const LoginPageContainer = () => {
   const { email, password } = useSelector((state) => state.auth);
 
   const handleLogin = () => {
+    alert("Загружаем данные с сервера")
+    
     login(email, password)
       .then(async (user) => {
       

@@ -19,6 +19,8 @@ const DiskPageContainer = () => {
   };
 
   const handleFile = async (file) => {
+    alert("Отправляем файл на сервер.")
+    
     let newFile = await uploadFile(file, email);
 
     dispatch(addFile({ ...newFile }));

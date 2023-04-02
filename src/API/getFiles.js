@@ -11,7 +11,6 @@ const getFiles = async (email) => {
     for (let file of files.items) {
       let path = await getDownloadURLFiles(file);
       
-      debugger
       userFiles.push({
         name: getFileName(file.name),
         path,

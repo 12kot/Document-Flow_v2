@@ -4,26 +4,17 @@ import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
 
 //импортировать здесь email, setEmail, pass, setPass
-const Form = ({
-  email,
-  setEmail,
-  pass,
-  setPass,
-  repeatPass,
-  setRepeatPass,
-  title,
-  handleClick,
-}) => {
+const Form = (props) => {
   return (
     <div>
-      <h3>{title}</h3>
+      <h3>{props.title}</h3>
 
       <div className={`${styles.inputs}`}>
         <div className={`${styles.item}`}>
           <Input
             type="email"
-            value={email}
-            onChange={setEmail}
+            value={props.email}
+            onChange={props.setEmail}
             placeholder="Email"
             color={styles.color}
           />
@@ -33,20 +24,20 @@ const Form = ({
           <Input
             className={`${styles.item}`}
             type="password"
-            value={pass}
-            onChange={setPass}
+            value={props.pass}
+            onChange={props.setPass}
             placeholder="Password"
             color={styles.color}
           />
         </div>
 
-        {setRepeatPass ? (
+        {props.setRepeatPass ? (
           <div className={`${styles.item}`}>
             <Input
               className={`${styles.item}`}
               type="password"
-              value={repeatPass}
-              onChange={setRepeatPass}
+              value={props.repeatPass}
+              onChange={props.setRepeatPass}
               placeholder="Repeat password"
               color={styles.color}
             />
@@ -57,8 +48,8 @@ const Form = ({
           <Button
             className={`${styles.item}`}
             size={styles.button}
-            action={handleClick}
-            text={title}
+            action={props.handleClick}
+            text={props.title}
           />
         </div>
 

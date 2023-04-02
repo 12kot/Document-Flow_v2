@@ -18,6 +18,8 @@ const RegisterPageContainer = () => {
   };
 
   const handleRegister = () => {
+    alert("Загружаем данные с сервера");
+
     registration(email, password, repeatPassword)
       .then(async (user) => {
         
