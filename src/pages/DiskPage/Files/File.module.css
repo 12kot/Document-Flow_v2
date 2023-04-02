@@ -38,3 +38,9 @@
   margin: 0.6% 2.5%;
   font-size: calc(1rem + 0.2vw);
 }
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

@@ -2,7 +2,8 @@ import DiskPage from "./DiskPage";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import uploadFile from "../../API/uploadFile";
-import { addFile, searchFile } from "../../store/slices/userSlice";
+import { addFile, removeFile, searchFile } from "../../store/slices/userSlice";
+import deleteFile from "../../API/deleteFile";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
@@ -19,12 +20,23 @@ const DiskPageContainer = () => {
   };
 
   const handleFile = async (file) => {
-    alert("Отправляем файл на сервер.")
-    
+    alert("Отправляем файл на сервер.");
+
     let newFile = await uploadFile(file, email);
 
     dispatch(addFile({ ...newFile }));
     alert("Файл успешно загружен");
+  };
+
+  const deleteObj = async (path) => {
+    alert("Начинаем выносить файл");
+    
+    await deleteFile(path)
+      .then(() => {
+        dispatch(removeFile({ path }));
+        alert("Файл был успешно удалён.");
+      })
+      .catch(alert);
   };
 
   return (
@@ -34,6 +46,7 @@ const DiskPageContainer = () => {
       sortTypeValue={sortType}
       changeSortText={changeSortText}
       handleFile={handleFile}
+      removeFile={deleteObj}
     />
   );
 };

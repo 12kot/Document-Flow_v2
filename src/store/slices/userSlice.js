@@ -26,7 +26,9 @@ const userSlice = createSlice({
       state.files.push(action.payload);
     },
 
-    removeFile(state, action) {},
+    removeFile(state, action) {
+      state.files = state.files.filter((file) => file.fullPath !== action.payload.path)
+    },
 
     searchFile(state, action) {
       for (let file of state.files)

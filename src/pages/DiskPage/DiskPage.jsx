@@ -15,7 +15,15 @@ const DiskPage = (props) => {
   const getFiles = () => {
     let newFiles = files.filter((file) => !file.isHiden);
 
-    return newFiles.map((file) => <File name={file.name} path={file.path} key={file.fullPath + v4()} />);
+    return newFiles.map((file) => (
+      <File
+        name={file.name}
+        path={file.path}
+        key={file.fullPath + v4()}
+        fullPath={file.fullPath}
+        removeFile={props.removeFile}
+      />
+    ));
   };
 
   return (
