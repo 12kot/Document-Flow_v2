@@ -27,12 +27,11 @@ const RegisterPageContainer = () => {
           uid: user.user.uid,
           accessToken: user.user.accessToken,
         }
-        let initializeFile = { path: "initialize", name: "readme", uid: "initializeUID" };
 
-        us.files = await createUser(us, initializeFile);
-        us.files = [initializeFile];
-
+        await createUser(us);
+        us.files = [];
         dispatch(setUser({ ...us }));
+        
         alert("Вы успешно зарегестрировались");
         return <Navigate to="/disk" />;
       })

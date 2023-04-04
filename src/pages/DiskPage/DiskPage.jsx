@@ -10,10 +10,14 @@ import { v4 } from "uuid";
 
 const DiskPage = (props) => {
   const files = useAuth().files;
+
   if (!useAuth().isAuth) return <Navigate to="/login" />;
 
   const getFiles = () => {
+    if (files.length === 0) return "Файлы отсутствуют";
+    
     let newFiles = files.filter((file) => !file.isHiden);
+    if (newFiles.length === 0) return "Файлы отсутствуют";
 
     return newFiles.map((file) => (
       <File

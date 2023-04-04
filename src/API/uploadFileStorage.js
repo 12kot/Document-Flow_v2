@@ -2,13 +2,13 @@ import { storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import getDownloadURLFiles from "./getDownloadUrlFiles";
 
-const uploadFile = async (file, email) => {
+const uploadFile = async (file, uid) => {
   if (!file)
     return new Promise((resolve, reject) => reject(new Error("Выберите файл")));
 
   const fileRef = ref(
     storage,
-    `${email}/${file.name}`
+    `${uid}/${file.name}`
   );
 
   return uploadBytes(fileRef, file).then(async (file) => {

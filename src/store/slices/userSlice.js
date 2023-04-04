@@ -15,11 +15,10 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
-      state.files = action.payload.files;
-    },
 
-    setFiles(state, action) {
-      state.files = action.payload.files;
+      if (!action.payload.files)
+        state.files = action.payload.files;
+      else state.files = [];
     },
 
     addFile(state, action) {
@@ -32,7 +31,7 @@ const userSlice = createSlice({
 
     searchFile(state, action) {
       for (let file of state.files)
-        if (!file.name.includes(action.payload.text)) file.isHiden = true;
+        if (!file.name.toLowerCase().includes(action.payload.text.toLowerCase())) file.isHiden = true;
         else file.isHiden = false;
     },
 
@@ -45,7 +44,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, removeUser, setFiles, addFile, removeFile, searchFile } =
+export const { setUser, removeUser, addFile, removeFile, searchFile } =
   userSlice.actions;
 
 export default userSlice;
