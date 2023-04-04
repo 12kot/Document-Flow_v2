@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import uploadFile from "../../API/uploadFile";
 import { addFile, removeFile, searchFile } from "../../store/slices/userSlice";
-import deleteFile from "../../API/deleteFile";
-import writeNewPost from "../../API/updateFiles";
-import delFileFromDB from "../../API/delFileFromDB";
-import setUserOnDB from "../../API/setUserToDB";
+import deleteFileStorage from "../../API/deleteFileStorage";
+import uploadFileDB from "../../API/uploadFileDB";
+import deleteFileDB from "../../API/deleteFileDB";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
@@ -26,21 +25,20 @@ const DiskPageContainer = () => {
     alert("Отправляем файл на сервер.");
 
     let newFile = await uploadFile(file, user.email); //папка по uid
-    newFile.uid = writeNewPost(user, newFile); //переименовать
+    newFile.uid = uploadFileDB(user, newFile); //переименовать
 
     dispatch(addFile({ ...newFile }));
-
     alert("Файл успешно загружен");
   };
 
-  const deleteObj = async (path, fileUID) => {
+  const deleteObj = async (path, fileID) => {
     alert("Начинаем выносить файл");
 
-    await deleteFile(path)
+    await deleteFileStorage(path)
       .then(async () => {
         dispatch(removeFile({ path }));
 
-        //await delFileFromDB(user.uid, fileUID);
+        await deleteFileDB(user.uid, fileID);
 
         alert("Файл был успешно удалён.");
       })

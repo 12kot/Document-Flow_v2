@@ -19,7 +19,7 @@ const DiskPage = (props) => {
       <File
         name={file.name}
         path={file.path}
-        id={file.uid}
+        id={file.id}
         key={file.fullPath + v4()}
         fullPath={file.fullPath}
         removeFile={props.removeFile}

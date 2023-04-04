@@ -1,6 +1,5 @@
 import { storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
-import getFileName from "../functions/getFileName";
 import getDownloadURLFiles from "./getDownloadUrlFiles";
 
 const uploadFile = async (file, email) => {
@@ -14,10 +13,11 @@ const uploadFile = async (file, email) => {
 
   return uploadBytes(fileRef, file).then(async (file) => {
     return {
-      name: getFileName(file.metadata.name),
+      name: file.metadata.name,
       fullPath: file.metadata.fullPath,
       path: await getDownloadURLFiles(file.metadata),
       isHiden: false,
+      id: file.metadata.generation,
     };
   }).catch(alert);
 };

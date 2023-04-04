@@ -6,7 +6,7 @@ const getDownloadURLFiles = async (file) => {
   const fileRef = ref(storage, file.fullPath);
 
   return getDownloadURL(fileRef).then((path) => {
-    return path
+    return path;
   });
 };
 

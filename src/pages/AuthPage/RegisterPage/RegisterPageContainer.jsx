@@ -1,4 +1,4 @@
-//Перенести email setEmail pass setPass в форм? FormContainer
+//Initialize file
 
 import React from "react";
 import { Navigate } from "react-router-dom";
@@ -7,8 +7,7 @@ import RegisterPage from "./RegisterPage";
 import registration from "../../../API/registration";
 import { changeRepeatPass, } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
-import loginUser from "../../../functions/loginUser";
-import setUserOnDB from "../../../API/setUserToDB";
+import createUser from "../../../API/createUser";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
@@ -27,13 +26,13 @@ const RegisterPageContainer = () => {
           email: user.user.email,
           uid: user.user.uid,
           accessToken: user.user.accessToken,
-          files: [{path: "INITIALIZE_FILE", name: "Check me"}],
         }
+        let initializeFile = { path: "initialize", name: "readme", uid: "initializeUID" };
 
-        await setUserOnDB(us);
-        
+        us.files = await createUser(us, initializeFile);
+        us.files = [initializeFile];
+
         dispatch(setUser({ ...us }));
-
         alert("Вы успешно зарегестрировались");
         return <Navigate to="/disk" />;
       })

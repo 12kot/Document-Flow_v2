@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import login from "../../../API/login";
 import { setUser } from "../../../store/slices/userSlice";
-import loginUser from "../../../functions/loginUser";
+import getUserData from "../../../functions/getUserData";
 
 const LoginPageContainer = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const LoginPageContainer = () => {
     login(email, password)
       .then(async (user) => {
       
-        let userD = await loginUser(user);
+        let userD = await getUserData(user);
         dispatch(setUser({ ...userD }));
 
         alert("Вы успешно авторизовались");
