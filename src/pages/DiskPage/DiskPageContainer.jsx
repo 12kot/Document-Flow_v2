@@ -4,10 +4,13 @@ import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import uploadFile from "../../API/uploadFile";
 import { addFile, removeFile, searchFile } from "../../store/slices/userSlice";
 import deleteFile from "../../API/deleteFile";
+import writeNewPost from "../../API/updateFiles";
+import delFileFromDB from "../../API/delFileFromDB";
+import setUserOnDB from "../../API/setUserToDB";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
-  const email = useSelector((state) => state.user.email);
+  const user = useSelector((state) => state.user);
   const { search, sortType } = useSelector((state) => state.disk);
 
   const changeSearchText = (text) => {
@@ -22,21 +25,26 @@ const DiskPageContainer = () => {
   const handleFile = async (file) => {
     alert("Отправляем файл на сервер.");
 
-    let newFile = await uploadFile(file, email);
+    let newFile = await uploadFile(file, user.email); //папка по uid
+    newFile.uid = writeNewPost(user, newFile); //переименовать
 
     dispatch(addFile({ ...newFile }));
+
     alert("Файл успешно загружен");
   };
 
-  const deleteObj = async (path) => {
+  const deleteObj = async (path, fileUID) => {
     alert("Начинаем выносить файл");
-    
+
     await deleteFile(path)
-      .then(() => {
+      .then(async () => {
         dispatch(removeFile({ path }));
+
+        //await delFileFromDB(user.uid, fileUID);
+
         alert("Файл был успешно удалён.");
       })
-      .catch(alert);
+      .catch(console.log);
   };
 
   return (

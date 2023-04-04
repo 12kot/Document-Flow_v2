@@ -8,6 +8,7 @@ import registration from "../../../API/registration";
 import { changeRepeatPass, } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
 import loginUser from "../../../functions/loginUser";
+import setUserOnDB from "../../../API/setUserToDB";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
@@ -22,9 +23,16 @@ const RegisterPageContainer = () => {
 
     registration(email, password, repeatPassword)
       .then(async (user) => {
+        let us = {
+          email: user.user.email,
+          uid: user.user.uid,
+          accessToken: user.user.accessToken,
+          files: [{path: "INITIALIZE_FILE", name: "Check me"}],
+        }
+
+        await setUserOnDB(us);
         
-        let userD = await loginUser(user);
-        dispatch(setUser({ ...userD }));
+        dispatch(setUser({ ...us }));
 
         alert("Вы успешно зарегестрировались");
         return <Navigate to="/disk" />;

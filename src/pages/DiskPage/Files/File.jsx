@@ -7,7 +7,7 @@ const File = (props) => {
   //   return `${date.toDateString()}`;
   // }
   const removeFile = () => {
-    props.removeFile(props.fullPath);
+    props.removeFile(props.fullPath, props.id);
   }
 
   return (

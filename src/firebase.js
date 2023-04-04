@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  //enter your keys
+// enter your keys
 };
 
 // Initialize Firebase
@@ -11,3 +12,4 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 export const storage = getStorage(app);
+export const db = getDatabase(app);
