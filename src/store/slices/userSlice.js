@@ -16,7 +16,7 @@ const userSlice = createSlice({
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
 
-      if (!action.payload.files)
+      if (action.payload.files)
         state.files = action.payload.files;
       else state.files = [];
     },
