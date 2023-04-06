@@ -1,4 +1,4 @@
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 const uploadFileDB = async (user, file) => {

@@ -1,49 +1,64 @@
 //Initialize file
 
-import React from "react";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RegisterPage from "./RegisterPage";
-import registration from "../../../API/registration";
-import { changeRepeatPass, } from "../../../store/slices/authSlice";
+import registration from "../../../API/Auth/registration";
+import { changeRepeatPass } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
-import createUser from "../../../API/createUser";
+import createUser from "../../../API/DB/createUserOnDB";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
-  const { email, password, repeatPassword } = useSelector((state) => state.auth);
+  const { email, password, repeatPassword } = useSelector(
+    (state) => state.auth
+  );
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const setRepeatPass = (text) => {
     dispatch(changeRepeatPass({ text }));
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     alert("Загружаем данные с сервера");
+    setIsLoading(true);
 
-    registration(email, password, repeatPassword)
+    await registration(email, password, repeatPassword)
       .then(async (user) => {
-        let us = {
+        let userData = {
           email: user.user.email,
           uid: user.user.uid,
           accessToken: user.user.accessToken,
-        }
+        };
 
-        await createUser(us);
-        us.files = [];
-        dispatch(setUser({ ...us }));
-        
+        await createUser(userData);
+        userData.files = [];
+        dispatch(setUser({ ...userData }));
+
         alert("Вы успешно зарегестрировались");
+        setIsLoading(false);
         return <Navigate to="/disk" />;
       })
-      .catch(alert);
+      .catch((error) => {
+        alert(error);
+        setIsLoading(false);
+      });
   };
 
   return (
-    <RegisterPage
-      handleRegister={handleRegister}
-      repeatPass={repeatPassword}
-      setRepeatPass={setRepeatPass}
-    />
+    <div>
+      {isLoading ? (
+        <p>Loading</p>
+      ) : (
+        <RegisterPage
+          handleRegister={handleRegister}
+          repeatPass={repeatPassword}
+          setRepeatPass={setRepeatPass}
+        />
+      )}
+    </div>
   );
 };
 

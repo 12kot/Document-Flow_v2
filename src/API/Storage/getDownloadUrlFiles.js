@@ -1,5 +1,5 @@
 import { getDownloadURL } from "firebase/storage";
-import { storage } from "../firebase";
+import { storage } from "../../firebase";
 import { ref } from "firebase/storage";
 
 const getDownloadURLFiles = async (file) => {

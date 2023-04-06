@@ -2,10 +2,10 @@ import DiskPage from "./DiskPage";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
 import { addFile, removeFile, searchFile } from "../../store/slices/userSlice";
-import uploadFile from "../../API/uploadFileStorage";
-import deleteFileStorage from "../../API/deleteFileStorage";
-import uploadFileDB from "../../API/uploadFileDB";
-import deleteFileDB from "../../API/deleteFileDB";
+import uploadFile from "../../API/Storage/uploadFileStorage";
+import deleteFileStorage from "../../API/Storage/deleteFileStorage";
+import uploadFileDB from "../../API/DB/uploadFileDB";
+import deleteFileDB from "../../API/DB/deleteFileDB";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
