@@ -12,7 +12,6 @@ const LoginPageContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
-    alert("Загружаем данные с сервера");
     setIsLoading(true);
 
     await login(email, password)
@@ -21,7 +20,6 @@ const LoginPageContainer = () => {
         let userData = await getUserData(user);
         dispatch(setUser({ ...userData }));
         
-        alert("Вы успешно авторизовались");
         setIsLoading(false);
         return <Navigate to="/disk" />;
       })
@@ -33,8 +31,7 @@ const LoginPageContainer = () => {
 
   return (
     <div>
-      {isLoading ? <p>Loading</p> :
-        <LoginPage handleLogin={handleLogin} />}
+        <LoginPage handleLogin={handleLogin} isLoading={isLoading} />
     </div>
   );
 };

@@ -13,6 +13,7 @@ const LoginPage = (props) => {
         <FormContainer
           title="Log In"
           handleClick={props.handleLogin}
+          isLoading={props.isLoading}
         />
 
         <div className={`${styles.register} ${styles.item}`}>

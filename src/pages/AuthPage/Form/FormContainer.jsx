@@ -18,6 +18,7 @@ const FormContainer = (props) => {
     <Form
       title={props.title}
       handleClick={props.handleClick}
+      isLoading={props.isLoading}
           
       email={email}
       setEmail={setEmail}

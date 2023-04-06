@@ -13,6 +13,7 @@ const RegisterPage = (props) => {
         <FormContainer
           title="Register"
           handleClick={props.handleRegister}
+          isLoading={props.isLoading}
 
           repeatPass={props.repeatPass}
           setRepeatPass={props.setRepeatPass}

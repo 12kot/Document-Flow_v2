@@ -8,6 +8,7 @@ import registration from "../../../API/Auth/registration";
 import { changeRepeatPass } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
 import createUser from "../../../API/DB/createUserOnDB";
+import Loader from "../../../UI/Loader/Loader";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,6 @@ const RegisterPageContainer = () => {
   };
 
   const handleRegister = async () => {
-    alert("Загружаем данные с сервера");
     setIsLoading(true);
 
     await registration(email, password, repeatPassword)
@@ -36,8 +36,7 @@ const RegisterPageContainer = () => {
         await createUser(userData);
         userData.files = [];
         dispatch(setUser({ ...userData }));
-
-        alert("Вы успешно зарегестрировались");
+        
         setIsLoading(false);
         return <Navigate to="/disk" />;
       })
@@ -49,15 +48,12 @@ const RegisterPageContainer = () => {
 
   return (
     <div>
-      {isLoading ? (
-        <p>Loading</p>
-      ) : (
-        <RegisterPage
-          handleRegister={handleRegister}
-          repeatPass={repeatPassword}
-          setRepeatPass={setRepeatPass}
-        />
-      )}
+      <RegisterPage
+        handleRegister={handleRegister}
+        repeatPass={repeatPassword}
+        setRepeatPass={setRepeatPass}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

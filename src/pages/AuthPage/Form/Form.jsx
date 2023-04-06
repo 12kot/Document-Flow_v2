@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Form.module.css";
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
+import Loader from "../../../UI/Loader/Loader";
 
 //импортировать здесь email, setEmail, pass, setPass
 const Form = (props) => {
@@ -45,12 +46,13 @@ const Form = (props) => {
         ) : (<span />)}
         
         <div className={`${styles.item}`}>
-          <Button
-            className={`${styles.item}`}
-            size={styles.button}
-            action={props.handleClick}
-            text={props.title}
-          />
+          {props.isLoading ? <Loader /> :
+            <Button
+              className={`${styles.item}`}
+              size={styles.button}
+              action={props.handleClick}
+              text={props.title}
+            />}
         </div>
 
       </div>
