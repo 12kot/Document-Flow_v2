@@ -4,6 +4,7 @@ const initialState = {
   email: null,
   token: null,
   uid: null,
+  isLoggedIn: false,
   files: [],
 };
 
@@ -15,6 +16,7 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
+      state.isLoggedIn = true;
 
       if (action.payload.files)
         state.files = action.payload.files;
@@ -40,6 +42,7 @@ const userSlice = createSlice({
       state.token = null;
       state.id = null;
       state.files = [];
+      state.isLoggedIn = false;
     },
   },
 });

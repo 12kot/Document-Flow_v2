@@ -4,14 +4,11 @@ import File from "./Files/File";
 import Input from "../../UI/Input/Input";
 import SelectForm from "../../UI/SelectForm/SelectForm";
 import UploadForm from "../../UI/UploadForm/UploadForm";
-import { Navigate } from "react-router-dom";
 import useAuth from "../../hooks/use-auth";
 import { v4 } from "uuid";
 
 const DiskPage = (props) => {
   const files = useAuth().files;
-
-  if (!useAuth().isAuth) return <Navigate to="/login" />;
 
   const getFiles = () => {
     if (files.length === 0) return "Файлы отсутствуют";

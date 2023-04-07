@@ -1,13 +1,10 @@
 import React from "react";
 import { NavLink, Navigate } from "react-router-dom";
 import styles from "../Form/Form.module.css";
-import useAuth from "../../../hooks/use-auth";
 import FormContainer from "../Form/FormContainer";
 
 const RegisterPage = (props) => {
-  if (useAuth().isAuth) return <Navigate to="/disk" />;
-
-  return (
+   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.form}`}>
         <FormContainer
