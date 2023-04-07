@@ -9,22 +9,23 @@ import { useSelector } from "react-redux";
 
 const DiskPage = (props) => {
   const files = useSelector((state) => state.user.files);
-
-  const getFiles = () => {
+  const myFiles = files.filter((file) => file.ownerEmail === props.userEmail);
+  const othersFiles = files.filter((file) => file.ownerEmail !== props.userEmail);
+  
+  const getFiles = (files) => {
     if(props.isLoading) return "Загрузка"
     if (files.length === 0) return "Файлы отсутствуют";
     
     let newFiles = files.filter((file) => !file.isHiden);
     if (newFiles.length === 0) return "Файлы отсутствуют";
 
-    return newFiles.map((file) => (
+    return newFiles.map((file) => ( //кинуть весь файл по пропсам
       <File
-        name={file.name}
-        path={file.path}
-        id={file.id}
+        file={file}
         key={file.fullPath + v4()}
-        fullPath={file.fullPath}
+        
         removeFile={props.removeFile}
+        shareFile={props.shareFile}
       />
     ));
   };
@@ -56,7 +57,10 @@ const DiskPage = (props) => {
 
       <div>
         <h2>Ваши файлы</h2>
-        {getFiles()}
+        {getFiles(myFiles)}
+
+        <h2>С вами поделились</h2>
+        {getFiles(othersFiles)}
       </div>
     </div>
   );

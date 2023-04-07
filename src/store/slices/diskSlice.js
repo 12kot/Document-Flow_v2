@@ -3,21 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
     search: "",
     sortType: "",
+    shareFileText: "",
 };
 
 const diskSlice = createSlice({
     name: "disk",
     initialState,
     reducers: {
-        changeSearch(state, action) {
+        setSearchText(state, action) {
             state.search = action.payload.text;
         },
-        changeSortType(state, action) {
+        setSortType(state, action) {
             state.sortType = action.payload.text;
+        },
+        setShareFileText(state, action) {
+            state.shareFileText = action.payload.text;
         },
     },
 });
 
-export const { changeSearch, changeSortType, changeCurrentFile } = diskSlice.actions;
+export const { setSearchText, changeSortType, setShareFileText } = diskSlice.actions;
 
 export default diskSlice;

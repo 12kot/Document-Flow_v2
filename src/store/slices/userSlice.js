@@ -37,6 +37,13 @@ const userSlice = createSlice({
         else file.isHiden = false;
     },
 
+    addUserOnFile(state, action) {
+      for (let file of state.files) {
+        if (file.id === action.payload.fileId)
+          file.usersEmail.push(action.payload.userEmail);
+      }
+    },
+
     removeUser(state) {
       state.email = null;
       state.token = null;
@@ -47,7 +54,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setFiles, removeUser, addFile, removeFile, searchFile } =
+export const { setUser, setFiles, removeUser, addFile, removeFile, searchFile, addUserOnFile } =
   userSlice.actions;
 
 export default userSlice;

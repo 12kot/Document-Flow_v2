@@ -17,7 +17,7 @@ const LoginPageContainer = () => {
     await login(email, password)
       .then(async (user) => {
 
-        let userData = await getUserData(user);
+        let userData = await getUserData(user.user.email);
         dispatch(setUser({ ...userData }));
         
         setIsLoading(false);
