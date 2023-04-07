@@ -1,16 +1,35 @@
 import DiskPage from "./DiskPage";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSearch, changeSortType } from "../../store/slices/diskSlice";
-import { addFile, removeFile, searchFile } from "../../store/slices/userSlice";
+import {
+  addFile,
+  removeFile,
+  searchFile,
+  setFiles,
+} from "../../store/slices/userSlice";
 import uploadFile from "../../API/Storage/uploadFileStorage";
 import deleteFileStorage from "../../API/Storage/deleteFileStorage";
 import uploadFileDB from "../../API/DB/uploadFileDB";
 import deleteFileDB from "../../API/DB/deleteFileDB";
+import { useEffect, useState } from "react";
+import getUserFiles from "../../API/DB/getUserFiles";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { search, sortType } = useSelector((state) => state.disk);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const files = await getUserFiles(user.uid);
+      dispatch(setFiles({ files }));
+      setIsLoading(false);
+    };
+
+    fetchUserData();
+  }, []);
 
   const changeSearchText = (text) => {
     dispatch(changeSearch({ text }));
@@ -52,6 +71,7 @@ const DiskPageContainer = () => {
       changeSortText={changeSortText}
       handleFile={handleFile}
       removeFile={deleteObj}
+      isLoading={isLoading}
     />
   );
 };

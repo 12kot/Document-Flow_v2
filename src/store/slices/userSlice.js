@@ -17,10 +17,10 @@ const userSlice = createSlice({
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
       state.isLoggedIn = true;
+    },
 
-      if (action.payload.files)
-        state.files = action.payload.files;
-      else state.files = [];
+    setFiles(state, action) {
+      state.files = action.payload.files;
     },
 
     addFile(state, action) {
@@ -41,13 +41,13 @@ const userSlice = createSlice({
       state.email = null;
       state.token = null;
       state.id = null;
-      state.files = [];
       state.isLoggedIn = false;
+      state.files = [];
     },
   },
 });
 
-export const { setUser, removeUser, addFile, removeFile, searchFile } =
+export const { setUser, setFiles, removeUser, addFile, removeFile, searchFile } =
   userSlice.actions;
 
 export default userSlice;

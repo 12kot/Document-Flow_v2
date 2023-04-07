@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./DiskPage.module.css";
 import File from "./Files/File";
 import Input from "../../UI/Input/Input";
 import SelectForm from "../../UI/SelectForm/SelectForm";
 import UploadForm from "../../UI/UploadForm/UploadForm";
-import useAuth from "../../hooks/use-auth";
 import { v4 } from "uuid";
+import { useSelector } from "react-redux";
 
 const DiskPage = (props) => {
-  const files = useAuth().files;
+  const files = useSelector((state) => state.user.files);
 
   const getFiles = () => {
+    if(props.isLoading) return "Загрузка"
     if (files.length === 0) return "Файлы отсутствуют";
     
     let newFiles = files.filter((file) => !file.isHiden);
