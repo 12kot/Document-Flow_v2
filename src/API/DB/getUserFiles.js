@@ -1,10 +1,10 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const getUserFiles = async (userUid) => {
+const getUserFiles = async (userEmail) => {
     const usersFilesCollectionRef = collection(
         db,
-        `users/${userUid}/files`
+        `users/${userEmail}/files`
     );
 
     const filesCollection = await getDocs(usersFilesCollectionRef);

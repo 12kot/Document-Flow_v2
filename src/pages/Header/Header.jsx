@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import useAuth from "../../hooks/use-auth";
 import styles from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../store/slices/userSlice";
@@ -20,7 +19,7 @@ const Header = (props) => {
       </span>
       <div>
         <span className={styles.item}>
-          <NavLink onClick={logOutUser} to="/login">{useAuth().isAuth ? `${email} (выйти)` : "Войти"}</NavLink>
+          <NavLink onClick={logOutUser} to="/login">{!!email ? `${email} (выйти)` : "Войти"}</NavLink>
         </span>
       </div>
     </header>

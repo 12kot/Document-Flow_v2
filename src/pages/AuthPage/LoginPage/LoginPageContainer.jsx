@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import login from "../../../API/Auth/login";
 import { setUser } from "../../../store/slices/userSlice";
-import getUserData from "../../../functions/getUserData";
+import getUserData from "../../../API/DB/getUserData";
 
 const LoginPageContainer = () => {
   const dispatch = useDispatch();

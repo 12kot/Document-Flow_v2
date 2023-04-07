@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./DiskPage.module.css";
 import File from "./Files/File";
 import Input from "../../UI/Input/Input";

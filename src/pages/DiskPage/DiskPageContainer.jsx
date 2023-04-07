@@ -9,8 +9,8 @@ import {
 } from "../../store/slices/userSlice";
 import uploadFile from "../../API/Storage/uploadFileStorage";
 import deleteFileStorage from "../../API/Storage/deleteFileStorage";
-import uploadFileDB from "../../API/DB/uploadFileDB";
-import deleteFileDB from "../../API/DB/deleteFileDB";
+import uploadFileDB from "../../API/DB/uploadFileData";
+import deleteFileDB from "../../API/DB/deleteFileData";
 import { useEffect, useState } from "react";
 import getUserFiles from "../../API/DB/getUserFiles";
 
@@ -23,7 +23,7 @@ const DiskPageContainer = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const files = await getUserFiles(user.uid);
+      const files = await getUserFiles(user.email);
       dispatch(setFiles({ files }));
       setIsLoading(false);
     };
@@ -43,8 +43,8 @@ const DiskPageContainer = () => {
   const handleFile = async (file) => {
     alert("Отправляем файл на сервер.");
 
-    let newFile = await uploadFile(file, user.uid); //папка по uid
-    uploadFileDB(user, newFile); //переименовать
+    let newFile = await uploadFile(file, user.email); //папка по email
+    uploadFileDB(user.email, newFile); //переименовать
     dispatch(addFile({ ...newFile }));
 
     alert("Файл успешно загружен");
@@ -55,7 +55,7 @@ const DiskPageContainer = () => {
 
     await deleteFileStorage(path)
       .then(async () => {
-        await deleteFileDB(user.uid, fileID);
+        await deleteFileDB(user.email, fileID);
         dispatch(removeFile({ path }));
 
         alert("Файл был успешно удалён.");

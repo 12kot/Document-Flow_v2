@@ -8,7 +8,6 @@ import registration from "../../../API/Auth/registration";
 import { changeRepeatPass } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
 import createUser from "../../../API/DB/createUserOnDB";
-import Loader from "../../../UI/Loader/Loader";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
