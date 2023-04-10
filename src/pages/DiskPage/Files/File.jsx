@@ -40,7 +40,7 @@ const File = (props) => {
           placeholder="Email"
         />
         <button onClick={shareFile}>Поделиться</button>
-        <button onClick={deleteAccess}>Удалить</button>
+        <button onClick={deleteAccess}>Забрать доступ</button>
       </div>
     </div>
   );
