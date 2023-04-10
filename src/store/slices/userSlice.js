@@ -28,19 +28,35 @@ const userSlice = createSlice({
     },
 
     removeFile(state, action) {
-      state.files = state.files.filter((file) => file.fullPath !== action.payload.path)
+      state.files = state.files.filter(
+        (file) => file.fullPath !== action.payload.path
+      );
     },
 
     searchFile(state, action) {
       for (let file of state.files)
-        if (!file.name.toLowerCase().includes(action.payload.text.toLowerCase())) file.isHiden = true;
+        if (
+          !file.name.toLowerCase().includes(action.payload.text.toLowerCase())
+        )
+          file.isHiden = true;
         else file.isHiden = false;
     },
 
     addUserOnFile(state, action) {
       for (let file of state.files) {
-        if (file.id === action.payload.fileId)
+        if (file.id === action.payload.fileId) {
           file.usersEmail.push(action.payload.userEmail);
+          break;
+        }
+      }
+    },
+
+    removeUserOnFile(state, action) {
+      for (let file of state.files) {
+        if (file.id === action.payload.fileId) {
+          file.usersEmail = file.usersEmail.filter((user) => user !== action.payload.userEmail);
+          break;
+        }
       }
     },
 
@@ -54,7 +70,15 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setFiles, removeUser, addFile, removeFile, searchFile, addUserOnFile } =
-  userSlice.actions;
+export const {
+  setUser,
+  setFiles,
+  removeUser,
+  addFile,
+  removeFile,
+  searchFile,
+  addUserOnFile,
+  removeUserOnFile,
+} = userSlice.actions;
 
 export default userSlice;

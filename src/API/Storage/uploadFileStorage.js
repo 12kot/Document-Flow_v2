@@ -2,7 +2,7 @@ import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import getDownloadURLFiles from "./getDownloadUrlFiles";
 
-const uploadFile = async (file, email) => {
+const uploadFileStorage = async (file, email) => {
   if (!file)
     return new Promise((resolve, reject) => reject(new Error("Выберите файл")));
 
@@ -23,4 +23,4 @@ const uploadFile = async (file, email) => {
     .catch(alert);
 };
 
-export default uploadFile;
+export default uploadFileStorage;

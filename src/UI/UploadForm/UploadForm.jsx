@@ -28,12 +28,15 @@ const UploadForm = (props) => {
         </svg>{" "}
         <p>Browse File to upload!</p>
       </div>
-      <input
-        type="file"
-        onChange={(event) => {
-          uploadFile(event.target.files[0]);
-        }}
-      />
+      {props.isUploadLoading ?
+        (<p>Загрузка</p>) :
+        ( <input
+          type="file"
+          onChange={(event) => {
+            uploadFile(event.target.files[0]);
+          }}
+        />
+      )}
     </div>
   );
 };

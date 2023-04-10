@@ -1,36 +1,31 @@
-//раскидать функции по разным файлам
-
 import DiskPage from "./DiskPage";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchText, changeSortType, setShareEmailText } from "../../store/slices/diskSlice";
+import { setSearchText, changeSortType } from "../../store/slices/diskSlice";
 import {
   addFile,
   addUserOnFile,
   removeFile,
+  removeUserOnFile,
   searchFile,
   setFiles,
 } from "../../store/slices/userSlice";
-import uploadFile from "../../API/Storage/uploadFileStorage";
-import deleteFileStorage from "../../API/Storage/deleteFileStorage";
-import uploadFileDB from "../../API/DB/uploadFileData";
-import deleteFileDB from "../../API/DB/deleteFileData";
 import { useEffect, useState } from "react";
 import getUserFiles from "../../API/DB/getUserFiles";
-import getUserData from "../../API/DB/getUserData";
-import updateFileUsers from "../../API/DB/updateFileUsers";
+import { deleteAccess, deleteFile, share, upload } from "./file.service";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
   const { search, sortType } = useSelector((state) => state.disk);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isFilesLoading, setIsFilesLoading] = useState(true);
+  const [isUploadLoading, setIsUploadLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       const files = await getUserFiles(currentUser.email);
       dispatch(setFiles({ files }));
-      setIsLoading(false);
+      setIsFilesLoading(false);
     };
 
     fetchUserData();
@@ -47,64 +42,54 @@ const DiskPageContainer = () => {
   };
 
   //эти 3 перекинуть в другой файл
-  const shareFile = async (file, shareEmailText) => {
-    let user = await getUserData(shareEmailText);
-    if (!user.email) { alert("User not found"); return; }
-    if (file.ownerEmail === shareEmailText || file.usersEmail.includes(shareEmailText)) { alert("Данный пользователь уже имеет доступ к этому файлу."); return; }
-    if (file.ownerEmail !== currentUser.email) { alert("Вы не являетесь владельцем данного файла."); return; }
+  const shareFile = async (file, newUserEmail) => {
+    alert("Делимся");
 
-    await uploadFileDB(shareEmailText, file); //добавляем файл к новому юзеру
-    
-    let usersEmail = [...file.usersEmail, file.ownerEmail, shareEmailText]; //все емейлы в кучу
-    for (user of usersEmail) {
-      if(user)
-        await updateFileUsers(user, file.id, usersEmail); //добавляем новый емейл во все экземпляры файла
+    let isShare = await share(file, newUserEmail, currentUser.email);
+    if (isShare) {
+      dispatch(addUserOnFile({ fileId: file.id, userEmail: newUserEmail })); //добавляем нового юзера в локальный стейт
     }
-    
-    dispatch(addUserOnFile({ fileId: file.id, userEmail: shareEmailText })); //добавляем нового юзера в локальный стейт
-    alert("Вы успешно поделились файлом.")
-  }
-
-  const handleFile = async (file) => {
-    alert("Отправляем файл на сервер.");
-
-    let newFile = await uploadFile(file, currentUser.email); //папка по email
-    uploadFileDB(currentUser.email, newFile); //переименовать
-    dispatch(addFile({ ...newFile }));
-
-    alert("Файл успешно загружен");
   };
 
-  const deleteFile = async (path, fileID) => {
-    alert("Начинаем выносить файл");
+  const handleFile = async (file) => {
+    setIsUploadLoading(true);
 
-    await deleteFileStorage(path)
-      .then(async () => {
-        await deleteFileDB(currentUser.email, fileID);
-        dispatch(removeFile({ path }));
+    let newFile = await upload(file, currentUser.email);
+    dispatch(addFile({ ...newFile }));
+    setIsUploadLoading(false);
+  };
 
-        alert("Файл был успешно удалён.");
-      })
-      .catch(console.log);
+  const deleteObj = async (file) => {
+    alert("Удаляем.");
+
+    await deleteFile(file, currentUser.email);
+    dispatch(removeFile({ path: file.fullPath }));
+  };
+
+  const deleteUserOnFile = async (file, user) => {
+    alert("Начинаем закрывать доступ");
+
+    let isDelete = await deleteAccess(file, currentUser.email, user);
+    if (isDelete) {
+      dispatch(removeUserOnFile({ fileId: file.id, userEmail: user })); //добавляем нового юзера в локальный стейт
+    }
   };
 
   return (
     <DiskPage
       searchValue={search}
       changeSearchText={changeSearchText}
-      
-      shareFile={shareFile}
-      
       sortTypeValue={sortType}
       changeSortText={changeSortText}
-      
+      shareFile={shareFile}
       handleFile={handleFile}
-      removeFile={deleteFile}
-      
-      isLoading={isLoading}
+      removeFile={deleteObj}
+      deleteUserOnFile={deleteUserOnFile}
+      isFilesLoading={isFilesLoading}
+      isUploadLoading={isUploadLoading}
       userEmail={currentUser.email}
-      />
-      );
+    />
+  );
 };
 
 export default DiskPageContainer;

@@ -3,14 +3,18 @@ import styles from "./File.module.css";
 import Input from "../../../UI/Input/Input";
 
 const File = (props) => {
-  const [shareEmail, setShareEmail] = useState("");
+  const [userEmail, setuserEmail] = useState("");
 
   const shareFile = () => {
-    props.shareFile(props.file, shareEmail);
-  } 
+    props.shareFile(props.file, userEmail);
+  };
+
+  const deleteAccess = () => {
+    props.deleteUserOnFile(props.file, userEmail)
+  }
 
   const removeFile = () => {
-    props.removeFile(props.file.fullPath, props.file.id);
+    props.removeFile(props.file);
   };
 
   return (
@@ -31,11 +35,12 @@ const File = (props) => {
       <div className={styles.item}>
         <Input
           type="email"
-          value={shareEmail}
-          onChange={setShareEmail}
+          value={userEmail}
+          onChange={setuserEmail}
           placeholder="Email"
         />
-        <button onClick={shareFile}>share</button>
+        <button onClick={shareFile}>Поделиться</button>
+        <button onClick={deleteAccess}>Удалить</button>
       </div>
     </div>
   );

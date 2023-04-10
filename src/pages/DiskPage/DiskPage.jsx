@@ -13,7 +13,7 @@ const DiskPage = (props) => {
   const othersFiles = files.filter((file) => file.ownerEmail !== props.userEmail);
   
   const getFiles = (files) => {
-    if(props.isLoading) return "Загрузка"
+    if(props.isFilesLoading) return "Загрузка"
     if (files.length === 0) return "Файлы отсутствуют";
     
     let newFiles = files.filter((file) => !file.isHiden);
@@ -26,6 +26,7 @@ const DiskPage = (props) => {
         
         removeFile={props.removeFile}
         shareFile={props.shareFile}
+        deleteUserOnFile={props.deleteUserOnFile}
       />
     ));
   };
@@ -52,7 +53,8 @@ const DiskPage = (props) => {
       </div>
 
       <div className={styles.addFile}>
-        <UploadForm uploadFile={props.handleFile} />
+        <UploadForm uploadFile={props.handleFile}
+          isUploadLoading={props.isUploadLoading} />
       </div>
 
       <div>
