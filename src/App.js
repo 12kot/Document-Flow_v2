@@ -50,7 +50,7 @@ const App = () => {
       </div>
 
       <div className="footer">
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

@@ -1,17 +1,16 @@
 @font-face {
-  font-family: CodecPro;
-  src: url(./Common/Fonts/CodecPro.ttf);
+  font-family: Poppins-Light;
+  src: url(./Common/Fonts/Poppins/Poppins-Light.ttf);
 }
 
 .App {
-  min-width: 250px;
+  background-color: #1a1f26;
 
-  height: 100vh;
-  font-family: CodecPro;
+  min-height: 100vh;
+  font-family: Poppins-Light;
 }
 
 .content {
-  min-height: calc(100vh - 85px);
   margin: 0 8vw;
 }
 
@@ -20,19 +19,7 @@ a {
 }
 
 @media all and (max-width: 900px){
-  .App .header {
-    margin: 0vw 0vw;
-  }
-  .App .footer {
-    margin: 0vw 0vw;
-  }
-}
-
-@media all and (min-width: 900px){
-  .App .header {
-    margin: 0vw 8vw;
-  }
-  .App .footer {
-    margin: 0vw 8vw;
+  .App .content {
+    margin: 0vw 5vw;
   }
 }
