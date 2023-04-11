@@ -3,9 +3,11 @@
   align-items: center;
   justify-content: space-between;
 
+  top: 0;
   left: 0;
   right: 0;
   position: fixed;
+  z-index: 1;
 
   background-color: #1a1f26;
   border-bottom: 2px solid #30353b;
