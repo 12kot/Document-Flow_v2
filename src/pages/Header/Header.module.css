@@ -31,12 +31,12 @@ a {
 
 .auth {
   display: flex;
-  gap: 18px;
+  gap: 10px;
 }
 
 .auth a {
-  font-size: 1.3rem;
-  padding: 0 15px;
+  font-size: 1.1rem;
+  padding: 0 7px;
 }
 
 .authItem {
