@@ -1,0 +1,48 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 64px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+
+  align-items: center;
+}
+
+.description {
+  text-align: left;
+}
+
+.description h2 {
+  margin: 4vw 0 0;
+}
+
+.description p {
+  color: #e5e5e5;
+  margin: 4vw 0 0;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+  overflow: clip;
+  margin: 4vw 0 0;
+}
+
+@media all and (max-width: 900px) {
+  .container {
+    gap: 120px;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

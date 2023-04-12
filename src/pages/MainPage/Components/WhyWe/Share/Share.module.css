@@ -1,0 +1,14 @@
+.description {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.visual {
+    grid-area: 1 / 2 / 2 / 4;
+}
+
+@media all and (max-width: 900px) {
+    .content {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+}

@@ -17,27 +17,50 @@
 
 .item {
   padding: 0.7rem 0;
-  font-size: 1.5rem;
 }
 
 .logo {
   letter-spacing: 0.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
-.logo a {
-  color: white;
-}
-
 a {
-  color: gray;
-}
-
-a:hover {
   color: white;
 }
 
-@media all and (max-width: 900px){
+.auth {
+  display: flex;
+  gap: 18px;
+}
+
+.auth a {
+  font-size: 1.3rem;
+  padding: 0 15px;
+}
+
+.authItem {
+  border: 1px solid white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  align-items: center;
+}
+
+.authItem:hover {
+  opacity: 0.8;
+}
+  
+.regItem {
+  background-color: white;
+}
+
+.regItem a {
+  color: #30353b;
+}
+
+@media all and (max-width: 900px) {
   .header {
     padding: 0vw 5vw;
   }

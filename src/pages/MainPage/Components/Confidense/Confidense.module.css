@@ -1,0 +1,21 @@
+.confidense {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.confidense p {
+  margin: 2vw 15% 0;
+}
+
+.button {
+  margin: 2vw 0 0;
+}
+
+@media all and (max-width: 800px) {
+  .confidense p {
+    margin: 2vw 0 0;
+  }
+}

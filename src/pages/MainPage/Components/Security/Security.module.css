@@ -1,0 +1,42 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+
+  align-items: center;
+}
+
+.description {
+  grid-area: 1 / 1 / 2 / 2;
+  text-align: left;
+}
+
+.description h2 {
+  margin: 0;
+}
+
+.description p {
+  color: #e5e5e5;
+}
+
+.image {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+  overflow: clip;
+}
+
+@media all and (max-width: 800px) {
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .description {
+    margin: 4vw 0 0;
+  }
+}
