@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import React from "react";
 import Header from "./pages/Header/Header";
-import Footer from "./pages/Footer/Footer";
 import MainPage from "./pages/MainPage/MainPage";
 import DiskPageContainer from "./pages/DiskPage/DiskPageContainer";
 import LoginPageContainer from "./pages/AuthPage/LoginPage/LoginPageContainer";
