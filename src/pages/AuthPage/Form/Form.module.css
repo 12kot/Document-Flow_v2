@@ -1,6 +1,7 @@
 .container {
   margin: 5vw 5vw 0;
   height: 65vh;
+  min-height: calc(20rem + 10vh);
   min-width: calc(15rem + 10vw);
   max-width: 70%;
 
