@@ -8,7 +8,7 @@ const Button = (props) => {
   };
 
   return (
-    <div className={`${styles.logButton}`}>
+    <div>
       <NavLink
         to={props.path}
         onClick={action}

@@ -3,12 +3,15 @@ import styles from "./Form.module.css";
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
 import Loader from "../../../UI/Loader/Loader";
+import { NavLink } from "react-router-dom";
 
 //импортировать здесь email, setEmail, pass, setPass
 const Form = (props) => {
   return (
-    <div>
-      <h3>{props.title}</h3>
+    <form className={styles.container}>
+      <span className={styles.action}>
+        <h3>{props.title}</h3>
+      </span>
 
       <div className={`${styles.inputs}`}>
         <div className={`${styles.item}`}>
@@ -43,20 +46,35 @@ const Form = (props) => {
               color={styles.color}
             />
           </div>
-        ) : (<span />)}
-        
-        <div className={`${styles.item}`}>
-          {props.isLoading ? <Loader /> :
-            <Button
-              className={`${styles.item}`}
-              size={styles.button}
-              action={props.handleClick}
-              text={props.title}
-            />}
-        </div>
-
+        ) : (
+          <span />
+        )}
       </div>
-    </div>
+
+      <div className={`${styles.button}`}>
+        {props.isLoading ? (
+          <Loader />
+        ) : (
+          <Button
+            size={styles.buttonSize}
+            action={props.handleClick}
+            text={props.title}
+          />
+        )}
+      </div>
+
+      <div className={styles.register}>
+        {props.isLogin ? (
+          <p>
+            Нет аккаунта? <NavLink to="/register">Зарегистрироваться</NavLink>
+          </p>
+        ) : (
+          <p>
+            Есть аккаунт? <NavLink to="/login">Войти</NavLink>
+          </p>
+        )}
+      </div>
+    </form>
   );
 };
 

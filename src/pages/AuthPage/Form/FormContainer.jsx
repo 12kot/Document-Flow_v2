@@ -27,6 +27,7 @@ const FormContainer = (props) => {
           
       repeatPass={props.repeatPass}
       setRepeatPass={props.setRepeatPass}
+      isLogin={props.isLogin}
     />
   );
 };

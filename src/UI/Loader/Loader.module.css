@@ -1,119 +1,58 @@
 .loader {
-  width: 80px;
-  height: 50px;
+  --ballcolor: #f2f2f2;
+  --shadow: 0px 0 #ffffff00;
+  --shadowcolor: #ffffff00;
+  width: 10px;
+  height: 10px;
+  left: -120px;
+  border-radius: 50%;
   position: relative;
+  color: var(--ballcolor);
+  animation: shadowRolling 2s linear infinite;
 }
 
-.loader_text {
-  position: absolute;
-  top: 0;
-  padding: 0;
-  margin: 0;
-  color: #c8b6ff;
-  animation: text_713 3.5s ease both infinite;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-}
-
-.load {
-  background-color: #9a79ff;
-  border-radius: 50px;
-  display: block;
-  height: 16px;
-  width: 16px;
-  bottom: 0;
-  position: absolute;
-  transform: translateX(64px);
-  animation: loading_713 3.5s ease both infinite;
-}
-
-.load::before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: #d1c2ff;
-  border-radius: inherit;
-  animation: loading2_713 3.5s ease both infinite;
-}
-
-@keyframes text_713 {
+@keyframes shadowRolling {
   0% {
-    letter-spacing: 1px;
-    transform: translateX(0px);
+    box-shadow: var(--shadow), var(--shadow), var(--shadow), var(--shadow);
   }
 
-  40% {
-    letter-spacing: 2px;
-    transform: translateX(26px);
+  12% {
+    box-shadow: 100px 0 var(--ballcolor), var(--shadow), var(--shadow),
+      var(--shadow);
   }
 
-  80% {
-    letter-spacing: 1px;
-    transform: translateX(32px);
+  25% {
+    box-shadow: 110px 0 var(--ballcolor), 100px 0 var(--ballcolor),
+      var(--shadow), var(--shadow);
   }
 
-  90% {
-    letter-spacing: 2px;
-    transform: translateX(0px);
+  36% {
+    box-shadow: 120px 0 var(--ballcolor), 110px 0 var(--ballcolor),
+      100px 0 var(--ballcolor), var(--shadow);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--ballcolor), 120px 0 var(--ballcolor),
+      110px 0 var(--ballcolor), 100px 0 var(--ballcolor);
+  }
+
+  62% {
+    box-shadow: 200px 0 var(--shadowcolor), 130px 0 var(--ballcolor),
+      120px 0 var(--ballcolor), 110px 0 var(--ballcolor);
+  }
+
+  75% {
+    box-shadow: 200px 0 var(--shadowcolor), 200px 0 var(--shadowcolor),
+      130px 0 var(--ballcolor), 120px 0 var(--ballcolor);
+  }
+
+  87% {
+    box-shadow: 200px 0 var(--shadowcolor), 200px 0 var(--shadowcolor),
+      200px 0 var(--shadowcolor), 130px 0 var(--ballcolor);
   }
 
   100% {
-    letter-spacing: 1px;
-    transform: translateX(0px);
-  }
-}
-
-@keyframes loading_713 {
-  0% {
-    width: 16px;
-    transform: translateX(0px);
-  }
-
-  40% {
-    width: 100%;
-    transform: translateX(0px);
-  }
-
-  80% {
-    width: 16px;
-    transform: translateX(64px);
-  }
-
-  90% {
-    width: 100%;
-    transform: translateX(0px);
-  }
-
-  100% {
-    width: 16px;
-    transform: translateX(0px);
-  }
-}
-
-@keyframes loading2_713 {
-  0% {
-    transform: translateX(0px);
-    width: 16px;
-  }
-
-  40% {
-    transform: translateX(0%);
-    width: 80%;
-  }
-
-  80% {
-    width: 100%;
-    transform: translateX(0px);
-  }
-
-  90% {
-    width: 80%;
-    transform: translateX(15px);
-  }
-
-  100% {
-    transform: translateX(0px);
-    width: 16px;
+    box-shadow: 200px 0 var(--shadowcolor), 200px 0 var(--shadowcolor),
+      200px 0 var(--shadowcolor), 200px 0 var(--shadowcolor);
   }
 }

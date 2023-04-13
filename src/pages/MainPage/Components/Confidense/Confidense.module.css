@@ -7,15 +7,16 @@
 }
 
 .confidense p {
-  margin: 2vw 15% 0;
+  margin: 24px 15% 0;
 }
 
 .button {
-  margin: 2vw 0 0;
+  margin: 24px 0 0;
 }
 
 @media all and (max-width: 800px) {
   .confidense p {
-    margin: 2vw 0 0;
+    margin: 24px 0 0;
+    font-size: 0.9rem;
   }
 }

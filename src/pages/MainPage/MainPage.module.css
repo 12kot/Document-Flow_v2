@@ -2,17 +2,20 @@
   color: white;
   text-align: center;
 }
+
 .item {
   padding: 72px 0;
 }
+
 h2 {
   margin: 0 10%;
-  font-size: calc(1.2rem + 2vw);
+  font-size: calc(1.4rem + 2vw);
   line-height: 90%;
 }
 
 p {
   font-size: calc(1rem + 0.2vw);
+  margin: 24px 0 0 0;
 }
 
 @media all and (max-width: 800px) {

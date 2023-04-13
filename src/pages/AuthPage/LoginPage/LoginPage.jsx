@@ -1,23 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import styles from "../Form/Form.module.css";
+import styles from "./../Auth.module.css";
 import FormContainer from "../Form/FormContainer";
+
+import passImg from "./../../../Common/Images/writePass.png";
 
 const LoginPage = (props) => {
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.form}`}>
         <FormContainer
-          title="Log In"
+          title="Войти"
           handleClick={props.handleLogin}
           isLoading={props.isLoading}
+          isLogin={true}
         />
-
-        <div className={`${styles.register} ${styles.item}`}>
-          <span>Ещё не зарегестрированы?</span>
-          <br />
-          <NavLink to="/register">Sign In</NavLink>
-        </div>
+      </div>
+      <div className={styles.tips}>
+        <img src={passImg} alt="write down password"></img>
+        <h2>Сохраните пароль</h2><p>Чтобы не потерять доступ к своим файлам</p>
       </div>
     </div>
   );
