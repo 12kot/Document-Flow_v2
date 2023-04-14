@@ -1,64 +1,87 @@
-.container {
-    border-radius: 10px;
-    box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    gap: 5px;
-    background-color: rgba(0, 110, 255, 0.041);
-  }
-  
-  .header {
-    flex: 1;
-    width: 100%;
-    border: 2px dashed royalblue;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  
-  .header svg {
-    height: 100px;
-  }
-  
-  .header p {
-    text-align: center;
-    color: black;
-  }
-  
-  .footer {
-    background-color: rgba(0, 110, 255, 0.075);
-    width: 100%;
-    height: 40px;
-    padding: 8px;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: black;
-    border: none;
-  }
-  
-  .footer svg {
-    height: 130%;
-    fill: royalblue;
-    background-color: rgba(70, 66, 66, 0.103);
-    border-radius: 50%;
-    padding: 2px;
-    cursor: pointer;
-    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
-  }
-  
-  .footer p {
-    flex: 1;
-    text-align: center;
-  }
-  
-  #file {
-    display: none;
-  }
+.form {
+  background-color: rgb(29, 35, 43);
+  box-shadow: 0 0 12px #2f2f31;
+  border: 1px solid #232b34;
+  border-radius: 10px;
+  padding: 2rem 0.7rem 0.7rem 0.7rem;
+  text-align: center;
+  font-size: 1.125rem;
+  max-width: 100%;
+}
+
+.form_title {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.form_paragraph {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  color: rgb(151, 151, 151);
+}
+
+.drop_container {
+  background-color: #1e232a;
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 2.1875rem;
+  border-radius: 10px;
+  border: 2px dashed rgb(171, 202, 255);
+  color: rgb(151, 151, 151);
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+  min-height: calc(2rem + 2vw);
+}
+
+.drop_container:hover {
+  background: rgba(0, 140, 255, 0.164);
+  border-color: rgba(17, 17, 17, 0.616);
+}
+
+.drop_container:hover .drop_title {
+  color: white;
+}
+
+.drop_container:hover {
+  color: white
+}
+
+.drop_title {
+  color: rgb(151, 151, 151);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color 0.2s ease-in-out;
+}
+
+#file-input {
+  width: 350px;
+  max-width: 100%;
+  color: #444;
+  padding: 2px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(8, 8, 8, 0.288);
+}
+
+#file-input::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+#file-input::file-selector-button:hover {
+  background: #0d45a5;
+}

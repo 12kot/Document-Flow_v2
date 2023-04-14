@@ -33,7 +33,6 @@ const DiskPage = (props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.activeContainer}>
         <span className={styles.search}>
           <Input
             type="text"
@@ -41,16 +40,14 @@ const DiskPage = (props) => {
             onChange={props.changeSearchText}
             placeholder="Search"
             color={styles.color}
-            margin={styles.inputStyle}
           />
         </span>
-        <span className={styles.sort}>
+        {/* <span className={styles.sort}>
           <SelectForm
             value={props.sortTypeValue}
             onChange={props.changeSortText}
           />
-        </span>
-      </div>
+        </span> */}
 
       <div className={styles.addFile}>
         <UploadForm uploadFile={props.handleFile}
