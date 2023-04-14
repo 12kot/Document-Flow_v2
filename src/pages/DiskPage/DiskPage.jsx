@@ -2,64 +2,65 @@ import React from "react";
 import styles from "./DiskPage.module.css";
 import File from "./Files/File";
 import Input from "../../UI/Input/Input";
-import SelectForm from "../../UI/SelectForm/SelectForm";
 import UploadForm from "../../UI/UploadForm/UploadForm";
 import { v4 } from "uuid";
 import { useSelector } from "react-redux";
+import Loader from "../../UI/Loader/Loader";
 
 const DiskPage = (props) => {
   const files = useSelector((state) => state.user.files);
   const myFiles = files.filter((file) => file.ownerEmail === props.userEmail);
-  const othersFiles = files.filter((file) => file.ownerEmail !== props.userEmail);
-  
-  const getFiles = (files) => {
-    if(props.isFilesLoading) return "Загрузка"
-    if (files.length === 0) return "Файлы отсутствуют";
-    
-    let newFiles = files.filter((file) => !file.isHiden);
-    if (newFiles.length === 0) return "Файлы отсутствуют";
+  const othersFiles = files.filter(
+    (file) => file.ownerEmail !== props.userEmail
+  );
 
-    return newFiles.map((file) => ( //кинуть весь файл по пропсам
-      <File
-        file={file}
-        key={file.fullPath + v4()}
-        
-        removeFile={props.removeFile}
-        shareFile={props.shareFile}
-        deleteUserOnFile={props.deleteUserOnFile}
-      />
-    ));
+  const getFiles = (files) => {
+    if (props.isFilesLoading) return <Loader />;
+    if (files.length === 0) return <p>Файлы отсутствуют</p>;
+
+    let newFiles = files.filter((file) => !file.isHiden);
+    if (newFiles.length === 0) return <p>Файлы отсутствуют</p>;
+
+    return newFiles.map(
+      (
+        file //кинуть весь файл по пропсам
+      ) => (
+        <File
+          file={file}
+          key={file.fullPath + v4()}
+          removeFile={props.removeFile}
+          shareFile={props.shareFile}
+          deleteUserOnFile={props.deleteUserOnFile}
+        />
+      )
+    );
   };
 
   return (
     <div className={styles.container}>
-        <span className={styles.search}>
-          <Input
-            type="text"
-            value={props.searchValue}
-            onChange={props.changeSearchText}
-            placeholder="Search"
-            color={styles.color}
-          />
-        </span>
-        {/* <span className={styles.sort}>
-          <SelectForm
-            value={props.sortTypeValue}
-            onChange={props.changeSortText}
-          />
-        </span> */}
+      <span className={styles.search}>
+        <Input
+          type="text"
+          value={props.searchValue}
+          onChange={props.changeSearchText}
+          placeholder="Search"
+          color={styles.color}
+        />
+      </span>
 
       <div className={styles.addFile}>
-        <UploadForm uploadFile={props.handleFile}
-          isUploadLoading={props.isUploadLoading} />
+        <UploadForm
+          uploadFile={props.handleFile}
+          isUploadLoading={props.isUploadLoading}
+        />
       </div>
 
-      <div>
+      <div className={styles.files}>
         <h2>Ваши файлы</h2>
-        {getFiles(myFiles)}
+        <div className={styles.fileList}>{getFiles(myFiles)}</div>
 
         <h2>С вами поделились</h2>
-        {getFiles(othersFiles)}
+        <div className={styles.fileList}>{getFiles(othersFiles)}</div>
       </div>
     </div>
   );

@@ -10,15 +10,15 @@ const UploadForm = (props) => {
   return (
     <div className={styles.container}>
       <form className={styles.form}>
-        <span className={styles.form_title}>Upload your file</span>
-        <p className={styles.form_paragraph}>File should be an image</p>
+        <span className={styles.form_title}>Загрузите свой файл</span>
+        <p className={styles.form_paragraph}>Загружайте различные типы файлов</p>
         <label htmlFor="file-input" className={styles.drop_container}>
           {props.isUploadLoading ? (
             <Loader />
           ) : (
             <>
-              <span className={styles.drop_title}>Drop files here</span>
-              or
+              <span className={styles.drop_title}>Перетащи файл сюда</span>
+              или
               <input
                 type="file"
                 onChange={(event) => {

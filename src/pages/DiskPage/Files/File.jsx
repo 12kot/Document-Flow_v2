@@ -4,45 +4,40 @@ import Input from "../../../UI/Input/Input";
 
 const File = (props) => {
   const [userEmail, setuserEmail] = useState("");
+  const [menuActive, setMenuActive] = useState(false);
 
   const shareFile = () => {
     props.shareFile(props.file, userEmail);
   };
 
   const deleteAccess = () => {
-    props.deleteUserOnFile(props.file, userEmail)
-  }
+    props.deleteUserOnFile(props.file, userEmail);
+  };
 
   const removeFile = () => {
     props.removeFile(props.file);
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.name}>
+    <form className={styles.container}>
+      <span className={menuActive ? `${styles.name} ${styles.active}` : `${styles.name}`}>
         <div className={styles.item}>Icon</div>
         <div className={styles.item}>{props.file.name}</div>
-      </div>
-      {/* <div className={styles.item}>{getDate()}</div> */}
-      <div className={styles.actions}>
+      </span>
+
+      <span className={menuActive ? `${styles.actions} ${styles.active}` : `${styles.actions}`}>
         <div className={styles.item}>
-          <a href={props.file.path}>download</a>
+          <a href={props.file.path}>Скачать</a>
         </div>
         <div className={styles.item} onClick={removeFile}>
-          delete
+          Удалить
         </div>
-      </div>
-      <div className={styles.item}>
-        <Input
-          type="email"
-          value={userEmail}
-          onChange={setuserEmail}
-          placeholder="Email"
-        />
-        <button onClick={shareFile}>Поделиться</button>
-        <button onClick={deleteAccess}>Забрать доступ</button>
-      </div>
-    </div>
+        <div className={styles.item} onClick={shareFile}>Права доступа</div>
+        <div className={styles.item} onClick={deleteAccess}>Отозвать доступ</div> 
+      </span>
+
+      <div onClick={() => {setMenuActive(!menuActive)}}>m</div>
+    </form>
   );
 };
 

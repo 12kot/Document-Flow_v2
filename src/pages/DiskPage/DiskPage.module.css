@@ -5,7 +5,13 @@
 }
 
 .container h2 {
-  margin: 2% 0;
+  margin: 4% 0 0;
+  color: white;
+  font-size: calc(1.3rem + 0.7vw);
+}
+
+.container p {
+  margin: 0;
 }
 
 .search {
@@ -20,8 +26,18 @@
   margin: 4% 0 0;
 }
 
+.files {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileList {
+  color: rgb(151, 151, 151);
+  margin: 1% 0 0;
+}
+
 @media all and (max-width: 800px) {
   .addFile {
-    margin: 8% 0 0;
+    margin: 8% 0 0 0;
   }
 }
