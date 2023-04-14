@@ -3,7 +3,6 @@
   height: 65vh;
   min-height: calc(20rem + 10vh);
   min-width: calc(15rem + 10vw);
-  max-width: 70%;
 
   display: grid;
   grid-template-columns: 1fr;

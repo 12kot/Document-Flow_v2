@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import styles from "./File.module.css";
-import Input from "../../../UI/Input/Input";
+import Modal from "./Modal/Modal";
 
 const File = (props) => {
-  const [userEmail, setuserEmail] = useState("");
   const [menuActive, setMenuActive] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
 
-  const shareFile = () => {
+  const shareFile = (userEmail) => {
     props.shareFile(props.file, userEmail);
   };
 
-  const deleteAccess = () => {
+  const deleteAccess = (userEmail) => {
     props.deleteUserOnFile(props.file, userEmail);
   };
 
@@ -32,10 +32,10 @@ const File = (props) => {
         <div className={styles.item} onClick={removeFile}>
           Удалить
         </div>
-        <div className={styles.item} onClick={shareFile}>Права доступа</div>
-        <div className={styles.item} onClick={deleteAccess}>Отозвать доступ</div> 
+        <div className={styles.item} onClick={() => setModalActive(true)}>Права доступа</div>
       </span>
 
+      <Modal active={modalActive} setActive={setModalActive} fileName={props.file.name} users={props.file.usersEmail} owner={props.file.ownerEmail} shareFile={shareFile} deleteAccess={deleteAccess} path={props.file.path} />
       <div onClick={() => {setMenuActive(!menuActive)}}>m</div>
     </form>
   );

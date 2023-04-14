@@ -1,0 +1,40 @@
+.user {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.closeButton {
+    grid-area: 1 / 6 / 2 / 7;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.close {
+    width: 1em;
+    height: 1em;
+    background-color: rgb(117, 117, 117);;
+    clip-path: polygon(
+      20% 0%,
+      0% 20%,
+      30% 50%,
+      0% 80%,
+      20% 100%,
+      50% 70%,
+      80% 100%,
+      100% 80%,
+      70% 50%,
+      100% 20%,
+      80% 0%,
+      50% 30%
+    );
+
+    transition: 0.5s;
+}
+
+.close:hover {
+    background-color: red;
+}

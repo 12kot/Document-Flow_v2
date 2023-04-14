@@ -6,13 +6,13 @@ import deleteFileStorage from "../../API/Storage/deleteFileStorage";
 import uploadFile from "../../API/Storage/uploadFileStorage";
 
 export const share = async (file, newUserEmail, userEmail) => {
-  if (!(await _checkUser(newUserEmail))) {
-    alert("Пользователь не найден");
-    return false;
-  }
-
   if (!_checkAccess(file.ownerEmail, userEmail)) {
     alert("Вы не являетесь владельцем данного файла.");
+    return false;
+  }
+  
+  if (!(await _checkUser(newUserEmail))) {
+    alert("Пользователь не найден");
     return false;
   }
 
