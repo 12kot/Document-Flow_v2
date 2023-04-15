@@ -31,7 +31,6 @@ const DiskPageContainer = () => {
     fetchUserData();
   }, []);
 
-  //эти 3 перекинуть в другой файл
   const changeSearchText = (text) => {
     dispatch(setSearchText({ text }));
     dispatch(searchFile({ text }));
@@ -41,13 +40,12 @@ const DiskPageContainer = () => {
     dispatch(changeSortType({ text }));
   };
 
-  //эти 3 перекинуть в другой файл
   const shareFile = async (file, newUserEmail) => {
     alert("Делимся");
 
     let isShare = await share(file, newUserEmail, currentUser.email);
     if (isShare) {
-      dispatch(addUserOnFile({ fileId: file.id, userEmail: newUserEmail })); //добавляем нового юзера в локальный стейт
+      dispatch(addUserOnFile({ fileId: file.id, userEmail: newUserEmail }));
     }
   };
 

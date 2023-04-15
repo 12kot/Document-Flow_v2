@@ -3,6 +3,7 @@ import styles from "./Modal.module.css";
 import Input from "../../../../UI/Input/Input";
 import User from "./User/User";
 import { v4 } from "uuid";
+import copy from "copy-to-clipboard";
 
 const Modal = ({
   active,
@@ -17,7 +18,8 @@ const Modal = ({
   const [userEmail, setUserEmail] = useState("");
 
   const copyLink = () => {
-    navigator.clipboard.writeText(path);
+    copy(path.toString())
+    alert("Ссылка скопирована в буфер обмена");
   };
 
   const share = () => {

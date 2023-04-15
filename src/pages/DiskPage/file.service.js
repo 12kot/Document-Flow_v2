@@ -34,7 +34,7 @@ export const share = async (file, newUserEmail, userEmail) => {
 
 export const upload = async (file, userEmail) => {
   let newFile = await uploadFile(file, userEmail);
-  uploadFileDB(userEmail, newFile);
+  await uploadFileDB(userEmail, newFile);
   return newFile;
 };
 

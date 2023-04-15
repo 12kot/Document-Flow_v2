@@ -10,6 +10,7 @@ import Loader from "../../UI/Loader/Loader";
 const DiskPage = (props) => {
   const files = useSelector((state) => state.user.files);
   const myFiles = files.filter((file) => file.ownerEmail === props.userEmail);
+  
   const othersFiles = files.filter(
     (file) => file.ownerEmail !== props.userEmail
   );
@@ -62,6 +63,8 @@ const DiskPage = (props) => {
         <h2>С вами поделились</h2>
         <div className={styles.fileList}>{getFiles(othersFiles)}</div>
       </div>
+
+      <div className={styles.icons}>Icons made by www.flaticon.com</div>
     </div>
   );
 };
