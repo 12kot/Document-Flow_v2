@@ -1,6 +1,6 @@
 import DiskPage from "./DiskPage";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchText, changeSortType } from "../../store/slices/diskSlice";
+import { setSearchText } from "../../store/slices/diskSlice";
 import {
   addFile,
   addUserOnFile,
@@ -16,7 +16,7 @@ import { deleteAccess, deleteFile, share, upload } from "./file.service";
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
-  const { search, sortType } = useSelector((state) => state.disk);
+  const { search } = useSelector((state) => state.disk);
 
   const [isFilesLoading, setIsFilesLoading] = useState(true);
   const [isUploadLoading, setIsUploadLoading] = useState(false);
@@ -34,10 +34,6 @@ const DiskPageContainer = () => {
   const changeSearchText = (text) => {
     dispatch(setSearchText({ text }));
     dispatch(searchFile({ text }));
-  };
-
-  const changeSortText = (text) => {
-    dispatch(changeSortType({ text }));
   };
 
   const shareFile = async (file, newUserEmail) => {
@@ -77,12 +73,12 @@ const DiskPageContainer = () => {
     <DiskPage
       searchValue={search}
       changeSearchText={changeSearchText}
-      sortTypeValue={sortType}
-      changeSortText={changeSortText}
+
       shareFile={shareFile}
       handleFile={handleFile}
       removeFile={deleteObj}
       deleteUserOnFile={deleteUserOnFile}
+
       isFilesLoading={isFilesLoading}
       isUploadLoading={isUploadLoading}
       userEmail={currentUser.email}

@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
     search: "",
-    sortType: "",
 };
 
 const diskSlice = createSlice({
@@ -12,12 +11,9 @@ const diskSlice = createSlice({
         setSearchText(state, action) {
             state.search = action.payload.text;
         },
-        setSortType(state, action) {
-            state.sortType = action.payload.text;
-        },
     },
 });
 
-export const { setSearchText, changeSortType } = diskSlice.actions;
+export const { setSearchText } = diskSlice.actions;
 
 export default diskSlice;

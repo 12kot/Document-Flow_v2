@@ -24,7 +24,7 @@ const DiskPage = (props) => {
 
     return newFiles.map(
       (
-        file //кинуть весь файл по пропсам
+        file
       ) => (
         <File
           file={file}

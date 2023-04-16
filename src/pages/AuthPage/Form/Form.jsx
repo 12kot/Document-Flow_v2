@@ -5,7 +5,6 @@ import Button from "../../../UI/Button/Button";
 import Loader from "../../../UI/Loader/Loader";
 import { NavLink } from "react-router-dom";
 
-//импортировать здесь email, setEmail, pass, setPass
 const Form = (props) => {
   return (
     <form className={styles.container}>
