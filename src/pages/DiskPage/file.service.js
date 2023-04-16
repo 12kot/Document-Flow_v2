@@ -4,23 +4,31 @@ import updateFileUsers from "../../API/DB/updateFileUsers";
 import uploadFileDB from "../../API/DB/uploadFileData";
 import deleteFileStorage from "../../API/Storage/deleteFileStorage";
 import uploadFile from "../../API/Storage/uploadFileStorage";
+import HandleMessage from "../../functions/HandleMessage";
 
 export const share = async (file, newUserEmail, userEmail) => {
+  if (!newUserEmail || newUserEmail.trim().length === 0) {
+    HandleMessage("Поле должно быть заполнено", false);
+    return false;
+  }
+
   if (!_checkAccess(file.ownerEmail, userEmail)) {
-    alert("Вы не являетесь владельцем данного файла.");
+    HandleMessage("Вы не являетесь владельцем данного файла", false);
     return false;
   }
   
   if (!(await _checkUser(newUserEmail))) {
-    alert("Пользователь не найден");
+    HandleMessage("Пользователь не найден", false);
     return false;
   }
 
   if (!_checkUsers(file.ownerEmail, newUserEmail, file.usersEmail)) {
-    alert("Данный пользователь уже имеет доступ к этому файлу.");
+    HandleMessage("Данный пользователь уже имеет доступ к этому файлу", false);
     return false;
   }
 
+  HandleMessage("Начинаем делиться", true);
+  
   await uploadFileDB(newUserEmail, file); //добавляем файл к новому юзеру
 
   let usersEmail = [...file.usersEmail, file.ownerEmail, newUserEmail]; //все емейлы в кучу
@@ -28,7 +36,7 @@ export const share = async (file, newUserEmail, userEmail) => {
     if (user) await updateFileUsers(user, file.id, usersEmail); //добавляем новый емейл во все экземпляры файла
   }
 
-  alert("Поделились");
+  HandleMessage("Поделились", true);
   return true;
 };
 
@@ -39,6 +47,8 @@ export const upload = async (file, userEmail) => {
 };
 
 export const deleteFile = async (file, userEmail) => {
+  HandleMessage("Начинаем удалять", true);
+
   let users = [...file.usersEmail];
   if (!file.usersEmail.includes(file.ownerEmail)) users.push(file.ownerEmail);
 
@@ -53,39 +63,42 @@ export const deleteFile = async (file, userEmail) => {
     return;
   }
 
-  await deleteFileStorage(file.fullPath).then().catch(console.log); //удаляем из памяти
+  await deleteFileStorage(file.fullPath).then().catch((error) => HandleMessage(error, false)); //удаляем из памяти
+  
   for (let user of users) {
     await deleteFileDB(user, file.id);
-    }
-    
-    alert("Удалили");
+  }
+  
+  HandleMessage("Удалили", true);
 };
 
 export const deleteAccess = async (file, oldUser, newUser) => {
   if (!(await _checkUser(newUser))) {
-    alert("Пользователь не найден.");
+    HandleMessage("Пользователь не найден", false);
     return false;
   }
 
   if (!_checkAccess(file.ownerEmail, oldUser)) {
-    alert("Вы не являетесь владельцем файла");
+    HandleMessage("Вы не являетесь владельцем файла", false);
     return false;
   }
 
   if (_checkUsers(file.ownerEmail, newUser, file.usersEmail)) {
-    alert("У данного пользователя нет доступа к файлу");
+    HandleMessage("У данного пользователя нет доступа к файлу", false);
     return false;
   }
 
   if (oldUser === newUser) {
-    alert(
-      "Вы не можете удалить доступ у самого себя. Воспользуйтесь кнопкой delete"
+    HandleMessage(
+      "Вы не можете удалить доступ у самого себя. Воспользуйтесь кнопкой delete", false
     );
     return false;
   }
 
+  HandleMessage("Начинаем закрывать доступ", true);
+
   await deleteFile(file, newUser);
-  alert("Доступ для пользователя успешно закрыт");
+  HandleMessage("Доступ для пользователя успешно закрыт", false);
   return true;
 };
 

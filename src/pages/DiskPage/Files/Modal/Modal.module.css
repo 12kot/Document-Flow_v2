@@ -9,8 +9,8 @@
   justify-content: center;
 
   opacity: 0;
-  pointer-events: none;
   transition: 0.4s;
+  pointer-events: none;
   backdrop-filter: blur(4px);
 }
 

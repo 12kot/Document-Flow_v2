@@ -4,6 +4,7 @@ import Input from "../../../../UI/Input/Input";
 import User from "./User/User";
 import { v4 } from "uuid";
 import copy from "copy-to-clipboard";
+import HandleMessage from "../../../../functions/HandleMessage";
 
 const Modal = ({
   active,
@@ -19,7 +20,7 @@ const Modal = ({
 
   const copyLink = () => {
     copy(path.toString())
-    alert("Ссылка скопирована в буфер обмена");
+    HandleMessage("Ссылка скопирована в буфер обмена", true);
   };
 
   const share = () => {

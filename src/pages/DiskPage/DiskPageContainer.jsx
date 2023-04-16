@@ -37,8 +37,6 @@ const DiskPageContainer = () => {
   };
 
   const shareFile = async (file, newUserEmail) => {
-    alert("Делимся");
-
     let isShare = await share(file, newUserEmail, currentUser.email);
     if (isShare) {
       dispatch(addUserOnFile({ fileId: file.id, userEmail: newUserEmail }));
@@ -54,15 +52,11 @@ const DiskPageContainer = () => {
   };
 
   const deleteObj = async (file) => {
-    alert("Удаляем.");
-
     await deleteFile(file, currentUser.email);
     dispatch(removeFile({ path: file.fullPath }));
   };
 
   const deleteUserOnFile = async (file, user) => {
-    alert("Начинаем закрывать доступ");
-
     let isDelete = await deleteAccess(file, currentUser.email, user);
     if (isDelete) {
       dispatch(removeUserOnFile({ fileId: file.id, userEmail: user })); //добавляем нового юзера в локальный стейт

@@ -5,6 +5,7 @@ import LoginPage from "./LoginPage";
 import login from "../../../API/Auth/login";
 import { setUser } from "../../../store/slices/userSlice";
 import getUserData from "../../../API/DB/getUserData";
+import HandleMessage from "../../../functions/HandleMessage";
 
 const LoginPageContainer = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,8 @@ const LoginPageContainer = () => {
         return <Navigate to="/disk" />;
       })
       .catch((error) => {
-        alert(error);
+        HandleMessage(error, false);
+        
         setIsLoading(false);
       });
   };

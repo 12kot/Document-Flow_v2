@@ -6,6 +6,7 @@ import registration from "../../../API/Auth/registration";
 import { changeRepeatPass } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
 import createUser from "../../../API/DB/createUserOnDB";
+import HandleMessage from "../../../functions/HandleMessage";
 
 const RegisterPageContainer = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,8 @@ const RegisterPageContainer = () => {
         return <Navigate to="/disk" />;
       })
       .catch((error) => {
-        alert(error);
+        HandleMessage(error, false);
+        
         setIsLoading(false);
       });
   };

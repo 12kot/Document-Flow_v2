@@ -13,11 +13,13 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import poputMessageSlice from "./slices/poputMessageSlice";
 
 const rootReducer = combineReducers({
   user: userSlice.reducer,
   auth: authSlice.reducer,
   disk: diskSlice.reducer,
+  messages: poputMessageSlice.reducer,
 });
 
 const persistConfig = {
