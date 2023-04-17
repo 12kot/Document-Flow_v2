@@ -1,31 +1,38 @@
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const HandleMessage = (text, type) => {
-  let mes = type ? "Успех!\n" : "Неудача :(\n";
   text = text.message ? text.message.trim() : text.trim();
 
   if (text.startsWith("Firebase")) text = text.slice(17, text.length - 2);
-  
+
   switch (text) {
     case "auth/email-already-in-use":
     case "auth/email-already-exists":
-      mes += "Почта занята другим пользователем";
+      text = "Почта занята другим пользователем";
       break;
-    
+
     case "auth/invalid-email":
-      mes += "Почта введена неверно. Проверьте правильность введённых данных";
+      text = "Почта введена неверно. Проверьте правильность введённых данных";
       break;
     case "auth/user-not-found":
-      mes += "Пользователь не найден";
+      text = "Пользователь не найден";
       break;
     case "auth/wrong-password":
-      mes += "Введены неверные данные. Проверьте правильность введённых данных";
+      text = "Введены неверные данные. Проверьте правильность введённых данных";
       break;
 
     default:
-      mes += text;
       break;
   }
 
-  alert(mes);
+  let notify;
+
+  if (type === "success") notify = () => toast.success(text);
+  else if (type === "info") notify = () => toast.info(text);
+  else notify = () => toast.error(text);
+
+  notify();
 };
 
 export default HandleMessage;

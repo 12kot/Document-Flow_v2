@@ -17,23 +17,22 @@ const LoginPageContainer = () => {
 
     await login(email, password)
       .then(async (user) => {
-
         let userData = await getUserData(user.user.email);
         dispatch(setUser({ ...userData }));
-        
+
         setIsLoading(false);
+        HandleMessage("Вы успешно авторизовались", "success");
         return <Navigate to="/disk" />;
       })
       .catch((error) => {
-        HandleMessage(error, false);
-        
+        HandleMessage(error, "error");
         setIsLoading(false);
       });
   };
 
   return (
     <div>
-        <LoginPage handleLogin={handleLogin} isLoading={isLoading} />
+      <LoginPage handleLogin={handleLogin} isLoading={isLoading} />
     </div>
   );
 };

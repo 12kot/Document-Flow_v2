@@ -35,12 +35,12 @@ const RegisterPageContainer = () => {
         userData.files = [];
         dispatch(setUser({ ...userData }));
         
+        HandleMessage("Вы успешно зарегестрировались", "success");
         setIsLoading(false);
         return <Navigate to="/disk" />;
       })
       .catch((error) => {
-        HandleMessage(error, false);
-        
+        HandleMessage(error, "error");
         setIsLoading(false);
       });
   };

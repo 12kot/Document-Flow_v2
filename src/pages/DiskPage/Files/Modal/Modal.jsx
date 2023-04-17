@@ -20,7 +20,7 @@ const Modal = ({
 
   const copyLink = () => {
     copy(path.toString())
-    HandleMessage("Ссылка скопирована в буфер обмена", true);
+    HandleMessage("Ссылка скопирована в буфер обмена", "success");
   };
 
   const share = () => {

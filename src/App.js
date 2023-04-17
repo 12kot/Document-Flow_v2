@@ -8,6 +8,7 @@ import LoginPageContainer from "./pages/AuthPage/LoginPage/LoginPageContainer";
 import RegisterPageContainer from "./pages/AuthPage/RegisterPage/RegisterPageContainer";
 import Protected from "./functions/Protected";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -47,6 +48,13 @@ const App = () => {
           />
         </Routes>
       </div>
+
+      <ToastContainer
+        position="bottom-right"
+        theme="dark"
+        pauseOnFocusLoss={false}
+        pauseOnHover={false}
+      />
     </div>
   );
 };

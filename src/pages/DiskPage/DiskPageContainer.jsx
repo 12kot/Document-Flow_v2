@@ -59,7 +59,7 @@ const DiskPageContainer = () => {
   const deleteUserOnFile = async (file, user) => {
     let isDelete = await deleteAccess(file, currentUser.email, user);
     if (isDelete) {
-      dispatch(removeUserOnFile({ fileId: file.id, userEmail: user })); //добавляем нового юзера в локальный стейт
+      dispatch(removeUserOnFile({ fileId: file.id, userEmail: user }));
     }
   };
 
