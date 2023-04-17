@@ -35,7 +35,7 @@ const RegisterPageContainer = () => {
         userData.files = [];
         dispatch(setUser({ ...userData }));
         
-        HandleMessage("Вы успешно зарегестрировались", "success");
+        HandleMessage("Вы успешно зарегистрировались", "success");
         setIsLoading(false);
         return <Navigate to="/disk" />;
       })

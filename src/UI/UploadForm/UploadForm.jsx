@@ -23,7 +23,6 @@ const UploadForm = (props) => {
   }
   
   const uploadFile = (file) => {
-    debugger
     props.uploadFile(file);
   };
 

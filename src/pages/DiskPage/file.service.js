@@ -1,5 +1,6 @@
 import deleteFileDB from "../../API/DB/deleteFileData";
 import getUserData from "../../API/DB/getUserData";
+import getUserFiles from "../../API/DB/getUserFiles";
 import updateFileUsers from "../../API/DB/updateFileUsers";
 import uploadFileDB from "../../API/DB/uploadFileData";
 import deleteFileStorage from "../../API/Storage/deleteFileStorage";
@@ -43,7 +44,13 @@ export const share = async (file, newUserEmail, userEmail) => {
   return true;
 };
 
-export const upload = async (file, userEmail) => {
+export const upload = async (file, userEmail, filesState) => {
+  if (!file) { HandleMessage("Выберите файл", "error"); return false; }
+
+  const files = await getUserFiles(userEmail);
+  if (!_checkFilesName(file.name, files)) { HandleMessage("Файл с таким названием уже существует", "error"); return false; };
+  if (!_checkFilesName(file.name, filesState)) { HandleMessage("Файл с таким названием уже существует", "error"); return false; };
+
   userEmail = userEmail.toLowerCase();
   HandleMessage("Загружаем файл", "info");
 
@@ -113,6 +120,14 @@ export const deleteAccess = async (file, oldUser, newUser) => {
   HandleMessage("Доступ для пользователя успешно закрыт", "success");
   return true;
 };
+
+const _checkFilesName = (name, files) => {
+  for (let file of files) {
+    if (file.name === name) return false
+  }
+
+  return true;
+}
 
 const _checkUser = async (newUser) => {
   newUser = newUser.toLowerCase();

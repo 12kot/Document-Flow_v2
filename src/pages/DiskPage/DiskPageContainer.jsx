@@ -46,8 +46,10 @@ const DiskPageContainer = () => {
   const handleFile = async (file) => {
     setIsUploadLoading(true);
 
-    let newFile = await upload(file, currentUser.email);
-    dispatch(addFile({ ...newFile }));
+    let newFile = await upload(file, currentUser.email, currentUser.files);
+    if(!!newFile)
+      dispatch(addFile({ ...newFile }));
+    
     setIsUploadLoading(false);
   };
 

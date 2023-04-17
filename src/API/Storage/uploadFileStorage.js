@@ -1,10 +1,10 @@
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import getDownloadURLFiles from "./getDownloadUrlFiles";
+import HandleMessage from "../../functions/HandleMessage";
 
 const uploadFileStorage = async (file, email) => {
-  if (!file)
-    return new Promise((resolve, reject) => reject(new Error("Выберите файл")));
+  if (!file) { HandleMessage("Выберите файл", "error"); return {}; }
 
   const fileRef = ref(storage, `${email}/${file.name}`);
 
