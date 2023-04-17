@@ -13,7 +13,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
-      state.email = action.payload.email.toLowerCase;
+      state.email = action.payload.email.toLowerCase();
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
       state.isLoggedIn = true;
