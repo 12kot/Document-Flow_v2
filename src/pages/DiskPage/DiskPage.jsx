@@ -34,7 +34,7 @@ const DiskPage = (props) => {
           deleteUserOnFile={props.deleteUserOnFile}
         />
       )
-    );
+    ).reverse();
   };
 
   return (

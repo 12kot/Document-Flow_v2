@@ -21,8 +21,8 @@ const Header = (props) => {
         <span className={styles.item}>
           {!!email ? <NavLink className={styles.logOut} to="/login" onClick={logOutUser}>{email} (выйти)</NavLink> : (
             <div className={styles.auth}>
-              <span className={styles.authItem}><NavLink to="/login"> Войти </NavLink></span>
-              <span className={`${styles.authItem} ${styles.regItem}`}><NavLink to="/register"> Регистрация </NavLink></span>
+              <span className={styles.authItem}><NavLink onClick={logOutUser} to="/login"> Войти </NavLink></span>
+              <span className={`${styles.authItem} ${styles.regItem}`}><NavLink onClick={logOutUser}  to="/register"> Регистрация </NavLink></span>
             </div>
           )}
         </span>
