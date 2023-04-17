@@ -7,6 +7,9 @@ import uploadFile from "../../API/Storage/uploadFileStorage";
 import HandleMessage from "../../functions/HandleMessage";
 
 export const share = async (file, newUserEmail, userEmail) => {
+  newUserEmail = newUserEmail.toLowerCase();
+  userEmail = userEmail.toLowerCase();
+
   if (!newUserEmail || newUserEmail.trim().length === 0) {
     HandleMessage("Поле должно быть заполнено", "error");
     return false;
@@ -33,7 +36,7 @@ export const share = async (file, newUserEmail, userEmail) => {
 
   let usersEmail = [...file.usersEmail, file.ownerEmail, newUserEmail]; //все емейлы в кучу
   for (let user of usersEmail) {
-    if (user) await updateFileUsers(user, file.id, usersEmail); //добавляем новый емейл во все экземпляры файла
+    if (user.toLowerCase()) await updateFileUsers(user.toLowerCase(), file.id, usersEmail); //добавляем новый емейл во все экземпляры файла
   }
 
   HandleMessage("Поделились", "success");
@@ -41,6 +44,7 @@ export const share = async (file, newUserEmail, userEmail) => {
 };
 
 export const upload = async (file, userEmail) => {
+  userEmail = userEmail.toLowerCase();
   HandleMessage("Загружаем файл", "info");
 
   let newFile = await uploadFile(file, userEmail);
@@ -51,6 +55,7 @@ export const upload = async (file, userEmail) => {
 };
 
 export const deleteFile = async (file, userEmail) => {
+  userEmail = userEmail.toLowerCase();
   HandleMessage("Начинаем удалять", "info");
 
   let users = [...file.usersEmail];
@@ -61,7 +66,7 @@ export const deleteFile = async (file, userEmail) => {
 
     let newUsers = users.filter((user) => user !== userEmail);
     for (let user of newUsers) {
-      await updateFileUsers(user, file.id, newUsers);
+      await updateFileUsers(user.toLowerCase(), file.id, newUsers);
     }
 
     return;
@@ -70,13 +75,16 @@ export const deleteFile = async (file, userEmail) => {
   await deleteFileStorage(file.fullPath).then().catch((error) => HandleMessage(error, "error")); //удаляем из памяти
   
   for (let user of users) {
-    await deleteFileDB(user, file.id);
+    await deleteFileDB(user.toLowerCase(), file.id);
   }
   
   HandleMessage("Удалили", "success");
 };
 
 export const deleteAccess = async (file, oldUser, newUser) => {
+  oldUser = oldUser.toLowerCase();
+  newUser = newUser.toLowerCase();
+
   if (!(await _checkUser(newUser))) {
     HandleMessage("Пользователь не найден", "error");
     return false;
@@ -107,9 +115,10 @@ export const deleteAccess = async (file, oldUser, newUser) => {
 };
 
 const _checkUser = async (newUser) => {
+  newUser = newUser.toLowerCase();
   if (newUser.trim() === "") return false;
 
-  let user = await getUserData(newUser.toLowerCase());
+  let user = await getUserData(newUser);
 
   if (!user.email) {
     return false;
@@ -119,7 +128,8 @@ const _checkUser = async (newUser) => {
 };
 
 const _checkAccess = (ownerEmail, oldUser) => {
-  if (ownerEmail !== oldUser) {
+
+  if (ownerEmail.toLowerCase() !== oldUser.toLowerCase()) {
     return false;
   }
 
@@ -127,7 +137,7 @@ const _checkAccess = (ownerEmail, oldUser) => {
 };
 
 const _checkUsers = (ownerEmail, userEmail, users) => {
-  if (ownerEmail === userEmail || users.includes(userEmail)) {
+  if (ownerEmail.toLowerCase() === userEmail.toLowerCase() || users.includes(userEmail.toLowerCase())) {
     return false;
   }
 

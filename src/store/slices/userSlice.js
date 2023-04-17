@@ -13,7 +13,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
-      state.email = action.payload.email;
+      state.email = action.payload.email.toLowerCase;
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
       state.isLoggedIn = true;
@@ -45,7 +45,7 @@ const userSlice = createSlice({
     addUserOnFile(state, action) {
       for (let file of state.files) {
         if (file.id === action.payload.fileId) {
-          file.usersEmail.push(action.payload.userEmail);
+          file.usersEmail.push(action.payload.userEmail.toLowerCase());
           break;
         }
       }
