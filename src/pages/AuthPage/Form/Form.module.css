@@ -73,8 +73,25 @@
   color: #fff;
 }
 
+.forgotPass {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  align-items: center;
+}
+
+.forgotPass p { grid-area: 1 / 1 / 2 / 2; }
+.forgot { grid-area: 1 / 2 / 2 / 3; }
+
 @media all and (max-width: 800px) {
   .item {
     width: 80%;
+  }
+  .forgotPass {
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
   }
 }

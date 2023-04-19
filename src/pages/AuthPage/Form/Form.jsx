@@ -71,16 +71,20 @@ const Form = (props) => {
             <p>
               Нет аккаунта? <NavLink to="/register">Зарегистрироваться</NavLink>
             </p>
-            <NavLink to="" onClick={() => setModalActive(true)}>
-              Восстановить пароль
-            </NavLink>
-            <ForgotPass
-              active={modalActive}
-              setActive={setModalActive}
-              handleForgot={props.handleForgot}
-              email={props.email}
-              setEmail={props.setEmail}
-            />
+            <div className={styles.forgot}>
+              <p>
+                <NavLink onClick={() => setModalActive(true)}>
+                  Восстановить пароль
+                </NavLink>
+                </p>
+              <ForgotPass
+                active={modalActive}
+                setActive={setModalActive}
+                handleForgot={props.handleForgot}
+                email={props.email}
+                setEmail={props.setEmail}
+              />
+            </div>
           </div>
         ) : (
           <p>

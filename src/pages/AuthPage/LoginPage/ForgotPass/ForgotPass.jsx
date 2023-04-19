@@ -28,6 +28,7 @@ const ForgotPass = (props) => {
             <div className={styles.close} />
           </span>
         </div>
+        
         <Input
           type="email"
           value={props.email}
