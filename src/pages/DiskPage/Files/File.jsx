@@ -7,7 +7,6 @@ const File = (props) => {
   const [menuActive, setMenuActive] = useState(false);
   const [modalActive, setModalActive] = useState(false);
 
-
   const chooseIcon = () => {
     let indexOFDot = props.file.name.lastIndexOf(".");
     let name = props.file.name.slice(indexOFDot + 1); 

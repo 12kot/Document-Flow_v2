@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Form.module.css";
 import Input from "../../../UI/Input/Input";
 import Button from "../../../UI/Button/Button";
 import Loader from "../../../UI/Loader/Loader";
 import { NavLink } from "react-router-dom";
+import ForgotPass from "../LoginPage/ForgotPass/ForgotPass";
 
 const Form = (props) => {
+  const [modalActive, setModalActive] = useState(false);
+
   return (
     <form className={styles.container}>
       <span className={styles.action}>
@@ -64,9 +67,21 @@ const Form = (props) => {
 
       <div className={styles.register}>
         {props.isLogin ? (
-          <p>
-            Нет аккаунта? <NavLink to="/register">Зарегистрироваться</NavLink>
-          </p>
+          <div className={styles.forgotPass}>
+            <p>
+              Нет аккаунта? <NavLink to="/register">Зарегистрироваться</NavLink>
+            </p>
+            <NavLink to="" onClick={() => setModalActive(true)}>
+              Восстановить пароль
+            </NavLink>
+            <ForgotPass
+              active={modalActive}
+              setActive={setModalActive}
+              handleForgot={props.handleForgot}
+              email={props.email}
+              setEmail={props.setEmail}
+            />
+          </div>
         ) : (
           <p>
             Есть аккаунт? <NavLink to="/login">Войти</NavLink>

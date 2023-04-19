@@ -6,6 +6,7 @@ import login from "../../../API/Auth/login";
 import { setUser } from "../../../store/slices/userSlice";
 import getUserData from "../../../API/DB/getUserData";
 import HandleMessage from "../../../functions/HandleMessage";
+import forgot from "../../../API/Auth/forgot";
 
 const LoginPageContainer = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,14 @@ const LoginPageContainer = () => {
       });
   };
 
+  const handleForgot = async (setActive) => {
+    await forgot(email);
+    setActive(false);
+  }
+  
   return (
     <div>
-      <LoginPage handleLogin={handleLogin} isLoading={isLoading} />
+      <LoginPage handleLogin={handleLogin} handleForgot={handleForgot} isLoading={isLoading} />
     </div>
   );
 };

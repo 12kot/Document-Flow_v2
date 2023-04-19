@@ -11,6 +11,7 @@ const LoginPage = (props) => {
         <FormContainer
           title="Войти"
           handleClick={props.handleLogin}
+          handleForgot={props.handleForgot}
           isLoading={props.isLoading}
           isLogin={true}
         />
