@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   email: null,
+  name: undefined,
   token: null,
   uid: null,
   isLoggedIn: false,
@@ -14,11 +15,16 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.email = action.payload.email.toLowerCase();
+      state.name = action.payload.name;
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
       state.isLoggedIn = true;
     },
 
+    setUserName(state, action) {
+      state.name = action.payload.name;
+     },
+    
     setFiles(state, action) {
       state.files = action.payload.files;
     },
@@ -54,7 +60,9 @@ const userSlice = createSlice({
     removeUserOnFile(state, action) {
       for (let file of state.files) {
         if (file.id === action.payload.fileId) {
-          file.usersEmail = file.usersEmail.filter((user) => user !== action.payload.userEmail);
+          file.usersEmail = file.usersEmail.filter(
+            (user) => user !== action.payload.userEmail
+          );
           break;
         }
       }
@@ -79,6 +87,7 @@ export const {
   searchFile,
   addUserOnFile,
   removeUserOnFile,
+  setUserName,
 } = userSlice.actions;
 
 export default userSlice;

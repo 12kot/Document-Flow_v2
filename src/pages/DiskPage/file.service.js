@@ -1,4 +1,5 @@
 import deleteFileDB from "../../API/DB/deleteFileData";
+import getUserByName from "../../API/DB/getUserByName";
 import getUserData from "../../API/DB/getUserData";
 import getUserFiles from "../../API/DB/getUserFiles";
 import updateFileUsers from "../../API/DB/updateFileUsers";
@@ -16,40 +17,61 @@ export const share = async (file, newUserEmail, userEmail) => {
     return false;
   }
 
+  if (!newUserEmail.includes("@"))
+    newUserEmail = await getUserByName(newUserEmail);
+
+  if (!newUserEmail) {
+    HandleMessage("Пользователь с таким именем не найден", "error");
+    return false;
+  }
+
   if (!_checkAccess(file.ownerEmail, userEmail)) {
     HandleMessage("Вы не являетесь владельцем данного файла", "error");
     return false;
   }
-  
+
   if (!(await _checkUser(newUserEmail))) {
     HandleMessage("Пользователь не найден", "error");
     return false;
   }
 
   if (!_checkUsers(file.ownerEmail, newUserEmail, file.usersEmail)) {
-    HandleMessage("Данный пользователь уже имеет доступ к этому файлу", "error");
+    HandleMessage(
+      "Данный пользователь уже имеет доступ к этому файлу",
+      "error"
+    );
     return false;
   }
 
   HandleMessage("Начинаем делиться", "info");
-  
+
   await uploadFileDB(newUserEmail, file); //добавляем файл к новому юзеру
 
   let usersEmail = [...file.usersEmail, file.ownerEmail, newUserEmail]; //все емейлы в кучу
   for (let user of usersEmail) {
-    if (user.toLowerCase()) await updateFileUsers(user.toLowerCase(), file.id, usersEmail); //добавляем новый емейл во все экземпляры файла
+    if (user.toLowerCase())
+      await updateFileUsers(user.toLowerCase(), file.id, usersEmail); //добавляем новый емейл во все экземпляры файла
   }
 
   HandleMessage("Поделились", "success");
-  return true;
+  return newUserEmail;
 };
 
 export const upload = async (file, userEmail, filesState) => {
-  if (!file) { HandleMessage("Выберите файл", "error"); return false; }
+  if (!file) {
+    HandleMessage("Выберите файл", "error");
+    return false;
+  }
 
   const files = await getUserFiles(userEmail);
-  if (!_checkFilesName(file.name, files)) { HandleMessage("Файл с таким названием уже существует", "error"); return false; };
-  if (!_checkFilesName(file.name, filesState)) { HandleMessage("Файл с таким названием уже существует", "error"); return false; };
+  if (!_checkFilesName(file.name, files)) {
+    HandleMessage("Файл с таким названием уже существует", "error");
+    return false;
+  }
+  if (!_checkFilesName(file.name, filesState)) {
+    HandleMessage("Файл с таким названием уже существует", "error");
+    return false;
+  }
 
   userEmail = userEmail.toLowerCase();
   HandleMessage("Загружаем файл", "info");
@@ -79,12 +101,14 @@ export const deleteFile = async (file, userEmail) => {
     return;
   }
 
-  await deleteFileStorage(file.fullPath).then().catch((error) => HandleMessage(error, "error")); //удаляем из памяти
-  
+  await deleteFileStorage(file.fullPath)
+    .then()
+    .catch((error) => HandleMessage(error, "error")); //удаляем из памяти
+
   for (let user of users) {
     await deleteFileDB(user.toLowerCase(), file.id);
   }
-  
+
   HandleMessage("Удалили", "success");
 };
 
@@ -109,7 +133,8 @@ export const deleteAccess = async (file, oldUser, newUser) => {
 
   if (oldUser === newUser) {
     HandleMessage(
-      "Вы не можете удалить доступ у самого себя. Воспользуйтесь кнопкой delete", "error"
+      "Вы не можете удалить доступ у самого себя. Воспользуйтесь кнопкой delete",
+      "error"
     );
     return false;
   }
@@ -123,11 +148,11 @@ export const deleteAccess = async (file, oldUser, newUser) => {
 
 const _checkFilesName = (name, files) => {
   for (let file of files) {
-    if (file.name === name) return false
+    if (file.name === name) return false;
   }
 
   return true;
-}
+};
 
 const _checkUser = async (newUser) => {
   newUser = newUser.toLowerCase();
@@ -143,7 +168,6 @@ const _checkUser = async (newUser) => {
 };
 
 const _checkAccess = (ownerEmail, oldUser) => {
-
   if (ownerEmail.toLowerCase() !== oldUser.toLowerCase()) {
     return false;
   }
@@ -152,7 +176,10 @@ const _checkAccess = (ownerEmail, oldUser) => {
 };
 
 const _checkUsers = (ownerEmail, userEmail, users) => {
-  if (ownerEmail.toLowerCase() === userEmail.toLowerCase() || users.includes(userEmail.toLowerCase())) {
+  if (
+    ownerEmail.toLowerCase() === userEmail.toLowerCase() ||
+    users.includes(userEmail.toLowerCase())
+  ) {
     return false;
   }
 

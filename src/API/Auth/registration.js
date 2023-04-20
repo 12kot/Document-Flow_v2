@@ -11,9 +11,9 @@ const registration = (email, password, repeatPassword) => {
       reject(new Error("Введены различные пароли"))
     );
 
-  if (password.length < 8)
+  if (password.length < 6)
     return new Promise((resolve, reject) =>
-      reject(new Error("Длина пароля должна быть более 8 символов"))
+      reject(new Error("Длина пароля должна быть более 6 символов"))
     );
 
   const auth = getAuth();

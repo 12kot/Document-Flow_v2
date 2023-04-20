@@ -37,8 +37,8 @@ const DiskPageContainer = () => {
   };
 
   const shareFile = async (file, newUserEmail) => {
-    let isShare = await share(file, newUserEmail, currentUser.email);
-    if (isShare) {
+    newUserEmail = await share(file, newUserEmail, currentUser.email);
+    if (newUserEmail) {
       dispatch(addUserOnFile({ fileId: file.id, userEmail: newUserEmail }));
     }
   };

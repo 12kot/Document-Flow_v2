@@ -9,7 +9,6 @@ import RegisterPageContainer from "./pages/AuthPage/RegisterPage/RegisterPageCon
 import Protected from "./functions/Protected";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -44,14 +43,6 @@ const App = () => {
             element={
               <Protected isLoggedIn={isLoggedIn} path="/login">
                 <DiskPageContainer />
-              </Protected>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Protected isLoggedIn={isLoggedIn} path="/login">
-                <ProfilePage />
               </Protected>
             }
           />

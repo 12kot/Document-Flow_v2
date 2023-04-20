@@ -33,6 +33,7 @@ const RegisterPageContainer = () => {
 
         await createUser(userData);
         userData.files = [];
+        userData.name = undefined;
         dispatch(setUser({ ...userData }));
         
         HandleMessage("Вы успешно зарегистрировались", "success");
