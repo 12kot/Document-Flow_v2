@@ -28,12 +28,16 @@ const File = (props) => {
   };
 
   return (
-    <form className={styles.container}>
-      <span className={menuActive ? `${styles.name} ${styles.active}` : `${styles.name}`}>
-        <div className={`${styles.item} ${styles.doc_type}`}>
+    <form className={props.gridView ? styles.gridContainer : styles.container}>
+      <span className={menuActive ? `${styles.nameContainer} ${styles.active}` : `${styles.nameContainer}`}>
+        <span className={`${styles.item}`}>
             <img src={chooseIcon()} alt="icon"/>
+        </span>
+        
+        <div className={styles.menuContainer}>
+          <span className={`${styles.item} ${styles.name}`}>{props.file.name}</span>
+          <span className={styles.menu} onClick={() => { setMenuActive(!menuActive) }}><div className={styles.lines} /></span>
         </div>
-        <div className={styles.item}>{props.file.name}</div>
       </span>
 
       <span className={menuActive ? `${styles.actions} ${styles.active}` : `${styles.actions}`}>
@@ -44,10 +48,9 @@ const File = (props) => {
           Удалить
         </div>
         <div className={styles.item} onClick={() => setModalActive(true)}>Права доступа</div>
+        <span className={styles.menuA} onClick={() => { setMenuActive(!menuActive) }}><div className={styles.lines} /></span>
       </span>
 
-      <div className={styles.menu} onClick={() => { setMenuActive(!menuActive) }}><div className={styles.lines} /></div>
-      
       <Modal active={modalActive} setActive={setModalActive} fileName={props.file.name} users={props.file.usersEmail} owner={props.file.ownerEmail} shareFile={shareFile} deleteAccess={deleteAccess} path={props.file.path} />
     </form>
   );

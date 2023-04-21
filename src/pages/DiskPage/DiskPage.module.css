@@ -36,6 +36,12 @@
   margin: 1% 0 0;
 }
 
+.fileListGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .icons {
   display: flex;
   align-items: center;
@@ -47,8 +53,32 @@
 
 }
 
+.displayGrid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.displayGrid p {
+  margin: 0;
+}
+
+.displayGrid img {
+  max-width: 28px;
+  max-height: 28px;
+}
+
 @media all and (max-width: 800px) {
   .addFile {
     margin: 8% 0 0 0;
+  }
+
+  .fileListGrid {
+    justify-content: space-around;
+  }
+
+  .displayGrid img {
+    max-width: 22px;
   }
 }

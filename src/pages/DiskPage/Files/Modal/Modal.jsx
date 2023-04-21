@@ -59,7 +59,7 @@ const Modal = ({
             type="email"
             value={userEmail}
             onChange={setUserEmail}
-            placeholder="Email"
+            placeholder="Email or name"
             color={styles.color}
           />
         </div>
