@@ -9,6 +9,7 @@ const addFolder = async (userEmail, folders, currentFolder, folder) => {
   if (!isValid)
     return false;
 
+  folder = folder.toLowerCase();
   folder = currentFolder ? `${currentFolder}+${folder}` : folder;
   folders = [...folders, folder];
 
@@ -28,6 +29,7 @@ const _isValid = async (folders, currentFolder, folder) => {
     return false;
   }
 
+  folder = folder.toLowerCase();
   if (folder.length > 12) {
     HandleMessage("Название папки не может превышать 12 символов");
     return false;

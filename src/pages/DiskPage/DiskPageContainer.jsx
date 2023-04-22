@@ -6,6 +6,7 @@ import {
   addFolder,
   addUserOnFile,
   removeFile,
+  removeFolder,
   removeUserOnFile,
   searchFile,
   setFiles,
@@ -13,13 +14,15 @@ import {
 import { useEffect, useState } from "react";
 import getUserFiles from "../../API/DB/getUserFiles";
 import { deleteAccess, deleteFile, share, upload } from "./file.service";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import addFolderDB from "../../API/DB/addFolder";
+import deleteFolderDB from "../../API/DB/deleteFolder";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
   const { search } = useSelector((state) => state.disk);
+  const navigate = useNavigate();
 
   let { id } = useParams();
   id = id ? id : "";
@@ -71,11 +74,27 @@ const DiskPageContainer = () => {
   };
 
   const createFolder = async (folder) => {
-    let isAdded = await addFolderDB(currentUser.email, currentUser.folders, id, folder
+    let isAdded = await addFolderDB(
+      currentUser.email,
+      currentUser.folders,
+      id,
+      folder
     );
 
-    if (!!isAdded) 
-      dispatch(addFolder({ folder: isAdded }));
+    if (!!isAdded) dispatch(addFolder({ folder: isAdded }));
+  };
+
+  const deleteFolder = async () => {
+    const isDeleted = await deleteFolderDB(
+      currentUser.email,
+      currentUser.folders,
+      id
+    );
+
+    if (isDeleted) {
+      dispatch(removeFolder({ folder: id }));
+      navigate("/disk");
+    }
   };
 
   return (
@@ -87,6 +106,7 @@ const DiskPageContainer = () => {
       removeFile={deleteObj}
       deleteUserOnFile={deleteUserOnFile}
       createFolder={createFolder}
+      deleteFolder={deleteFolder}
       isFilesLoading={isFilesLoading}
       isUploadLoading={isUploadLoading}
       userEmail={currentUser.email}

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import Files from "./Files";
 
 const Folders = (props) => {
@@ -7,14 +7,8 @@ const Folders = (props) => {
   let { id } = useParams();
     props.folder = id ? id : "";
     
-    const clearFolder = () => {
-        props.folder = "";
-    }
-
   return (
     <div>
-      <NavLink to="/disk" onClick={() => clearFolder()}>{props.folder.replaceAll('+', '/')}</NavLink>
-
       <Files {...props} />
     </div>
   );

@@ -24,7 +24,7 @@ const Header = (props) => {
   };
 
   const updateName = async () => {
-    let access = await updateUserName(user.email, name.toLowerCase());
+    let access = await updateUserName(user.email, name);
     if (access) {
       dispatch(setUserName({ name }));
       setModalActive(false);

@@ -27,6 +27,10 @@ const userSlice = createSlice({
       state.folders.push(action.payload.folder);
     },
 
+    removeFolder(state, actions) {
+      state.folders = state.folders.filter((folder) => folder !== actions.payload.folder);
+    },
+
     setUserName(state, action) {
       state.name = action.payload.name;
      },
@@ -95,6 +99,7 @@ export const {
   removeUserOnFile,
   setUserName,
   addFolder,
+  removeFolder,
 } = userSlice.actions;
 
 export default userSlice;

@@ -22,9 +22,9 @@
 
 .modal_content {
   margin: 5vw 5vw 0;
-  min-height: calc(8rem + 10vh);
-  min-width: calc(7rem + 10vw);
-  max-width: 25rem;
+  min-height: calc(4rem + 8vh);
+  min-width: calc(7rem + 4vw);
+  max-width: 15rem;
 
   background-color: rgb(29, 35, 43);
   color: white;
@@ -49,7 +49,7 @@
   grid-row-gap: 0px;
 }
 
-.closeMenu h3 {
+.closeMenu .input {
   margin: 0;
   font-size: calc(1rem + 0.2vw);
   font-weight: 500;
@@ -87,11 +87,6 @@
 
 .color {
   color: white;
-}
-
-.buttonSize {
-  width: 90%;
-  text-align: center;
 }
 
 .close {

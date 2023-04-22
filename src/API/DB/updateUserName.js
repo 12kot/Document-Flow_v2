@@ -4,11 +4,13 @@ import HandleMessage from "../../functions/HandleMessage";
 import getUserByName from "./getUserByName";
 
 const updateUserName = async (userEmail, name) => {
+  HandleMessage("Обновляем имя", "info");
+  
   if (!await _isValid(name)) {
     return false;
   }
 
-  HandleMessage("Обновляем имя", "info");
+  name = name.toLowerCase();
   const userRef = doc(db, `users/`, userEmail);
 
   await updateDoc(userRef, {
@@ -24,6 +26,7 @@ const _isValid = async (name) => {
     return false;
   }
 
+  name = name.toLowerCase();
   if (name.length < 3) {
     HandleMessage("Имя должно быть длинее 3 символов");
     return false;
