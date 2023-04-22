@@ -52,6 +52,13 @@
   color: rgb(117, 117, 117);
 
 }
+.containerFilesActions {
+  display: flex;
+  flex-direction: row;
+}
+.filesActions {
+  margin: 0 0 0 10px;
+}
 
 .displayGrid {
   display: flex;

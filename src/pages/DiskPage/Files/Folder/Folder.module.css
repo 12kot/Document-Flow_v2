@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  margin: 1% 0 0;
+  min-height: 43px;
+
+  display: flex;
+  flex-direction: row;
+
+  border: none;
+  border-bottom: 3px solid #9b9b9b;
+  color: rgb(117, 117, 117);
+  align-items: center;
+}
+
+.item {
+  margin: 0 2% 0 0;
+  font-size: calc(1rem + 0.2vw);
+}
+
+img {
+  max-width: 35px;
+  margin: 0;
+}

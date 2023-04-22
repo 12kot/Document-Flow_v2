@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../../store/slices/diskSlice";
 import {
   addFile,
+  addFolder,
   addUserOnFile,
   removeFile,
   removeUserOnFile,
@@ -12,11 +13,16 @@ import {
 import { useEffect, useState } from "react";
 import getUserFiles from "../../API/DB/getUserFiles";
 import { deleteAccess, deleteFile, share, upload } from "./file.service";
+import { useParams } from "react-router-dom";
+import addFolderDB from "../../API/DB/addFolder";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
   const { search } = useSelector((state) => state.disk);
+
+  let { id } = useParams();
+  id = id ? id : "";
 
   const [isFilesLoading, setIsFilesLoading] = useState(true);
   const [isUploadLoading, setIsUploadLoading] = useState(false);
@@ -46,10 +52,9 @@ const DiskPageContainer = () => {
   const handleFile = async (file) => {
     setIsUploadLoading(true);
 
-    let newFile = await upload(file, currentUser.email, currentUser.files);
-    if(!!newFile)
-      dispatch(addFile({ ...newFile }));
-    
+    let newFile = await upload(file, currentUser.email, currentUser.files, id);
+    if (!!newFile) dispatch(addFile({ ...newFile }));
+
     setIsUploadLoading(false);
   };
 
@@ -65,16 +70,23 @@ const DiskPageContainer = () => {
     }
   };
 
+  const createFolder = async (folder) => {
+    let isAdded = await addFolderDB(currentUser.email, currentUser.folders, id, folder
+    );
+
+    if (!!isAdded) 
+      dispatch(addFolder({ folder: isAdded }));
+  };
+
   return (
     <DiskPage
       searchValue={search}
       changeSearchText={changeSearchText}
-
       shareFile={shareFile}
       handleFile={handleFile}
       removeFile={deleteObj}
       deleteUserOnFile={deleteUserOnFile}
-
+      createFolder={createFolder}
       isFilesLoading={isFilesLoading}
       isUploadLoading={isUploadLoading}
       userEmail={currentUser.email}

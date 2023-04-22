@@ -7,6 +7,7 @@ const initialState = {
   uid: null,
   isLoggedIn: false,
   files: [],
+  folders: [],
 };
 
 const userSlice = createSlice({
@@ -19,6 +20,11 @@ const userSlice = createSlice({
       state.token = action.payload.accessToken;
       state.uid = action.payload.uid;
       state.isLoggedIn = true;
+      state.folders = action.payload.folders;
+    },
+
+    addFolder(state, action) {
+      state.folders.push(action.payload.folder);
     },
 
     setUserName(state, action) {
@@ -88,6 +94,7 @@ export const {
   addUserOnFile,
   removeUserOnFile,
   setUserName,
+  addFolder,
 } = userSlice.actions;
 
 export default userSlice;

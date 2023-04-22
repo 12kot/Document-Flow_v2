@@ -29,11 +29,13 @@ const RegisterPageContainer = () => {
           email: user.user.email,
           uid: user.user.uid,
           accessToken: user.user.accessToken,
+          folders: [],
         };
 
         await createUser(userData);
         userData.files = [];
         userData.name = undefined;
+
         dispatch(setUser({ ...userData }));
         
         HandleMessage("Вы успешно зарегистрировались", "success");

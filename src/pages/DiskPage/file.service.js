@@ -11,11 +11,13 @@ import HandleMessage from "../../functions/HandleMessage";
 export const share = async (file, newUserEmail, userEmail) => {
   newUserEmail = newUserEmail.toLowerCase();
   userEmail = userEmail.toLowerCase();
-
+  
   if (!newUserEmail || newUserEmail.trim().length === 0) {
     HandleMessage("Поле должно быть заполнено", "error");
     return false;
   }
+  
+  HandleMessage("Начинаем делиться", "info");
 
   if (!newUserEmail.includes("@"))
     newUserEmail = await getUserByName(newUserEmail);
@@ -43,9 +45,8 @@ export const share = async (file, newUserEmail, userEmail) => {
     return false;
   }
 
-  HandleMessage("Начинаем делиться", "info");
-
-  await uploadFileDB(newUserEmail, file); //добавляем файл к новому юзеру
+  let newFile = {...file, folder: ""}
+  await uploadFileDB(newUserEmail, newFile); //добавляем файл к новому юзеру
 
   let usersEmail = [...file.usersEmail, file.ownerEmail, newUserEmail]; //все емейлы в кучу
   for (let user of usersEmail) {
@@ -57,11 +58,13 @@ export const share = async (file, newUserEmail, userEmail) => {
   return newUserEmail;
 };
 
-export const upload = async (file, userEmail, filesState) => {
+export const upload = async (file, userEmail, filesState, folder) => {
   if (!file) {
     HandleMessage("Выберите файл", "error");
     return false;
   }
+  
+  HandleMessage("Загружаем файл", "info");
 
   const files = await getUserFiles(userEmail);
   if (!_checkFilesName(file.name, files)) {
@@ -74,9 +77,10 @@ export const upload = async (file, userEmail, filesState) => {
   }
 
   userEmail = userEmail.toLowerCase();
-  HandleMessage("Загружаем файл", "info");
 
   let newFile = await uploadFile(file, userEmail);
+  newFile.folder = folder;
+  
   await uploadFileDB(userEmail, newFile);
 
   HandleMessage("Файл был успешно загружен", "success");
