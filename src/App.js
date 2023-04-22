@@ -9,6 +9,7 @@ import RegisterPageContainer from "./pages/AuthPage/RegisterPage/RegisterPageCon
 import Protected from "./functions/Protected";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import Files from "./pages/DiskPage/Files";
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -45,7 +46,10 @@ const App = () => {
                 <DiskPageContainer />
               </Protected>
             }
-          />
+          >
+            <Route index element={<Files />} />
+
+          </Route>
         </Routes>
       </div>
 

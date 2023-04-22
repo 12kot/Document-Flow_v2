@@ -35,14 +35,14 @@ const File = (props) => {
         </span>
         
         <div className={styles.menuContainer}>
-          <span className={`${styles.item} ${styles.name}`}>{props.file.name}</span>
+          <span className={`${styles.item} ${styles.name}`} title={props.file.name}>{props.file.name}</span>
           <span className={styles.menu} onClick={() => { setMenuActive(!menuActive) }}><div className={styles.lines} /></span>
         </div>
       </span>
 
       <span className={menuActive ? `${styles.actions} ${styles.active}` : `${styles.actions}`}>
         <div className={styles.item}>
-          <a href={props.file.path}>Скачать</a>
+          <a href={props.file.path} download>Скачать</a>
         </div>
         <div className={styles.item} onClick={removeFile}>
           Удалить
