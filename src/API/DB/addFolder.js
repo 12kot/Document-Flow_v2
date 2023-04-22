@@ -37,9 +37,7 @@ const _isValid = async (folders, currentFolder, folder) => {
 
   if (
     folder.includes("@") ||
-    folder.includes("_") ||
     folder.includes("+") ||
-    folder.includes("-") ||
     folder.includes(")") ||
     folder.includes("(") ||
     folder.includes("*") ||
