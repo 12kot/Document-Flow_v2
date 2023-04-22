@@ -82,3 +82,22 @@ img {
 .gridContainer .name {
   padding: 0 0 2% 0;
 }
+
+@media all and (max-width: 800px) {
+  .container {
+    min-height: 36px;
+  }
+
+  .nameContainer img {
+    max-width: 25px;
+    margin: 4px 0 0;
+  }
+
+  .menuContainer {
+    width: 90%;
+  }
+
+  .gridContainer {
+    margin: 4% 0 0;
+  }
+}
