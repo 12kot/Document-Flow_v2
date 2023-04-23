@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import HandleMessage from "../../functions/HandleMessage";
+import { db } from "../../../firebase";
+import HandleMessage from "../../../functions/HandleMessage";
 
 const deleteFolderDB = async (userEmail, folders, folder) => {
   HandleMessage("Обрабатываем запрос", "info");

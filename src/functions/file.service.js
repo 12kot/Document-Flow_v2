@@ -1,12 +1,14 @@
-import deleteFileDB from "../../API/DB/deleteFileData";
-import getUserByName from "../../API/DB/getUserByName";
-import getUserData from "../../API/DB/getUserData";
-import getUserFiles from "../../API/DB/getUserFiles";
-import updateFileUsers from "../../API/DB/updateFileUsers";
-import uploadFileDB from "../../API/DB/uploadFileData";
-import deleteFileStorage from "../../API/Storage/deleteFileStorage";
-import uploadFile from "../../API/Storage/uploadFileStorage";
-import HandleMessage from "../../functions/HandleMessage";
+import deleteFileDB from "../API/DB/File/deleteFileData";
+import updateFileUsers from "../API/DB/File/updateFileUsers";
+import uploadFileDB from "../API/DB/File/uploadFileData";
+
+import getUserByName from "../API/DB/User/getUserByName";
+import getUserData from "../API/DB/User/getUserData";
+import getUserFiles from "../API/DB/User/getUserFiles";
+
+import deleteFileStorage from "../API/Storage/deleteFileStorage";
+import uploadFile from "../API/Storage/uploadFileStorage";
+import HandleMessage from "./HandleMessage";
 
 export const share = async (file, newUserEmail, userEmail) => {
   newUserEmail = newUserEmail.toLowerCase();

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import login from "../../../API/Auth/login";
 import { setUser } from "../../../store/slices/userSlice";
-import getUserData from "../../../API/DB/getUserData";
+import getUserData from "../../../API/DB/User/getUserData";
 import HandleMessage from "../../../functions/HandleMessage";
 import forgot from "../../../API/Auth/forgot";
 

@@ -5,7 +5,7 @@ import RegisterPage from "./RegisterPage";
 import registration from "../../../API/Auth/registration";
 import { changeRepeatPass } from "../../../store/slices/authSlice";
 import { setUser } from "../../../store/slices/userSlice";
-import createUser from "../../../API/DB/createUserOnDB";
+import createUser from "../../../API/DB/User/createUserOnDB";
 import HandleMessage from "../../../functions/HandleMessage";
 
 const RegisterPageContainer = () => {

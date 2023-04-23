@@ -13,12 +13,13 @@ import {
   setFiles,
 } from "../../store/slices/userSlice";
 import { useEffect, useState } from "react";
-import getUserFiles from "../../API/DB/getUserFiles";
-import { deleteAccess, deleteFile, share, upload } from "./file.service";
+import getUserFiles from "../../API/DB/User/getUserFiles";
+import { deleteAccess, deleteFile, share, upload } from "./../../functions/file.service";
 import { useNavigate, useParams } from "react-router-dom";
-import addFolderDB from "../../API/DB/addFolder";
-import deleteFolderDB from "../../API/DB/deleteFolder";
-import updateFileFolder from "../../API/DB/updateFileFolder";
+
+import addFolderDB from "../../API/DB/Folder/addFolder";
+import deleteFolderDB from "../../API/DB/Folder/deleteFolder";
+import updateFileFolder from "../../API/DB/Folder/updateFileFolder";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();

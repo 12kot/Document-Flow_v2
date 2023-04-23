@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 
 const getUserByName = async (name) => {
   const q = query(collection(db, "users"), where("name", "==", name));

@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import HandleMessage from "../../functions/HandleMessage";
+import { db } from "../../../firebase";
+import HandleMessage from "../../../functions/HandleMessage";
 
 const addFolder = async (userEmail, folders, currentFolder, folder) => {
   HandleMessage("Обрабатываем запрос", "info");

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import styles from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
+import styles from "./Header.module.css";
 import { removeUser } from "../../store/slices/userSlice";
+import { setUserName } from "../../store/slices/userSlice";
+
 import ModalProfile from "./Profile/ModalProfile";
 import forgot from "../../API/Auth/forgot";
-import updateUserName from "../../API/DB/updateUserName";
-import { setUserName } from "../../store/slices/userSlice";
+import updateUserName from "../../API/DB/User/updateUserName";
 
 const Header = (props) => {
   const user = useSelector((state) => state.user);

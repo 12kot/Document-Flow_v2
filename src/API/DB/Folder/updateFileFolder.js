@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import HandleMessage from "../../functions/HandleMessage";
+import { db } from "../../../firebase";
+import HandleMessage from "../../../functions/HandleMessage";
 
 const updateFileFolder = async (userEmail, file, newFolderPath) => {
   if (!file.id) {
