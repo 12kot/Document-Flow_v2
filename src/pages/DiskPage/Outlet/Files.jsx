@@ -114,7 +114,7 @@ const Files = (props) => {
   };
 
   const handleDeleteFolder = () => {
-    if (getFiles(myFiles).length !== 0 || getFolders().length > 1)
+    if (getFiles(myFiles, true).length !== 0 || getFolders().length > 1)
       HandleMessage("Нельзя удалить папку с файлами или папками", "error");
     else if (props.folder === "")
       HandleMessage("Вы не находитесь в папке", "error");
