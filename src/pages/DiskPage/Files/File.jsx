@@ -27,9 +27,13 @@ const File = (props) => {
     props.removeFile(props.file);
   };
 
+  const dragStart = (e) => {
+    e.dataTransfer.setData("currentFile", JSON.stringify(props.file));
+  }
+
   return (
-    <form className={props.gridView ? styles.gridContainer : styles.container}>
-      <span className={menuActive ? `${styles.nameContainer} ${styles.active}` : `${styles.nameContainer}`}>
+    <form className={props.gridView ? styles.gridContainer : styles.container} onDragStart={(e) => dragStart(e)}>
+      <span className={menuActive ? `${styles.nameContainer} ${styles.active}` : `${styles.nameContainer}`} draggable>
         <span className={`${styles.item}`}>
             <img src={chooseIcon()} alt="icon"/>
         </span>

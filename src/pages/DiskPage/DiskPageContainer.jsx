@@ -5,6 +5,7 @@ import {
   addFile,
   addFolder,
   addUserOnFile,
+  changeFileFolder,
   removeFile,
   removeFolder,
   removeUserOnFile,
@@ -17,6 +18,7 @@ import { deleteAccess, deleteFile, share, upload } from "./file.service";
 import { useNavigate, useParams } from "react-router-dom";
 import addFolderDB from "../../API/DB/addFolder";
 import deleteFolderDB from "../../API/DB/deleteFolder";
+import updateFileFolder from "../../API/DB/updateFileFolder";
 
 const DiskPageContainer = () => {
   const dispatch = useDispatch();
@@ -97,16 +99,27 @@ const DiskPageContainer = () => {
     }
   };
 
+  const handlerChangeFileFolder = async (file, newFolderPath) => {
+    dispatch(changeFileFolder({ fileID: file.id, folder: newFolderPath }));
+    const isChange = await updateFileFolder(currentUser.email, file, newFolderPath);
+    
+    if (!isChange) 
+      dispatch(changeFileFolder({ fileID: file.id, folder: id }));
+  }
+
   return (
     <DiskPage
       searchValue={search}
       changeSearchText={changeSearchText}
       shareFile={shareFile}
+
       handleFile={handleFile}
       removeFile={deleteObj}
       deleteUserOnFile={deleteUserOnFile}
       createFolder={createFolder}
       deleteFolder={deleteFolder}
+      changeFileFolder={handlerChangeFileFolder}
+
       isFilesLoading={isFilesLoading}
       isUploadLoading={isUploadLoading}
       userEmail={currentUser.email}

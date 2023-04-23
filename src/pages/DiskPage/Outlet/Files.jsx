@@ -49,12 +49,39 @@ const Files = (props) => {
       );
     });
 
-    return newFolders.map((folder) => {
+    let backFolder;
+    if (props.folder){
+    const pastPath =
+      props.folder.lastIndexOf("+") === -1
+        ? ""
+        : props.folder.slice(0, props.folder.lastIndexOf("+"));
+    
+    backFolder = (
+      <Folder
+        name={".."}
+        path={pastPath}
+        changeFileFolder={props.changeFileFolder}
+        gridView={isGridView}
+        key={props.folder + v4()}
+      />
+    );}
+
+    newFolders = newFolders.map((folder) => {
       let name = folder.includes("+")
         ? folder.slice(props.folder.length + 1)
         : folder;
-      return <Folder name={name} path={folder}  gridView={isGridView} key={folder + v4()} />;
+      return (
+        <Folder
+          name={name}
+          path={folder}
+          changeFileFolder={props.changeFileFolder}
+          gridView={isGridView}
+          key={folder + v4()}
+        />
+      );
     });
+
+    return [backFolder, ...newFolders];
   };
 
   const getFiles = (files) => {
@@ -83,18 +110,26 @@ const Files = (props) => {
   };
 
   const handleDeleteFolder = () => {
-    if (getFiles(myFiles).length !== 0 || getFolders().length !== 0)
+    if (getFiles(myFiles).length !== 0 || getFolders().length > 1)
       HandleMessage("Нельзя удалить папку с файлами или папками", "error");
-    else if (props.folder === "") HandleMessage("Вы не находитесь в папке", "error");
+    else if (props.folder === "")
+      HandleMessage("Вы не находитесь в папке", "error");
     else props.deleteFolder();
   };
 
-  const path = props.folder ? "/" + props.folder.replaceAll('+', '/') : "Ваши файлы";
+  const path = props.folder
+    ? "/" + props.folder.replaceAll("+", "/")
+    : "Ваши файлы";
   return (
     <div className={`${styles.container} ${styles.files}`}>
       <div className={styles.displayGrid}>
-        {path === "Ваши файлы" ? <h2>Ваши файлы</h2> :
-          <h2><NavLink to="/disk">{path}</NavLink></h2>}
+        {path === "Ваши файлы" ? (
+          <h2>Ваши файлы</h2>
+        ) : (
+          <h2>
+            <NavLink to="/disk">{path}</NavLink>
+          </h2>
+        )}
         <span className={styles.containerFilesActions}>
           <img
             className={styles.filesActions}
@@ -140,7 +175,13 @@ const Files = (props) => {
         {getFiles(othersFiles)}
       </span>
 
-      <ModalInput folderName={folderName} setFolderName={setFolderName} createFolder={handleCreateFolder} active={modalActive} setActive={setModalActive} />
+      <ModalInput
+        folderName={folderName}
+        setFolderName={setFolderName}
+        createFolder={handleCreateFolder}
+        active={modalActive}
+        setActive={setModalActive}
+      />
     </div>
   );
 };

@@ -28,13 +28,23 @@ const userSlice = createSlice({
     },
 
     removeFolder(state, actions) {
-      state.folders = state.folders.filter((folder) => folder !== actions.payload.folder);
+      state.folders = state.folders.filter(
+        (folder) => folder !== actions.payload.folder
+      );
+    },
+
+    changeFileFolder(state, actions) {
+      for (let file of state.files)
+        if (file.id === actions.payload.fileID) {
+          file.folder = actions.payload.folder;
+          break;
+        }
     },
 
     setUserName(state, action) {
       state.name = action.payload.name;
-     },
-    
+    },
+
     setFiles(state, action) {
       state.files = action.payload.files;
     },
@@ -100,6 +110,7 @@ export const {
   setUserName,
   addFolder,
   removeFolder,
+  changeFileFolder,
 } = userSlice.actions;
 
 export default userSlice;
