@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./ModalInput.module.css";
-import Input from "../../../../UI/Input/Input";
+import styles from "../Modal.module.css";
+import Input from "../../../../../UI/Input/Input";
 
-const ModalInput = (props) => {
+const InputModal = (props) => {
   return (
     <div
       className={
@@ -41,4 +41,4 @@ const ModalInput = (props) => {
   );
 };
 
-export default ModalInput;
+export default InputModal;

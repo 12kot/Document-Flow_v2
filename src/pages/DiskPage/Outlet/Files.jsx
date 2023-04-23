@@ -14,7 +14,7 @@ import listView from "./../Files/file-icons/listView.png";
 import addFolderIcon from "./../Files/file-icons/addFolder.png";
 import deleteFolderIcon from "./../Files/file-icons/deleteFolder.png";
 import HandleMessage from "../../../functions/HandleMessage";
-import ModalInput from "./ModalInput/ModalInput";
+import InputModal from "../Files/Modal/InputFolderModal/InputModal";
 
 const Files = (props) => {
   props = useOutletContext();
@@ -32,9 +32,27 @@ const Files = (props) => {
   const othersFiles = files.filter(
     (file) => file.ownerEmail !== props.userEmail
   );
-
+  
   const getFolders = () => {
     if (props.isFilesLoading) return <></>;
+
+    let backFolder;
+    if (props.folder) {
+      const pastPath =
+        props.folder.lastIndexOf("+") === -1
+          ? ""
+          : props.folder.slice(0, props.folder.lastIndexOf("+"));
+
+      backFolder = (
+        <Folder
+          name={".."}
+          path={pastPath}
+          changeFileFolder={props.changeFileFolder}
+          gridView={isGridView}
+          key={props.folder + v4()}
+        />
+      );
+    }
 
     let newFolders = folders.filter((folder) => {
       let checkFolder = props.folder
@@ -48,23 +66,6 @@ const Files = (props) => {
         !folder.slice(props.folder.length + 1).includes("+")
       );
     });
-
-    let backFolder;
-    if (props.folder){
-    const pastPath =
-      props.folder.lastIndexOf("+") === -1
-        ? ""
-        : props.folder.slice(0, props.folder.lastIndexOf("+"));
-    
-    backFolder = (
-      <Folder
-        name={".."}
-        path={pastPath}
-        changeFileFolder={props.changeFileFolder}
-        gridView={isGridView}
-        key={props.folder + v4()}
-      />
-    );}
 
     newFolders = newFolders.map((folder) => {
       let name = folder.includes("+")
@@ -84,19 +85,22 @@ const Files = (props) => {
     return [backFolder, ...newFolders];
   };
 
-  const getFiles = (files) => {
+  const getFiles = (files, isMyFiles) => {
     if (props.isFilesLoading) return <Loader />;
 
     let newFiles = files.filter((file) => !file.isHiden);
-    newFiles = newFiles.filter((file) => file.folder === props.folder);
+    if (isMyFiles)
+      newFiles = newFiles.filter((file) => file.folder === props.folder);
 
     return newFiles
       .map((file) => (
         <File
           file={file}
+          changeFileFolder={props.changeFileFolder}
           key={file.fullPath + v4()}
           removeFile={props.removeFile}
           shareFile={props.shareFile}
+          folders={folders}
           deleteUserOnFile={props.deleteUserOnFile}
           gridView={isGridView}
         />
@@ -161,7 +165,7 @@ const Files = (props) => {
         }
       >
         {getFolders()}
-        {getFiles(myFiles)}
+        {getFiles(myFiles, true)}
       </span>
 
       <h2>С вами поделились</h2>
@@ -172,10 +176,10 @@ const Files = (props) => {
             : styles.fileList
         }
       >
-        {getFiles(othersFiles)}
+        {getFiles(othersFiles, false)}
       </span>
 
-      <ModalInput
+      <InputModal
         folderName={folderName}
         setFolderName={setFolderName}
         createFolder={handleCreateFolder}

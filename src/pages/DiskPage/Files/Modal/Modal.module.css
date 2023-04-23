@@ -22,10 +22,9 @@
 
 .modal_content {
   margin: 5vw 5vw 0;
-  height: 65vh;
-  min-height: calc(24rem + 10vh);
-  min-width: calc(15rem + 10vw);
-  max-width: 25rem;
+  min-height: calc(4rem + 8vh);
+  min-width: calc(7rem + 4vw);
+  max-width: 15rem;
 
   background-color: rgb(29, 35, 43);
   color: white;
@@ -50,7 +49,7 @@
   grid-row-gap: 0px;
 }
 
-.closeMenu h3 {
+.closeMenu .input {
   margin: 0;
   font-size: calc(1rem + 0.2vw);
   font-weight: 500;
@@ -68,37 +67,11 @@
   grid-area: 1 / 6 / 2 / 7;
 }
 
-.input {
-  width: 100%;
-  margin: 4% 0 0;
+.save {
+  text-align: center;
 }
 
-.users {
-  margin: 4% 0 0;
-}
-
-.usersContainer {
-  min-height: calc(10rem + 7vh);
-  margin: 4% 0 0;
-  padding: 2% 4%;
-
-  border: 1px solid #2e3744;
-  background-color: rgb(29, 35, 43);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-
-  overflow: hidden;
-}
-
-.actions {
-  margin: 4% 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.addButton {
+.save p {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -108,12 +81,7 @@
 
   transition: 0.3s;
 }
-
-.addButton:hover {
-  opacity: 0.8;
-}
-
-.copyButton:hover {
+.save p:hover {
   opacity: 0.8;
 }
 
@@ -145,17 +113,4 @@
 
 .close:hover {
   background-color: red;
-}
-
-@media all and (max-width: 800px) {
-  .actions {
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
-@media all and (min-width: 801px) {
-  .actions {
-    font-size: calc(1rem + 0.1vw);
-  }
 }

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "./File.module.css";
-import Modal from "./Modal/Modal";
 import undefinedIcon from "./file-icons/undefined.png"
+import ManageModal from "./Modal/ManageModal/ManageModal";
+import FoldersModal from "./Modal/FoldersModal.jsx/FoldersModal";
 
 const File = (props) => {
   const [menuActive, setMenuActive] = useState(false);
-  const [modalActive, setModalActive] = useState(false);
+  const [manageModalActive, setManageModalActive] = useState(false);
+  const [foldersModalActive, setFoldersModalActive] = useState(false);
 
   const chooseIcon = () => {
     let indexOFDot = props.file.name.lastIndexOf(".");
@@ -51,11 +53,13 @@ const File = (props) => {
         <div className={styles.item} onClick={removeFile}>
           Удалить
         </div>
-        <div className={styles.item} onClick={() => setModalActive(true)}>Права доступа</div>
+        <div className={styles.item} onClick={() => setManageModalActive(true)}>Доступ</div>
+        <div className={styles.item} onClick={() => {setFoldersModalActive(true)}}>В папку</div>
         <span className={styles.menuA} onClick={() => { setMenuActive(!menuActive) }}><div className={styles.lines} /></span>
       </span>
 
-      <Modal active={modalActive} setActive={setModalActive} fileName={props.file.name} users={props.file.usersEmail} owner={props.file.ownerEmail} shareFile={shareFile} deleteAccess={deleteAccess} path={props.file.path} />
+      <FoldersModal active={foldersModalActive} setActive={setFoldersModalActive} folders={props.folders} changeFileFolder={props.changeFileFolder} file={props.file} />
+      <ManageModal active={manageModalActive} setActive={setManageModalActive} fileName={props.file.name} users={props.file.usersEmail} owner={props.file.ownerEmail} shareFile={shareFile} deleteAccess={deleteAccess} path={props.file.path} />
     </form>
   );
 };

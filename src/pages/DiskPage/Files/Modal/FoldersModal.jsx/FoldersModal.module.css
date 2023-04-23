@@ -1,0 +1,21 @@
+.folders {
+  height: 100%;
+  margin: 4% 0 0;
+  padding: 2%;
+
+  border: 1px solid #2e3744;
+  background-color: rgb(29, 35, 43);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.folder p {
+  margin: 5px;
+}
+
+.folder:hover {
+  background-color: rgb(39, 47, 58);
+}

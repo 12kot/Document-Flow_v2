@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.css";
-import Input from "../../../../UI/Input/Input";
 import User from "./User/User";
 import { v4 } from "uuid";
 import copy from "copy-to-clipboard";
-import HandleMessage from "../../../../functions/HandleMessage";
+import Input from "../../../../../UI/Input/Input";
+import HandleMessage from "../../../../../functions/HandleMessage";
 
-const Modal = ({
+const ManageModal = ({
   active,
   setActive,
   fileName,
@@ -81,4 +81,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default ManageModal;
