@@ -45,7 +45,24 @@ const _isValid = async (folders, currentFolder, folder) => {
     folder.includes("^") ||
     folder.includes("$") ||
     folder.includes("#") ||
-    folder.includes("!")
+    folder.includes("!") ||
+    folder.includes("/") ||
+    folder.includes("\\") ||
+    folder.includes(".") ||
+    folder.includes("`") ||
+    folder.includes(",") ||
+    folder.includes(":") ||
+    folder.includes(";") ||
+    folder.includes("[") ||
+    folder.includes("]") ||
+    folder.includes("{") ||
+    folder.includes("}") ||
+    folder.includes(">") ||
+    folder.includes("<") ||
+    folder.includes("=") ||
+    folder.includes("~") ||
+    folder.includes("'") ||
+    folder.includes(`"`)
   ) {
     HandleMessage("Название папки не может содержать специальные символы", "error");
     return false;
