@@ -81,7 +81,7 @@ const DiskPageContainer = () => {
       currentUser.email,
       currentUser.folders,
       id,
-      folder
+      folder.trim()
     );
 
     if (!!isAdded) dispatch(addFolder({ folder: isAdded }));
@@ -91,7 +91,7 @@ const DiskPageContainer = () => {
     const isDeleted = await deleteFolderDB(
       currentUser.email,
       currentUser.folders,
-      id
+      id.trim()
     );
 
     if (isDeleted) {

@@ -24,7 +24,7 @@ const addFolder = async (userEmail, folders, currentFolder, folder) => {
 };
 
 const _isValid = async (folders, currentFolder, folder) => {
-  if (!folder) {
+  if (!folder || !folder.trim()) {
     HandleMessage("Поле не может быть пустым", "error");
     return false;
   }
