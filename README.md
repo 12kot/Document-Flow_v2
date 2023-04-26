@@ -1,5 +1,5 @@
 ## demo -> (https://document-flow-8d5f2.web.app/register)
-## This is the final version
+## Next step - TS
 
 # Google drive clone
 react, redux, firebase 
