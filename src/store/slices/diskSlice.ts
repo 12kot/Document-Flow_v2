@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-let initialState = {
+let initialState:{search: string} = {
     search: "",
 };
 
@@ -8,7 +8,7 @@ const diskSlice = createSlice({
     name: "disk",
     initialState,
     reducers: {
-        setSearchText(state, action) {
+        setSearchText(state, action: PayloadAction<{text: string}>) {
             state.search = action.payload.text;
         },
     },

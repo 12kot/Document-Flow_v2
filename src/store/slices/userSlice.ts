@@ -1,10 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
-  email: null,
-  name: undefined,
-  token: null,
-  uid: null,
+type File = {
+  folder: string;
+  fullPath: string;
+  id: number;
+  isHiden: boolean;
+  name: string;
+  ownerEmail: string;
+  path: string;
+  usersEmail: string[];
+};
+
+type UserState = {
+  email: string;
+  token: string;
+  uid: string;
+  files: File[];
+  isLoggedIn: boolean;
+  name?: string;
+  folders: string[];
+};
+
+type SetUserAction = {
+  email: string;
+  accessToken: string;
+  uid: string;
+  files: File[];
+  isLoggedIn: boolean;
+  name: string;
+  folders: string[];
+};
+
+const initialState: UserState = {
+  email: "",
+  name: "",
+  token: "",
+  uid: "",
   isLoggedIn: false,
   files: [],
   folders: [],
@@ -14,7 +45,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action) {
+    setUser(state, action: PayloadAction<SetUserAction>) {
       state.email = action.payload.email.toLowerCase();
       state.name = action.payload.name;
       state.token = action.payload.accessToken;
@@ -23,17 +54,17 @@ const userSlice = createSlice({
       state.folders = action.payload.folders;
     },
 
-    addFolder(state, action) {
+    addFolder(state, action: PayloadAction<{folder: string}>) {
       state.folders.push(action.payload.folder);
     },
 
-    removeFolder(state, actions) {
+    removeFolder(state, actions: PayloadAction<{folder: string}>) {
       state.folders = state.folders.filter(
         (folder) => folder !== actions.payload.folder
       );
     },
 
-    changeFileFolder(state, actions) {
+    changeFileFolder(state, actions: PayloadAction<{fileID: number, folder: string}>) {
       for (let file of state.files)
         if (file.id === actions.payload.fileID) {
           file.folder = actions.payload.folder;
@@ -41,25 +72,25 @@ const userSlice = createSlice({
         }
     },
 
-    setUserName(state, action) {
+    setUserName(state, action: PayloadAction<{name: string}>) {
       state.name = action.payload.name;
     },
 
-    setFiles(state, action) {
+    setFiles(state, action: PayloadAction<{files: File[]}>) {
       state.files = action.payload.files;
     },
 
-    addFile(state, action) {
+    addFile(state, action: PayloadAction<File>) {
       state.files.push(action.payload);
     },
 
-    removeFile(state, action) {
+    removeFile(state, action: PayloadAction<{path: string}>) {
       state.files = state.files.filter(
         (file) => file.fullPath !== action.payload.path
       );
     },
 
-    searchFile(state, action) {
+    searchFile(state, action: PayloadAction<{text: string}>) {
       for (let file of state.files)
         if (
           !file.name.toLowerCase().includes(action.payload.text.toLowerCase())
@@ -68,7 +99,7 @@ const userSlice = createSlice({
         else file.isHiden = false;
     },
 
-    addUserOnFile(state, action) {
+    addUserOnFile(state, action: PayloadAction<{fileId: number, userEmail: string}>) {
       for (let file of state.files) {
         if (file.id === action.payload.fileId) {
           file.usersEmail.push(action.payload.userEmail.toLowerCase());
@@ -77,11 +108,12 @@ const userSlice = createSlice({
       }
     },
 
-    removeUserOnFile(state, action) {
-      for (let file of state.files) {
+    removeUserOnFile(state, action: PayloadAction<{fileId: number, userEmail: string}>) {
+      let file: File;
+      for (file of state.files) {
         if (file.id === action.payload.fileId) {
           file.usersEmail = file.usersEmail.filter(
-            (user) => user !== action.payload.userEmail
+            (user: string) => user !== action.payload.userEmail
           );
           break;
         }
@@ -89,9 +121,10 @@ const userSlice = createSlice({
     },
 
     removeUser(state) {
-      state.email = null;
-      state.token = null;
-      state.id = null;
+      state.email = "";
+      state.token = "";
+      state.uid = "";
+      state.name = "";
       state.isLoggedIn = false;
       state.files = [];
     },
