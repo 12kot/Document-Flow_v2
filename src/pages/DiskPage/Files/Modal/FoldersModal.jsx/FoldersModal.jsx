@@ -9,11 +9,28 @@ const FoldersModal = (props) => {
   };
 
   const getFoldersName = () => {
-    return props.folders.map((folder) => (
-        <div className={styles.folder} key={folder} onClick={() => handleClick(folder)}>
-       <p>{"/" + folder.replaceAll("+", "/")}</p>
+    const rootFolder = (
+      <div
+        className={styles.folder}
+        key={"rootFolder"}
+        onClick={() => handleClick("")}
+      >
+        <p>На главную страницу</p>
       </div>
-    ));
+    );
+
+    return [
+      rootFolder,
+      ...props.folders.map((folder) => (
+        <div
+          className={styles.folder}
+          key={folder}
+          onClick={() => handleClick(folder)}
+        >
+          <p>{"/" + folder.replaceAll("+", "/")}</p>
+        </div>
+      )),
+    ];
   };
 
   return (
