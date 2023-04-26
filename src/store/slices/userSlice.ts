@@ -1,37 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserFile, User } from "../../Types/Types";
 
-type File = {
-  folder: string;
-  fullPath: string;
-  id: number;
-  isHiden: boolean;
-  name: string;
-  ownerEmail: string;
-  path: string;
-  usersEmail: string[];
-};
-
-type UserState = {
-  email: string;
-  token: string;
-  uid: string;
-  files: File[];
-  isLoggedIn: boolean;
-  name?: string;
-  folders: string[];
-};
-
-type SetUserAction = {
-  email: string;
-  accessToken: string;
-  uid: string;
-  files: File[];
-  isLoggedIn: boolean;
-  name: string;
-  folders: string[];
-};
-
-const initialState: UserState = {
+const initialState: User = {
   email: "",
   name: "",
   token: "",
@@ -45,10 +15,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<SetUserAction>) {
+    setUser(state, action: PayloadAction<User>) {
       state.email = action.payload.email.toLowerCase();
       state.name = action.payload.name;
-      state.token = action.payload.accessToken;
+      state.token = action.payload.token;
       state.uid = action.payload.uid;
       state.isLoggedIn = true;
       state.folders = action.payload.folders;
@@ -64,8 +34,9 @@ const userSlice = createSlice({
       );
     },
 
-    changeFileFolder(state, actions: PayloadAction<{fileID: number, folder: string}>) {
-      for (let file of state.files)
+    changeFileFolder(state, actions: PayloadAction<{fileID: string, folder: string}>) {
+      let file: UserFile;
+      for (file of state.files)
         if (file.id === actions.payload.fileID) {
           file.folder = actions.payload.folder;
           break;
@@ -76,11 +47,11 @@ const userSlice = createSlice({
       state.name = action.payload.name;
     },
 
-    setFiles(state, action: PayloadAction<{files: File[]}>) {
+    setFiles(state, action: PayloadAction<{files: UserFile[]}>) {
       state.files = action.payload.files;
     },
 
-    addFile(state, action: PayloadAction<File>) {
+    addFile(state, action: PayloadAction<UserFile>) {
       state.files.push(action.payload);
     },
 
@@ -99,7 +70,7 @@ const userSlice = createSlice({
         else file.isHiden = false;
     },
 
-    addUserOnFile(state, action: PayloadAction<{fileId: number, userEmail: string}>) {
+    addUserOnFile(state, action: PayloadAction<{fileId: string, userEmail: string}>) {
       for (let file of state.files) {
         if (file.id === action.payload.fileId) {
           file.usersEmail.push(action.payload.userEmail.toLowerCase());
@@ -108,8 +79,8 @@ const userSlice = createSlice({
       }
     },
 
-    removeUserOnFile(state, action: PayloadAction<{fileId: number, userEmail: string}>) {
-      let file: File;
+    removeUserOnFile(state, action: PayloadAction<{fileId: string, userEmail: string}>) {
+      let file: UserFile;
       for (file of state.files) {
         if (file.id === action.payload.fileId) {
           file.usersEmail = file.usersEmail.filter(
