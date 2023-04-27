@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { ReactElement, useState } from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
 import { v4 } from "uuid";
+
+import { useAppSelector } from "../../../hooks/hooks";
+import { DiskProps, UserFile } from "../../../Types/Types";
 
 import styles from "./../DiskPage.module.css";
 
@@ -16,12 +18,12 @@ import deleteFolderIcon from "./../Files/file-icons/deleteFolder.png";
 import HandleMessage from "../../../functions/HandleMessage";
 import InputModal from "../Files/Modal/InputFolderModal/InputModal";
 
-const Files = (props) => {
+const Files = (props: DiskProps) => {
   props = useOutletContext();
   props.folder = props.folder ? props.folder : "";
 
-  const files = useSelector((state) => state.user.files);
-  const folders = useSelector((state) => state.user.folders);
+  const files = useAppSelector((state) => state.user.files);
+  const folders = useAppSelector((state) => state.user.folders);
 
   const [folderName, setFolderName] = useState("");
   const [modalActive, setModalActive] = useState(false);
@@ -33,10 +35,10 @@ const Files = (props) => {
     (file) => file.ownerEmail !== props.userEmail
   );
   
-  const getFolders = () => {
-    if (props.isFilesLoading) return <></>;
+  const getFolders = (): ReactElement[] => {
+    if (props.isFilesLoading) return [<></>];
 
-    let backFolder;
+    let backFolder: ReactElement | null = null;
     if (props.folder) {
       const pastPath =
         props.folder.lastIndexOf("+") === -1
@@ -54,22 +56,22 @@ const Files = (props) => {
       );
     }
 
-    let newFolders = folders.filter((folder) => {
+    let newFolders: string[] = folders.filter((folder) => {
       let checkFolder = props.folder
         ? `${props.folder}+${folder.slice(props.folder.length + 1)}`
         : folder;
 
       return (
-        folder.startsWith(props.folder) &&
+        folder.startsWith(props.folder ? props.folder : "") &&
         folders.includes(checkFolder) &&
         folder !== props.folder &&
-        !folder.slice(props.folder.length + 1).includes("+")
+        !folder.slice(props.folder ? props.folder.length + 1 : 0).includes("+")
       );
     });
 
-    newFolders = newFolders.map((folder) => {
+    let reactFolders: ReactElement[] = newFolders.map((folder) => {
       let name = folder.includes("+")
-        ? folder.slice(props.folder.length + 1)
+        ? folder.slice(props.folder ? props.folder.length + 1 : 0)
         : folder;
       return (
         <Folder
@@ -82,18 +84,18 @@ const Files = (props) => {
       );
     });
 
-    return [backFolder, ...newFolders];
+    return [backFolder ? backFolder : <></>, ...reactFolders];
   };
 
-  const getFiles = (files, isMyFiles) => {
-    if (props.isFilesLoading) return <Loader />;
+  const getFiles = (files: UserFile[], isMyFiles: boolean): ReactElement[] => {
+    if (props.isFilesLoading) return [<Loader />];
 
-    let newFiles = files.filter((file) => !file.isHiden);
+    let newFiles: UserFile[] = files.filter((file) => !file.isHiden);
     if (isMyFiles)
       newFiles = newFiles.filter((file) => file.folder === props.folder);
 
     return newFiles
-      .map((file) => (
+      .map((file: UserFile) => (
         <File
           file={file}
           changeFileFolder={props.changeFileFolder}
@@ -108,12 +110,12 @@ const Files = (props) => {
       .reverse();
   };
 
-  const handleCreateFolder = () => {
+  const handleCreateFolder = (): void => {
     setModalActive(false);
     props.createFolder(folderName);
   };
 
-  const handleDeleteFolder = () => {
+  const handleDeleteFolder = (): void => {
     if (getFiles(myFiles, true).length !== 0 || getFolders().length > 1)
       HandleMessage("Нельзя удалить папку с файлами или папками", "error");
     else if (props.folder === "")
@@ -122,8 +124,9 @@ const Files = (props) => {
   };
 
   const path = props.folder
-    ? "/" + props.folder.replaceAll("+", "/")
+    ? "/" + props.folder.split('+').join('/')
     : "Ваши файлы";
+  
   return (
     <div className={`${styles.container} ${styles.files}`}>
       <div className={styles.displayGrid}>

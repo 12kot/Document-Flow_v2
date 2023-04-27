@@ -6,12 +6,12 @@ import { useAppSelector } from "./hooks/hooks";
 import "./App.css";
 import Header from "./pages/Header/Header";
 import MainPage from "./pages/MainPage/MainPage";
-//import DiskPageContainer from "./pages/DiskPage/DiskPageContainer";
+import DiskPageContainer from "./pages/DiskPage/DiskPageContainer";
 import LoginPageContainer from "./pages/AuthPage/LoginPage/LoginPageContainer";
 import RegisterPageContainer from "./pages/AuthPage/RegisterPage/RegisterPageContainer";
 import Protected from "./functions/Protected";
-//import Files from "./pages/DiskPage/Outlet/Files";
-//import Folders from "./pages/DiskPage/Outlet/Folders";
+import Files from "./pages/DiskPage/Outlet/Files.jsx";
+import Folders from "./pages/DiskPage/Outlet/Folders";
 
 const App = (): ReactElement  => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
@@ -41,7 +41,7 @@ const App = (): ReactElement  => {
               </Protected>
             }
           />
-          {/* <Route
+          <Route
             path="/disk"
             element={
               <Protected isLoggedIn={isLoggedIn} path="/login">
@@ -51,7 +51,7 @@ const App = (): ReactElement  => {
           >
             <Route index element={<Files />} />
             <Route path="folders/:id" element={<Folders />} />
-          </Route> */}
+          </Route>
         </Routes>
       </div>
 

@@ -1,14 +1,23 @@
-import React from "react";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 import modalStyles from "../Modal.module.css";
 import styles from "./FoldersModal.module.css";
+import { UserFile } from "../../../../../Types/Types";
 
-const FoldersModal = (props) => {
-  const handleClick = (folder) => {
+type ModalProps = {
+  active: boolean;
+  setActive: Dispatch<SetStateAction<boolean>>;
+  folders: string[];
+  changeFileFolder: (file: UserFile, path: string) => Promise<void>;
+  file: UserFile;
+};
+
+const FoldersModal = (props: ModalProps): ReactElement => {
+  const handleClick = (folder: string): void => {
     props.changeFileFolder(props.file, folder);
     props.setActive(false);
   };
 
-  const getFoldersName = () => {
+  const getFoldersName = (): ReactElement[] => {
     const rootFolder = (
       <div
         className={styles.folder}
@@ -27,7 +36,7 @@ const FoldersModal = (props) => {
           key={folder}
           onClick={() => handleClick(folder)}
         >
-          <p>{"/" + folder.replaceAll("+", "/")}</p>
+          <p>{"/" + folder.split("+").join("/")}</p>
         </div>
       )),
     ];

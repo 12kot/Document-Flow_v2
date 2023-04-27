@@ -68,7 +68,7 @@ export const share = async (
 export const upload = async (
   file: File,
   userEmail: string,
-  filesState: File[],
+  filesState: UserFile[],
   folder: string
 ) => {
   if (!file) {
@@ -135,7 +135,7 @@ export const deleteAccess = async (
   file: UserFile,
   oldUser: string,
   newUser: string
-) => {
+): Promise<boolean> => {
   oldUser = oldUser.toLowerCase();
   newUser = newUser.toLowerCase();
 

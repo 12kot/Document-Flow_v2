@@ -1,8 +1,16 @@
-import React from "react";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 import styles from "../Modal.module.css";
 import Input from "../../../../../UI/Input/Input";
 
-const InputModal = (props) => {
+type ModalProps = {
+  folderName: string, 
+  setFolderName: Dispatch<SetStateAction<string>>,
+  createFolder: () => void
+  active: boolean,
+  setActive: Dispatch<SetStateAction<boolean>>,
+} 
+
+const InputModal = (props: ModalProps): ReactElement => {
   return (
     <div
       className={

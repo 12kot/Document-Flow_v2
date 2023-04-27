@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styles from "./DiskPage.module.css";
 import Input from "../../UI/Input/Input";
 import UploadForm from "../../UI/UploadForm/UploadForm";
 import { Outlet } from "react-router-dom";
+import { DiskProps } from "../../Types/Types";
 
-const DiskPage = (props) => {
+const DiskPage = (props: DiskProps): ReactElement => {
   return (
     <>
       <div className={styles.container}>

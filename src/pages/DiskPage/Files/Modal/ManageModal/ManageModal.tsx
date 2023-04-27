@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
+import { v4 } from "uuid";
 import styles from "./Modal.module.css";
 import User from "./User/User";
-import { v4 } from "uuid";
 import copy from "copy-to-clipboard";
 import Input from "../../../../../UI/Input/Input";
 import HandleMessage from "../../../../../functions/HandleMessage";
 
+type ModalProps = {
+  active: boolean,
+  fileName: string,
+  users: string[],
+  owner: string,
+  path: string,
+
+  setActive: Dispatch<SetStateAction<boolean>>,
+  shareFile: (email: string) => void,
+  deleteAccess: (email: string) => void,
+}
+
 const ManageModal = ({
   active,
-  setActive,
   fileName,
   users,
   owner,
+  setActive,
   shareFile,
   deleteAccess,
   path,
-}) => {
+}: ModalProps) => {
   const [userEmail, setUserEmail] = useState("");
 
   const copyLink = () => {

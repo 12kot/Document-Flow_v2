@@ -2,12 +2,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import HandleMessage from "../../../functions/HandleMessage";
 
-const addFolder = async (userEmail: string, folders: string[], currentFolder: string, folder: string): Promise<string | boolean> => {
+const addFolder = async (userEmail: string, folders: string[], currentFolder: string, folder: string): Promise<string> => {
   HandleMessage("Обрабатываем запрос", "info");
   const isValid = await _isValid(folders, currentFolder, folder);
 
   if (!isValid)
-    return false;
+    return "";
 
   folder = folder.toLowerCase();
   folder = currentFolder ? `${currentFolder}+${folder}` : folder;

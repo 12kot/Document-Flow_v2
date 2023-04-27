@@ -1,29 +1,35 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import styles from "./UploadForm.module.css";
 import Loader from "../Loader/Loader";
 
-const UploadForm = (props) => {
+type UploadProps = {
+  uploadFile: (file: File) => void,
+  isUploadLoading: boolean,
+}
+
+const UploadForm = (props: UploadProps): ReactElement => {
   const [drag, setDrag] = useState(false);
 
-  const dragStartHandler = (e) => {
+  const dragStartHandler = (e: React.DragEvent<HTMLLabelElement>): void => {
     e.preventDefault();
     setDrag(true);
   }
 
-  const dragLeaveHandler = (e) => { 
+  const dragLeaveHandler = (e: React.DragEvent<HTMLLabelElement>): void => { 
     e.preventDefault();
     setDrag(false);
   }
 
-  const onDropHandler = (e) => { 
+  const onDropHandler = (e: React.DragEvent<HTMLLabelElement>): void => { 
     e.preventDefault();
-    uploadFile(...e.dataTransfer.files);
-
+    uploadFile(e.dataTransfer.files[0]);
+    console.log("onDropHandler + UploadForm")
     setDrag(false);
   }
   
-  const uploadFile = (file) => {
-    props.uploadFile(file);
+  const uploadFile = (file: File | null): void => {
+    if(file)
+      props.uploadFile(file);
   };
 
   return (
@@ -45,7 +51,7 @@ const UploadForm = (props) => {
               <input
                 type="file"
                 onChange={(event) => {
-                  uploadFile(event.target.files[0]);
+                  uploadFile(event.target.files ? event.target.files[0] : null);
                 }}
                 id="file-input"
               />

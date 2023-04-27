@@ -1,7 +1,12 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import styles from "./User.module.css";
 
-const User = ({ email, deleteAccess }) => {
+type UserProps = {
+  email: string,
+  deleteAccess: (email: string) => void,
+}
+
+const User = ({ email, deleteAccess }: UserProps): ReactElement => {
   return (
     <div className={styles.user}>
       {email}{" "}
