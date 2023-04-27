@@ -28,10 +28,8 @@ const userSlice = createSlice({
       state.folders.push(action.payload.folder);
     },
 
-    removeFolder(state, actions: PayloadAction<{folder: string}>) {
-      state.folders = state.folders.filter(
-        (folder) => folder !== actions.payload.folder
-      );
+    setFolders(state, actions: PayloadAction<{ folders: string[] }>) {
+      state.folders = actions.payload.folders;
     },
 
     changeFileFolder(state, actions: PayloadAction<{fileID: string, folder: string}>) {
@@ -113,7 +111,7 @@ export const {
   removeUserOnFile,
   setUserName,
   addFolder,
-  removeFolder,
+  setFolders,
   changeFileFolder,
 } = userSlice.actions;
 

@@ -10,7 +10,7 @@ import {
   addUserOnFile,
   changeFileFolder,
   removeFile,
-  removeFolder,
+  setFolders,
   removeUserOnFile,
   searchFile,
   setFiles,
@@ -52,7 +52,7 @@ const DiskPageContainer = (): ReactElement => {
   };
 
   const shareFile = async (file: UserFile, newUserEmail: string): Promise<void> => {
-    let result: string | boolean = await share(file, newUserEmail, currentUser.email);
+    let result: string = await share(file, newUserEmail, currentUser.email);
     if (result) {
       dispatch(addUserOnFile({ fileId: file.id, userEmail: result }));
     }
@@ -91,15 +91,21 @@ const DiskPageContainer = (): ReactElement => {
   };
 
   const deleteFolder = async (): Promise<void> => {
-    const isDeleted: boolean = await deleteFolderDB(
+    const result: string[] = await deleteFolderDB(
       currentUser.email,
       currentUser.folders,
       id ? id.trim() : "",
     );
 
-    if (isDeleted) {
-      dispatch(removeFolder({ folder: id ? id : "" }));
+    if (!!result) {
+      dispatch(setFolders({ folders: result }));
       navigate("/disk");
+
+      for (let file of currentUser.files) {
+        if (file.folder.startsWith(id ? id.trim() : "")) {
+          await deleteObj(file);
+        }
+      }
     }
   };
 

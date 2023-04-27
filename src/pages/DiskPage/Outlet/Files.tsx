@@ -125,9 +125,7 @@ const Files = (props: Props): ReactElement => {
   };
 
   const handleDeleteFolder = (): void => {
-    if (getFiles(myFiles, true).length !== 0 || getFolders().length > 1)
-      HandleMessage("Нельзя удалить папку с файлами или папками", "error");
-    else if (data.folder === "")
+    if (data.folder === "")
       HandleMessage("Вы не находитесь в папке", "error");
     else data.deleteFolder();
   };

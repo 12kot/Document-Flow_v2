@@ -11,7 +11,7 @@ type InputProps = {
 };
 
 const Input = (props: InputProps): ReactElement => {
-  let updateText = (value: string) => {
+  let updateText = (value: string): void => {
     props.onChange(value);
   };
 

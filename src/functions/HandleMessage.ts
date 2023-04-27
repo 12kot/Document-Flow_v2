@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const HandleMessage = (error: Error | string, type: string) => {
+const HandleMessage = (error: Error | string, type: string): void => {
   let errorMessage: string = error instanceof Error ? error.message : error;
 
   errorMessage = errorMessage.trim();

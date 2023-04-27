@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Button.module.css";
 
@@ -9,8 +9,8 @@ type ButtonProps = {
   path?: string,
 };
 
-const Button = (props: ButtonProps) => {
-  let action = () => {
+const Button = (props: ButtonProps): ReactElement => {
+  let action = (): void => {
     if (props.action) props.action();
   };
 

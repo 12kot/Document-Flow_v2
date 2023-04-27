@@ -15,13 +15,13 @@ export const share = async (
   file: UserFile,
   newUserEmail: string,
   userEmail: string
-) => {
+): Promise<string> => {
   newUserEmail = newUserEmail.toLowerCase();
   userEmail = userEmail.toLowerCase();
 
   if (!newUserEmail || newUserEmail.trim().length === 0) {
     HandleMessage("Поле должно быть заполнено", "error");
-    return false;
+    return "";
   }
 
   HandleMessage("Начинаем делиться", "info");
@@ -31,17 +31,17 @@ export const share = async (
 
   if (!newUserEmail) {
     HandleMessage("Пользователь с таким именем не найден", "error");
-    return false;
+    return "";
   }
 
   if (!_checkAccess(file.ownerEmail, userEmail)) {
     HandleMessage("Вы не являетесь владельцем данного файла", "error");
-    return false;
+    return "";
   }
 
   if (!(await _checkUser(newUserEmail))) {
     HandleMessage("Пользователь не найден", "error");
-    return false;
+    return "";
   }
 
   if (!_checkUsers(file.ownerEmail, newUserEmail, file.usersEmail)) {
@@ -49,7 +49,7 @@ export const share = async (
       "Данный пользователь уже имеет доступ к этому файлу",
       "error"
     );
-    return false;
+    return "";
   }
 
   let newFile = { ...file, folder: "" };
@@ -70,10 +70,10 @@ export const upload = async (
   userEmail: string,
   filesState: UserFile[],
   folder: string
-) => {
+): Promise<UserFile | void> => {
   if (!file) {
     HandleMessage("Выберите файл", "error");
-    return false;
+    return;
   }
 
   HandleMessage("Загружаем файл", "info");
@@ -82,16 +82,16 @@ export const upload = async (
 
   if (!_checkFilesName(file.name, files)) {
     HandleMessage("Файл с таким названием уже существует", "error");
-    return false;
+    return;
   }
   if (!_checkFilesName(file.name, filesState)) {
     HandleMessage("Файл с таким названием уже существует", "error");
-    return false;
+    return;
   }
 
   userEmail = userEmail.toLowerCase();
 
-  let newFile = await uploadFile(file, userEmail);
+  let newFile: UserFile | void = await uploadFile(file, userEmail);
   if (newFile) {
     newFile.folder = folder;
     await uploadFileDB(userEmail, newFile);
@@ -102,9 +102,8 @@ export const upload = async (
   return newFile;
 };
 
-export const deleteFile = async (file: UserFile, userEmail: string) => {
+export const deleteFile = async (file: UserFile, userEmail: string): Promise<void> => {
   userEmail = userEmail.toLowerCase();
-  HandleMessage("Начинаем удалять", "info");
 
   let users = [...file.usersEmail];
   if (!file.usersEmail.includes(file.ownerEmail)) users.push(file.ownerEmail);
@@ -127,8 +126,6 @@ export const deleteFile = async (file: UserFile, userEmail: string) => {
   for (let user of users) {
     await deleteFileDB(user.toLowerCase(), file.id);
   }
-
-  HandleMessage("Удалили", "success");
 };
 
 export const deleteAccess = async (
@@ -169,7 +166,7 @@ export const deleteAccess = async (
   return true;
 };
 
-const _checkFilesName = (name: string, files: any) => {
+const _checkFilesName = (name: string, files: UserFile[]): boolean => {
   for (let file of files) {
     if (file.name === name) return false;
   }
@@ -177,7 +174,7 @@ const _checkFilesName = (name: string, files: any) => {
   return true;
 };
 
-const _checkUser = async (newUser: string) => {
+const _checkUser = async (newUser: string): Promise<boolean> => {
   newUser = newUser.toLowerCase();
   if (newUser.trim() === "") return false;
 
@@ -190,7 +187,7 @@ const _checkUser = async (newUser: string) => {
   return true;
 };
 
-const _checkAccess = (ownerEmail: string, oldUser: string) => {
+const _checkAccess = (ownerEmail: string, oldUser: string): boolean => {
   if (ownerEmail.toLowerCase() !== oldUser.toLowerCase()) {
     return false;
   }
@@ -202,7 +199,7 @@ const _checkUsers = (
   ownerEmail: string,
   userEmail: string,
   users: string[]
-) => {
+): boolean => {
   if (
     ownerEmail.toLowerCase() === userEmail.toLowerCase() ||
     users.includes(userEmail.toLowerCase())

@@ -16,7 +16,7 @@ type ForgotProps = {
 };
 
 const ForgotPass = (props: ForgotProps): ReactElement => {
-  const handleClick = () => {
+  const handleClick = (): void => {
     if(props.handleForgot)
       props.handleForgot(props.setActive);
   };

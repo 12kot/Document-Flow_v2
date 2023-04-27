@@ -11,7 +11,7 @@ const Protected: React.FC<ProtectedProps> = ({
   isLoggedIn,
   path,
   children,
-}) => {
+}): ReactElement => {
   if (!isLoggedIn) return <Navigate to={path} />;
 
   return children;
