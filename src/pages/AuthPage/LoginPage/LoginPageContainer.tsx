@@ -14,7 +14,8 @@ const LoginPageContainer = (): ReactElement => {
     setIsLoading(true);
 
     let userData = await login(email, password);
-    dispatch(setUser({ ...userData }));
+    if(userData)
+      dispatch(setUser({ ...userData }));
 
     setIsLoading(false);
   };

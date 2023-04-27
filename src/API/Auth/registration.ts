@@ -7,20 +7,20 @@ const registration = (
   email: string,
   password: string,
   repeatPassword: string
-): Promise<User | void> | null => {
+): Promise<User | void> | void => {
   if (!email || !password || !repeatPassword) {
     HandleMessage("Все поля должны быть заполнены", "error");
-    return null;
+    return;
   }
 
   if (password !== repeatPassword) {
     HandleMessage("Введены различные пароли", "error");
-    return null;
+    return;
   }
 
   if (password.length < 6) {
     HandleMessage("Длина пароля должна быть более 6 символов", "error");
-    return null;
+    return;
   }
 
   const auth = getAuth();
