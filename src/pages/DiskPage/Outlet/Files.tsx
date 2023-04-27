@@ -18,9 +18,15 @@ import deleteFolderIcon from "./../Files/file-icons/deleteFolder.png";
 import HandleMessage from "../../../functions/HandleMessage";
 import InputModal from "../Files/Modal/InputFolderModal/InputModal";
 
-const Files = (props: DiskProps) => {
-  props = useOutletContext();
-  props.folder = props.folder ? props.folder : "";
+type Props = {
+  folder: string,
+}
+
+const Files = (props: Props): ReactElement => {
+  let data: DiskProps = useOutletContext();
+  
+  data.folder = props.folder;
+  data.folder = data.folder ? data.folder : "";
 
   const files = useAppSelector((state) => state.user.files);
   const folders = useAppSelector((state) => state.user.folders);
@@ -29,82 +35,85 @@ const Files = (props: DiskProps) => {
   const [modalActive, setModalActive] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
 
-  const myFiles = files.filter((file) => file.ownerEmail === props.userEmail);
+  const myFiles = files.filter((file) => file.ownerEmail === data.userEmail);
 
   const othersFiles = files.filter(
-    (file) => file.ownerEmail !== props.userEmail
+    (file) => file.ownerEmail !== data.userEmail
   );
   
   const getFolders = (): ReactElement[] => {
-    if (props.isFilesLoading) return [<></>];
+    if (data.isFilesLoading) return [];
 
-    let backFolder: ReactElement | null = null;
-    if (props.folder) {
+    let backFolder: ReactElement = <></>;
+    if (data.folder) {
       const pastPath =
-        props.folder.lastIndexOf("+") === -1
+        data.folder.lastIndexOf("+") === -1
           ? ""
-          : props.folder.slice(0, props.folder.lastIndexOf("+"));
+          : data.folder.slice(0, data.folder.lastIndexOf("+"));
 
       backFolder = (
         <Folder
           name={".."}
           path={pastPath}
-          changeFileFolder={props.changeFileFolder}
+          changeFileFolder={data.changeFileFolder}
           gridView={isGridView}
-          key={props.folder + v4()}
+
+          key={data.folder + v4()}
         />
       );
     }
 
     let newFolders: string[] = folders.filter((folder) => {
-      let checkFolder = props.folder
-        ? `${props.folder}+${folder.slice(props.folder.length + 1)}`
+      let checkFolder = data.folder
+        ? `${data.folder}+${folder.slice(data.folder.length + 1)}`
         : folder;
 
       return (
-        folder.startsWith(props.folder ? props.folder : "") &&
+        folder.startsWith(data.folder ? data.folder : "") &&
         folders.includes(checkFolder) &&
-        folder !== props.folder &&
-        !folder.slice(props.folder ? props.folder.length + 1 : 0).includes("+")
+        folder !== data.folder &&
+        !folder.slice(data.folder ? data.folder.length + 1 : 0).includes("+")
       );
     });
 
     let reactFolders: ReactElement[] = newFolders.map((folder) => {
       let name = folder.includes("+")
-        ? folder.slice(props.folder ? props.folder.length + 1 : 0)
+        ? folder.slice(data.folder ? data.folder.length + 1 : 0)
         : folder;
       return (
         <Folder
           name={name}
           path={folder}
-          changeFileFolder={props.changeFileFolder}
+          changeFileFolder={data.changeFileFolder}
           gridView={isGridView}
+
           key={folder + v4()}
         />
       );
     });
 
-    return [backFolder ? backFolder : <></>, ...reactFolders];
+    return [backFolder, ...reactFolders];
   };
 
   const getFiles = (files: UserFile[], isMyFiles: boolean): ReactElement[] => {
-    if (props.isFilesLoading) return [<Loader />];
+    if (data.isFilesLoading) return [<Loader key={v4()}/>];
 
     let newFiles: UserFile[] = files.filter((file) => !file.isHiden);
     if (isMyFiles)
-      newFiles = newFiles.filter((file) => file.folder === props.folder);
+      newFiles = newFiles.filter((file) => file.folder === data.folder);
 
     return newFiles
       .map((file: UserFile) => (
         <File
           file={file}
-          changeFileFolder={props.changeFileFolder}
-          key={file.fullPath + v4()}
-          removeFile={props.removeFile}
-          shareFile={props.shareFile}
+          changeFileFolder={data.changeFileFolder}
+          removeFile={data.removeFile}
+          shareFile={data.shareFile}
           folders={folders}
-          deleteUserOnFile={props.deleteUserOnFile}
+          deleteUserOnFile={data.deleteUserOnFile}
           gridView={isGridView}
+
+          key={file.fullPath + v4()}
         />
       ))
       .reverse();
@@ -112,19 +121,19 @@ const Files = (props: DiskProps) => {
 
   const handleCreateFolder = (): void => {
     setModalActive(false);
-    props.createFolder(folderName);
+    data.createFolder(folderName);
   };
 
   const handleDeleteFolder = (): void => {
     if (getFiles(myFiles, true).length !== 0 || getFolders().length > 1)
       HandleMessage("Нельзя удалить папку с файлами или папками", "error");
-    else if (props.folder === "")
+    else if (data.folder === "")
       HandleMessage("Вы не находитесь в папке", "error");
-    else props.deleteFolder();
+    else data.deleteFolder();
   };
 
-  const path = props.folder
-    ? "/" + props.folder.split('+').join('/')
+  const path = data.folder
+    ? "/" + data.folder.split('+').join('/')
     : "Ваши файлы";
   
   return (

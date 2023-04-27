@@ -23,7 +23,6 @@ const UploadForm = (props: UploadProps): ReactElement => {
   const onDropHandler = (e: React.DragEvent<HTMLLabelElement>): void => { 
     e.preventDefault();
     uploadFile(e.dataTransfer.files[0]);
-    console.log("onDropHandler + UploadForm")
     setDrag(false);
   }
   

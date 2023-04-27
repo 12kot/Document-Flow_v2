@@ -48,13 +48,12 @@ const Header = (): ReactElement => {
         <span className={styles.item}>
           {!!user.email ? (
             <>
-              <NavLink
-                to=""
+              <span
                 className={styles.logOut}
                 onClick={() => setModalActive(true)}
               >
                 {!!user.name ? user.name : "Профиль"}{" "}
-              </NavLink>
+              </span>
               <NavLink
                 className={styles.logOut}
                 to="/login"

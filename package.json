@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.1",
     "ts-migrate": "^0.1.35",
     "typescript": "^5.0.4"
   }

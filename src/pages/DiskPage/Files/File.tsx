@@ -9,7 +9,6 @@ type FileProps = {
   file: UserFile;
   folders: string[];
   gridView: boolean;
-  key: string;
 
   changeFileFolder: (file: UserFile, path: string) => Promise<void>;
   removeFile: (file: UserFile) => Promise<void>;

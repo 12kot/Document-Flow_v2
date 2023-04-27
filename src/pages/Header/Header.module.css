@@ -60,6 +60,10 @@ a {
   color: #30353b;
 }
 
+.logOut {
+  color: white;
+}
+
 .logOut:hover {
   opacity: 0.8;
 }
