@@ -15,7 +15,12 @@ import {
   searchFile,
   setFiles,
 } from "../../store/slices/userSlice";
-import { deleteAccess, deleteFile, share, upload } from "../../functions/file.service";
+import {
+  deleteAccess,
+  deleteFile,
+  share,
+  upload,
+} from "../../functions/file.service";
 
 import addFolderDB from "../../API/DB/Folder/addFolder";
 import getUserFiles from "../../API/DB/User/getUserFiles";
@@ -51,7 +56,10 @@ const DiskPageContainer = (): ReactElement => {
     dispatch(searchFile({ text }));
   };
 
-  const shareFile = async (file: UserFile, newUserEmail: string): Promise<void> => {
+  const shareFile = async (
+    file: UserFile,
+    newUserEmail: string
+  ): Promise<void> => {
     let result: string = await share(file, newUserEmail, currentUser.email);
     if (result) {
       dispatch(addUserOnFile({ fileId: file.id, userEmail: result }));
@@ -61,7 +69,12 @@ const DiskPageContainer = (): ReactElement => {
   const handleFile = async (file: File): Promise<void> => {
     setIsUploadLoading(true);
 
-    let newFile = await upload(file, currentUser.email, currentUser.files, id ? id : "");
+    let newFile = await upload(
+      file,
+      currentUser.email,
+      currentUser.files,
+      id ? id : ""
+    );
     if (!!newFile) dispatch(addFile({ ...newFile }));
 
     setIsUploadLoading(false);
@@ -72,7 +85,10 @@ const DiskPageContainer = (): ReactElement => {
     dispatch(removeFile({ path: file.fullPath }));
   };
 
-  const deleteUserOnFile = async (file: UserFile, email: string): Promise<void> => {
+  const deleteUserOnFile = async (
+    file: UserFile,
+    email: string
+  ): Promise<void> => {
     let isDelete: boolean = await deleteAccess(file, currentUser.email, email);
     if (isDelete) {
       dispatch(removeUserOnFile({ fileId: file.id, userEmail: email }));
@@ -94,41 +110,47 @@ const DiskPageContainer = (): ReactElement => {
     const result: string[] = await deleteFolderDB(
       currentUser.email,
       currentUser.folders,
-      id ? id.trim() : "",
+      id ? id.trim() : ""
     );
 
     if (!!result) {
-      dispatch(setFolders({ folders: result }));
-      navigate("/disk");
-
       for (let file of currentUser.files) {
         if (file.folder.startsWith(id ? id.trim() : "")) {
           await deleteObj(file);
         }
       }
+
+      dispatch(setFolders({ folders: result }));
+      navigate("/disk");
     }
   };
 
-  const handlerChangeFileFolder = async (file: UserFile, newFolderPath: string): Promise<void> => {
+  const handlerChangeFileFolder = async (
+    file: UserFile,
+    newFolderPath: string
+  ): Promise<void> => {
     dispatch(changeFileFolder({ fileID: file.id, folder: newFolderPath }));
-    const isChange: boolean = await updateFileFolder(currentUser.email, file, newFolderPath);
-    
-    if (!isChange) dispatch(changeFileFolder({ fileID: file.id, folder: id ? id : "" }));
-  }
+    const isChange: boolean = await updateFileFolder(
+      currentUser.email,
+      file,
+      newFolderPath
+    );
+
+    if (!isChange)
+      dispatch(changeFileFolder({ fileID: file.id, folder: id ? id : "" }));
+  };
 
   return (
     <DiskPage
       searchValue={search}
       changeSearchText={changeSearchText}
       shareFile={shareFile}
-
       handleFile={handleFile}
       removeFile={deleteObj}
       deleteUserOnFile={deleteUserOnFile}
       createFolder={createFolder}
       deleteFolder={deleteFolder}
       changeFileFolder={handlerChangeFileFolder}
-
       isFilesLoading={isFilesLoading}
       isUploadLoading={isUploadLoading}
       userEmail={currentUser.email}
