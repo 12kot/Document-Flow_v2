@@ -3,7 +3,7 @@ import { db } from "../../../firebase";
 import HandleMessage from "../../../functions/HandleMessage";
 
 const deleteFolderDB = async (userEmail: string, folders: string[], folder: string): Promise<string[]>=> {
-  HandleMessage("Обрабатываем запрос", "info");
+  HandleMessage("Удаляем папку", "info");
 
   if (!folders.includes(folder)) {
     HandleMessage("Такой папки не существует", "error");
@@ -17,7 +17,6 @@ const deleteFolderDB = async (userEmail: string, folders: string[], folder: stri
     folders: newFolders,
   });
 
-  HandleMessage("Папка успешно удалена", "success");
   return newFolders;
 };
 
