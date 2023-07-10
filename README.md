@@ -1,7 +1,10 @@
-## demo -> (https://document-flow-8d5f2.web.app/register)
-## Next step - TS
-
 # Google drive clone
-react, redux, firebase 
+## demo -> (https://document-flow-8d5f2.web.app/)
 
-## How to create React app (https://ru.legacy.reactjs.org/docs/create-a-new-react-app.html)
+## Others projects
++ Weather app (https://weather-00.web.app/) 
++ Online shop (https://edelivery-00.web.app/)
+
+## Contacts
++ yakol.nikita@gmail.com
++ t.me/kod41
