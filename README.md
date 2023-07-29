@@ -3,8 +3,8 @@
 
 ## Others projects
 + Weather app (https://weather-00.web.app/)
-+ Simple notes (https://github.com/12kot/notes)
 + Online shop (https://edelivery-00.web.app/)
++ Simple notes (https://github.com/12kot/notes)
 
 ## Contacts
 + yakol.nikita@gmail.com
